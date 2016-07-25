@@ -1,0 +1,18 @@
+xlabel = "Length" ;
+set grid 
+
+set multiplot layout 2,1
+set grid
+set ylabel  "Temp"
+set title "Co-Current"
+plot 'data'  index 0 using 1:4 w l t"Tc", \
+     'data'  index 0 using 1:3 w l t"Th", \
+     'data'  index 0 using 1:2 w l t"Tw"
+
+set title "Counter-Current"
+plot 'data'  index 1 using 1:4 w l t"Tc", \
+     'data'  index 1 using 1:3 w l t"Th",\
+     'data'  index 1 using 1:2 w l t"Tw"
+
+unset multiplot
+pause -1

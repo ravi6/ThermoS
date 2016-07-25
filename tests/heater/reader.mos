@@ -1,0 +1,13 @@
+echo(false) ;
+print(getSettings());
+cd("./work");   	// Do all the dirty work here
+ThermoS.Util.ldFile("../plant.mo");  // enable summary reports
+ThermoS.Util.ldFile("../json.mo");  // enable summary reports
+
+getErrorString();
+sVars :=  readSimulationResultVars("plant_res.mat") ;
+print("No. of Plant Variables = " + String(size(sVars,1)) + "\n");
+print("Creating JSON Data file \n");
+ans:=jsonResults("plant_res.mat", 0.5);
+print("End JSON Data file \n");
+

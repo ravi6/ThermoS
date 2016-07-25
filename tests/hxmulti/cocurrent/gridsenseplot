@@ -1,0 +1,26 @@
+legends = "N=10 N=20 N=40 N=80"
+xlabel = "Length" ;
+set multiplot layout 2,2
+
+set grid 
+set ylabel  "Tw"
+plot for [i=0:3] 'data'  index i using 1:2 w l\
+     title word(legends, i+1)
+
+set grid
+set ylabel  "Tc"
+plot for [i=0:3] 'data'  index i using 1:4 w l\
+     title word(legends, i+1)
+
+set grid
+set ylabel  "Th"
+plot for [i=0:3] 'data'  index i using 1:3 w l\
+     title word(legends, i+1)
+
+set grid 
+set ylabel  "Th"
+set xlabel  "Tc"
+plot for [i=0:3] 'data'  index i using 4:3 w l\
+     title word(legends, i+1)
+unset multiplot
+pause -1

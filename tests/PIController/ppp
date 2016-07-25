@@ -1,0 +1,6 @@
+#!/bin/bash
+omplot "mv" "work/res1.mat"
+omplot "mv" "work/res3.mat"
+omplot "pv" "work/res1.mat"
+omplot "pv" "work/res3.mat"
+

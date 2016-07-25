@@ -1,0 +1,205 @@
+/*  A simple script to run my Plant Model
+          Author: Ravi Saripalli
+	  Date:   24 March. 2014
+
+	Version 2.1
+*/  
+
+/***************     Load Models   *********/
+/*     Testing Olympus Engine        */
+
+echo(false) ;
+
+
+if (loadFile("plant.mo"))then
+       print("Plant Model Loaded\n");
+else
+       print("Plant Model failed\n");
+       exit(0) ;
+end if;
+
+/************ Cleanup Work **********/
+print("Cleaning Up Work Area\n") ;
+system("rm work/*");
+cd("./work");   	// Do all the dirty work here
+print(getSettings());
+
+/*********    Flatten and Run Plant  ******/
+print("Simulation has begun\n");
+
+/* if you don't set timeStep it is calculated as (stopTime-startTime)/count
+    which can be bad news fi you  set too large a stopTime this really
+    caught me off gaurd, lost few weeks of effor */
+
+echo(true);
+tEnd  := 10; 
+iniStepSize := 0.1  ;
+count        := integer(floor(tEnd / iniStepSize)) ;
+setDebugFlags("infoXmlOperations,failtrace");
+flags :=  "" ; // "-lv=LOG_NLS" ;  
+status :=  simulate(plant, startTime=0, outputFormat="mat", 
+             stopTime=tEnd,  tolerance=1e-6, numberOfIntervals=count, 
+             cflags="-ffloat-store", simflags=flags) ;
+echo(false);
+// -ffloat-store
+
+
+/* Error Handling stuff */
+/*   too clunky ... discarded 
+getErrorMessage();
+writeFile("tmpfile",status.messages);
+system("grep \"Simulation execution failed\" tmpfile | wc -l > tmpfile");
+getErrorMessage();
+success := Modelica.Utilities.Strings.isEqual(readFile("tmpfile"),"0",false);
+getErrorMessage();
+*/
+
+sVars := readSimulationResultVars("plant_res.mat");
+if (size(sVars,1) == 0) then  // no variables then bailout
+  print("simulation failed ... bailing out\n");
+  exit(0) ;
+else
+   print("simulation done\n");
+   print("No. of Plant Variables = " + String(size(sVars,1)) + "\n");
+end if;
+
+//**********************************************************
+//      utility functions and records
+//**********************************************************
+echo(false);
+loadString("
+function decimal
+   input Real    x ;
+   input Integer n ;
+   output Real   y ;
+ algorithm
+    y := floor(x*(10^n)) /  (10^n) ;      
+end decimal;
+");
+
+loadString("
+ record turbomachine
+   String name ;
+   Real Mc  ; Real Nc  ;
+   Real eff ; Real eff ; Real beta ;
+   Real pratio ; Real mflow ;
+   Real mflow_choke ; Real Tout ;
+   Real Ws ; Real power ; Real speed;
+ end turbomachine;
+");
+loadString("
+ record heater
+   String name ;
+   Real mflow ;  Real Tout ; 
+   Real Q_ew ; Real Q_wf ;
+   Real pdrop ; Real Twall; Real Cp ; 
+ end heater;
+");
+
+
+tSample := tEnd ;
+echo(true) ;
+
+/* ************************************* */
+/*               Print Summaries       */
+/* ************************************* */
+
+/* Print Compressor Summary at a specified time */
+
+if (false) then
+turbomachine( "Compressor",
+ decimal(val(cmp.Mc, tSample),3)  ,
+ decimal(val(cmp.Nc, tSample),0) ,
+ decimal(val(cmp.eff, tSample),2) ,
+ decimal(val(cmp.beta, tSample),2) ,
+ decimal(val(cmp.pratio, tSample),2),
+ decimal(val(cmp.inlet.m_flow, tSample),3),
+ decimal(val(cmp.mflow_choke, tSample),3),
+ decimal(val(cmp.state_out.T, tSample),0),
+ decimal(val(cmp.Ws, tSample),0),
+ decimal(val(cmp.power, tSample),0),
+ decimal(val(cmp.speed, tSample),0)
+);
+
+/* Print Heater summary */
+heater("heater",
+ decimal(val(heater.inlet.m_flow, tSample),3) ,
+ decimal(val(heater.Tf, tSample),0) ,
+ decimal(val(heater.Q_ew, tSample),0) ,
+ decimal(val(heater.Q_wf, tSample),0) ,
+ decimal( (val(heater.inlet.p, tSample)
+           -val(heater.outlet.p, tSample))*1e-5, 2) ,
+ decimal(val(heater.Tw, tSample),0),
+ decimal(val(heater.Cp, tSample),0)
+);
+
+
+/* Print Turbine Summary */
+turbomachine( "turbine",
+ decimal(val(turb.Mc, tSample),3)  ,
+ decimal(val(turb.Nc, tSample),0) ,
+ decimal(val(turb.eff, tSample),2) ,
+ decimal(val(turb.beta, tSample),2) ,
+ decimal(val(turb.pratio, tSample),2),
+ decimal(val(turb.inlet.m_flow, tSample),3),
+ decimal(val(turb.mflow_choke, tSample),3),
+ decimal(val(turb.state_out.T, tSample),0),
+ decimal(val(turb.Ws, tSample),0),
+ decimal(val(turb.power, tSample),0),
+ decimal(val(turb.speed, tSample),0)
+);
+echo(false);
+end if ; /* end of Compressor summary */
+
+/* ************************************* */
+        print("Plotting\n");
+/* ************************************* */
+
+/*
+
+plot({htr.Tf, htr.Tw},
+       curveWidth=2, externalWindow=true, title = "Htr Temps)");
+  system("sleep 1s");
+plot({htr.outlet.p},
+       curveWidth=2, externalWindow=true, title = "Htr Pressure)");
+  system("sleep 1s");
+plot({htr.inlet.m_flow},
+       curveWidth=2, externalWindow=true, title = "Flow Rate)");
+  system("sleep 1s");
+*/
+
+plot({hx.seg_h.Tf, hx.seg_c.Tf, hx.Tw},
+       curveWidth=2, externalWindow=true, title = "Hx Temps)");
+  system("sleep 1s");
+
+plot({hx.Qwf_h, hx.Qwf_c},
+       curveWidth=2, externalWindow=true, title = "Heat Transfer Rates)");
+  system("sleep 1s");
+
+plot({hx.portA_h.m_flow, hx.portA_c.m_flow},
+       curveWidth=2, externalWindow=true, title = "Mass flow Rates)");
+  system("sleep 1s");
+
+/***********************************************************/
+/* Useful String Manipulation Functions */
+/* These exist in Modelica.Utilities.Strings .. 
+      but just an illustration of using external calls */
+/***********************************************************/
+loadString("
+ function strlen 
+    input String str; 
+    output Integer len; 
+    external \"C\" len=ModelicaStrings_length(str);
+ end strlen;
+ function substr 
+    input String str; 
+    input Integer i1,i2; 
+    output String out; 
+    external \"C\" out=ModelicaStrings_substring(str,i1,i2);
+ end substr;
+");
+/***********************************************************/
+
+//export  RUNTIMECFLAGS="-O0 -falign-functions -march=native -mfpmath=sse -fPIC"
+// setCFlags("-O0 -falign-functions -march=native -mfpmath=sse -fPIC -ffloat-store");
+getCFlags();

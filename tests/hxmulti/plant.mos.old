@@ -1,0 +1,84 @@
+/*  A simple script to run my Plant Model
+          Author: Ravi Saripalli
+	  Date:   24 May. 2014
+	Version 3.0
+*/  
+
+/***************     Load Models   *********/
+rerun := true ;
+echo(false) ;
+print(getSettings());
+ThermoS.Util.ldFile("plant.mo");    // The main plant simulation
+
+
+/************ Cleanup Work **********/
+print("Cleaning Up Work Area\n") ;
+
+if (rerun) then
+ system("rm work/*");
+ cd("./work");   	// Do all the dirty work here
+    /*********    Flatten and Run Plant  ******/
+    print("Simulation has begun\n");
+
+    /* if you don't set timeStep it is calculated as (stopTime-startTime)/count
+        which can be bad news fi you  set too large a stopTime this really
+        caught me off gaurd, lost few weeks of effor */
+
+    tEnd  		:= 1000; 
+    iniStepSize 	:= 10  ;
+    count        	:= integer(floor(tEnd / iniStepSize)) ;
+
+    setDebugFlags("infoXmlOperations,failtrace");
+    flags :=  "" ; // "-lv=LOG_NLS" ;  
+
+    simulate(plant, startTime=0, outputFormat="mat", 
+                 stopTime=tEnd,  tolerance=1e-6, numberOfIntervals=count, 
+                 cflags="-ffloat-store", simflags=flags) ;
+
+    getErrorString();
+
+else
+    cd("./work");   
+    print("Skipping Simulation\n");
+end if ; 
+
+sVars :=  readSimulationResultVars("plant_res.mat") ;
+if (size(sVars,1) == 0) then  // no variables then bailout
+  print("simulation failed ... bailing out\n");
+else
+   print("simulation done\n");
+	   print("No. of Plant Variables = " + String(size(sVars,1)) + "\n");
+end if;
+
+
+//=========================== plotting 
+plot({hx.seg_h[1].Tf, hx.seg_c[1].Tf, hx.Tw[1]},
+       curveWidth=2, externalWindow=true, title = "Hx Temps)");
+  system("sleep 1s");
+
+plot({hx.Qwf_h[1], hx.Qwf_c[1]},
+       curveWidth=2, externalWindow=true, title = "Heat Transfer Rates)");
+  system("sleep 1s");
+
+plot({hx.seg_h[1].portA.m_flow, hx.seg_c[1].portA.m_flow},
+       curveWidth=2, externalWindow=true, title = "Mass flow Rates)");
+  system("sleep 1s");
+
+//====  Heat Excahnger Profile
+
+nseg  := 20 ;
+sTime := tEnd;
+getErrorString();
+print("#No. of Segments = " + String(nseg) + "\n"); 
+   var := stringVariableName("hx.seg_h[3].holdup"); hup:= val(var, sTime, "plant_res.mat");
+   print("Holdup = " + String(hup) + "\n");
+print("Length\tTw\tT_h\tT_c\n"); 
+for i in 1:nseg loop
+   var := stringVariableName("hx.Tw[" + String(i) + "]")     ; x:= val(var, sTime, "plant_res.mat");
+   var := stringVariableName("hx.seg_h[" + String(i) + "].Tf"); y:= val(var, sTime, "plant_res.mat");
+   var := stringVariableName("hx.seg_c[" + String(i) + "].Tf"); z:= val(var, sTime, "plant_res.mat");
+   var := stringVariableName("hx.seg_c[" + String(i) + "].portA.m_flow"); mc:= val(var, sTime, "plant_res.mat");
+   var := stringVariableName("hx.seg_h[" + String(i) + "].portA.m_flow"); mh:= val(var, sTime, "plant_res.mat");
+   print( String (i/nseg) + "\t" + String(x) +  "\t" + String(y) + "\t" + String(z) +
+                      "\t" + String(mc) +  "\t" + String(mh) + "\n");
+end for;

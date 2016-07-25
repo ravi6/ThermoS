@@ -1,0 +1,56 @@
+/*  A simple script Template to run my Plant Model
+          Author: Ravi Saripalli
+	  Date:   23th Jul. 2015
+       
+    Highly Simplified ... and easy to read 
+*/  
+
+/***************     Load Library and Models   *********/
+echo(false);
+tEnd := 60; iniStepSize:=0.01;
+sim := if system("zenity --question --text Simulate?") == 0 then true else false;
+
+print(getSettings()); print("\n\n****** Loading of packages etc. *****\n\n");
+ThermoLib := "/home/ravi/DSTO/projects/Om/ThermoS/package.mo";
+for f in {ThermoLib, "plant.mo"} loop
+	if(loadFile(f)) then
+	   print ( f + " Loaded\n");
+	else
+	   print(f + " Load Failed\n" + getErrorString());
+	   exit(1);
+	end if;
+end for ;
+print("\n\n****** Loading Done *****\n\n");
+
+if (sim) then
+
+print("Saving Total Model in total.mo \n") ;
+saveTotalModel("total.mo",plant); // gives stand alone mo file to send out for debug reports.
+
+setCommandLineOptions("+d=initialization"); // pickup initialization errrors
+
+/************ Cleanup Work **********/
+print("Cleaning Up Work Area\n") ; system("rm work/*"); cd("./work");   system("pwd");
+
+//flags :=  "-lv=LOG_LS,LOG_INIT,LOG_NLS  -w " ;  
+// flags :=  "-lv=LOG_DASSL" ;  
+
+setCommandLineOptions("--preOptModules-=clockPartitioning 
+--postOptModules+=wrapFunctionCalls --tearingMethod=omcTearing 
+-d=dumpSimCode,nogen,initialization,backenddaeinfo,discreteinfo,stateselection");
+
+print("Starting the Plant \n");
+simulate(plant, startTime=0, outputFormat="mat", 
+         stopTime=tEnd,   numberOfIntervals=10000, tolerance=1e-6,// iniStepSize=iniStepSize, 
+         simflags=flags); 
+print(getErrorString());
+
+
+echo(true);
+else
+   print("Skipping Simulation\n");
+   cd("./work");
+   system("./plant");
+end if ;  // Skip simulation
+
+print("done\n");

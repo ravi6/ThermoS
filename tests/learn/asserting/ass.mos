@@ -1,0 +1,25 @@
+/* Testing assert mechanisms  */
+loadString(
+"
+  model ass
+    import Modelica.Constants.pi ;
+    parameter Real lowlimit = 0;
+    parameter Real highlimit = 1;
+    Real x (start=0);
+  equation
+      der(x) =     2*  pi * cos(2*pi*time) ;
+    /* This works like this.
+          every time x exceeds 0.8 it raises error but integrator recovers
+      when (x > 0.8) then
+        assert(false  , 
+     \" x > 0.8 at time: \" + String(time) , level=AssertionLevel.error);
+      end when;
+    */
+     // But this one kills the integrator on the first occurence.
+        assert(x < 0.8  , 
+     \" x > 0.8 at time: \" + String(time) , level=AssertionLevel.warning);
+  end ass;
+");
+
+simulate(ass, stopTime=10, simflags="");
+plot({x});

@@ -1,0 +1,21 @@
+Lessons Learnt
+Passing a model into another ...
+
+ Declaring a model as replaceable and assigning
+an inital value does not instantiate it. It just
+redefines it and assigns the name
+         eg.
+        replaceable model newmodel = somemodel(some params) ;
+at this stage newmodel is only a redefined model 
+not instantiated.
+
+If you want to use the model
+     newmodel  anew   ;   ... this instantiates newmodel as anew;
+
+but with packaged functions it is different ???
+            replaceable package  a_pkg = default_pkg
+
+but then you can begin to use    a_pkg.somefun(x,y,z) without
+instantiating ....
+
+

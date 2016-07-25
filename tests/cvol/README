@@ -1,0 +1,14 @@
+This is a very simple problem to solve. And yet
+the DASSL fails unless proper flowThreshold is specified.
+What happens is when the flow through the buffer cylinder
+almost ceases, the tee mixing equations at the junction 
+become ill conditioned especially if prevailing flows are
+large in the rest of the problem. And we get crazy gitter in the
+solution. Look at the picture. Once the flow threshold is set
+to appropriate value (eg just two orders of magnitude les than
+normal flow) you get not glitches.
+
+
+On the other hand, using gastank in series is a lot more easily
+handled. I think for my adsorber issues tank in line is a better
+approximation to reality, than a buffer (or surge tank)

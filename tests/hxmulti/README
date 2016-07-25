@@ -1,0 +1,37 @@
+Mon 12th.
+ Coding errors eliminated ...  12th May
+ Segment run fails with 
+   Failed to build Model error 
+
+no other error messages ... no results
+  What is going on ? No nonlinear solution errors?
+ Compilation/Translation shows no errors
+
+Well... after adding "getErrorString()" after
+simulation, I got lot more info. There is a booboo
+in initial alogorithm. Dimension index was in the
+incorrect position. But why did not 
+omc pickit up during translation???
+
+LESSON"  stick getErrorString() after simulaiton
+
+14th May 2014
+
+Anyway, even after that the translator failed with
+COMPILER Error report bug with type mismatch reported
+when there is no mismatch.
+
+Tried to make a small sample code to mimic the current
+model to see what feature is giving me this bug. The "bug"
+directory in misc contains my explorations. So far I am unable
+to get the error with similar code structure ... used very simple
+connection type of my own.
+
+10 Sep. 2014
+Discovered bug in flow versus pressure drop expressions in 
+valve, heaterCooler and Hx ... (omitted sqrt operator on density)
+Co-current config with multi-segment testest. Works well. Needed
+to ensure that the flow resistance coef. is scaled appropriately
+when excahnger segment length changes. (resistence decreases with
+square root of the path lenght... see pipe flow equaiton for clarity)
+

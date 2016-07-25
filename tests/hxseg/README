@@ -1,0 +1,11 @@
+Started testing Hx. A typo in Hx made me recheck heater
+Hence we have a heater test in another directory. Tested
+
+Learnt that setting Min and Max limits on the variables
+ did not avoid Non-linear eqn. solver variables exceeding
+ the limits during convergence iterations.
+
+Improper Iniital Conditions, can show up as high index
+problem. Not enough initial conditions. Too many initial conditions
+can also lead to nogo situation.
+

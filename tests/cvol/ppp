@@ -1,0 +1,5 @@
+#!/bin/bash
+omplot "buffer.port.m_flow v1.inlet.m_flow v2.inlet.m_flow  --ylabel=kg/s"
+omplot "buffer.p  --ylabel=BufferP(pa)"
+omplot "buffer.T  --ylabel=BufferT(K)"
+omplot "v1.po v2.po  --ylabel=%Opened"

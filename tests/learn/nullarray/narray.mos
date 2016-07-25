@@ -1,0 +1,21 @@
+/* Testing how null arrays are treated my Modelica  */
+loadString(
+"
+  model narray
+    Real x (start=0);
+    constant Integer N = 3 ;
+    Real Y[0] = fill(0,0)  ;  // makes Y[0] NaN
+    Real Y[N] = fill(1/N,N) ; // works even with N=0 
+
+  equation
+      der(x) =     2*  cos(2*time) ;
+  end narray;
+");
+checkModel(narray);
+print(errorString());
+simulate(narray, stopTime=10, simflags="");
+print("I am here\n");
+z:=val(Y[0],1);
+print(errorString());
+print(String(z));
+plot({x});

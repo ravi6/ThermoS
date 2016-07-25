@@ -1,0 +1,35 @@
+/*****************************************
+          TIP 1
+**************************************/
+/* A way to override a value for 
+    simulaitons
+*/
+
+/* This is creating a model on the fly */
+loadString("model M
+  Real x;
+equation
+  der(x) = 1.0;
+end M;");getErrorString();
+
+/* Now we simulate the model */
+
+simulate(M);getErrorString();
+
+/* Now Load the x value at time 1.0 into local variable x */
+/* pehhaps this fully qualified val is needed in Modelica Shell */
+x:=String(OpenModelica.Scripting.val(x,1));getErrorString();
+print("x value is " + x);
+
+/* Rerun the simulation by over-riding x value  with that
+  stored in the local x variable */
+
+simulate(M,simflags="-override x=" + x);getErrorString();
+
+/* Just testing it */
+val(x,1.0);getErrorString();
+print(String(val(x,1.0)));
+
+/* ******************************************
+              TIP 2
+******************************************/

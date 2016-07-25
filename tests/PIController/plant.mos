@@ -1,0 +1,75 @@
+echo(false) ;
+if (loadFile("plant.mo"))then
+       print("Plant Model Loaded\n");
+else
+       print("Plant Model failed\n");
+       exit(0) ;
+end if;
+/************ Cleanup Work **********/
+print("Cleaning Up Work Area\n") ;
+system("rm work/*");
+cd("./work");   	// Do all the dirty work here
+print(getSettings());
+
+/*********    Flatten and Run Plant  ******/
+print("Simulation has begun\n");
+
+/* if you don't set timeStep it is calculated as (stopTime-startTime)/count
+    which can be bad news fi you  set too large a stopTime this really
+    caught me off gaurd, lost few weeks of effor */
+
+tEnd  := 6; 
+iniStepSize := 0.05  ;
+count       := 100 ; // floor(tEnd / iniStepSize) ;
+setDebugFlags("infoXmlOperations,failtrace");
+flags := "" ; // "-lv=LOG_NLS" ;  
+echo(true);
+status :=  simulate(plant, startTime=0, outputFormat="mat",
+            stopTime=tEnd,  tolerance=1e-6, stepSize=iniStepSize, 
+           numberOfIntervals=count, simflags=flags) ;
+echo(false);
+
+/* Error Handling stuff */
+getErrorMessage();
+writeFile("tmpfile",status.messages);
+system("grep \"Simulation execution failed\" tmpfile | wc -l > tmpfile");
+getErrorMessage();
+success := Modelica.Utilities.Strings.isEqual(readFile("tmpfile"),"0",false);
+getErrorMessage();
+
+if (false) then 
+  print("simulation failed ... bailing out\n");
+  exit(0) ;
+else
+   print("simulation done\n");
+   sVars := readSimulationResultVars("plant_res.mat");
+   print("No. of Plant Variables = " + String(size(sVars,1)) + "\n");
+end if;
+
+
+print("Plotting\n");
+
+plot({pv},
+       curveWidth=2, externalWindow=true, title = "PI controller)");
+  system("sleep 1s");
+
+/***********************************************************/
+/* Useful String Manipulation Functions */
+/* These exist in Modelica.Utilities.Strings .. 
+      but just an illustration of using external calls */
+/***********************************************************/
+loadString("
+ function strlen 
+    input String str; 
+    output Integer len; 
+    external \"C\" len=ModelicaStrings_length(str);
+ end strlen;
+ function substr 
+    input String str; 
+    input Integer i1,i2; 
+    output String out; 
+    external \"C\" out=ModelicaStrings_substring(str,i1,i2);
+ end substr;
+");
+/***********************************************************/
+

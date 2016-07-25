@@ -1,0 +1,45 @@
+/*  A simple script to run my Plant Model
+          Author: Ravi Saripalli
+	  Date:   24 May. 2014
+	Version 3.0
+*/  
+
+/***************     Load Models   *********/
+echo(false) ;
+print(getSettings());
+ThermoS.Util.ldFile("plant.mo");    // The main plant simulation
+ThermoS.Util.ldFile("summary.mo");  // enable summary reports
+
+/************ Cleanup Work **********/
+print("Cleaning Up Work Area\n") ;
+system("rm work/*");
+cd("./work");   	// Do all the dirty work here
+
+print("Starting the Plant \n");
+
+/* if you don't set timeStep it is calculated as (stopTime-startTime)/count
+    which can be bad news fi you  set too large a stopTime this really
+    caught me off gaurd, lost few weeks of effor */
+
+tEnd  		:= 500; 
+iniStepSize 	:= 0.1  ;
+count        	:= integer(floor(tEnd / iniStepSize)) ;
+
+setDebugFlags("infoXmlOperations,failtrace");
+flags :=  "" ; // "-lv=LOG_NLS" ;  
+
+simulate(plant, startTime=0, outputFormat="mat", 
+             stopTime=tEnd,  tolerance=1e-6, numberOfIntervals=count, 
+             cflags="-ffloat-store", simflags=flags) ;
+
+getErrorString();
+sVars :=  readSimulationResultVars("plant_res.mat") ;
+//print(sVars);
+if (size(sVars,1) == 0) then  // no variables then bailout
+  print("simulation failed ... bailing out\n");
+else
+   print("simulation done\n");
+   print("No. of Plant Variables = " + String(size(sVars,1)) + "\n");
+end if;
+echo(true);
+  Summary.genReport("plant_res.mat", "htr", 500);

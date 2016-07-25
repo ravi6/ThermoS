@@ -1,0 +1,6 @@
+# ignore any work directory 
+**/work
+# ignore editor backup files
+*~
+# ignore object or library files
+.[oa]

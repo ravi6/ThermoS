@@ -1,0 +1,23 @@
+loadFile("/home/ravi/DSTO/projects/Om/ThermoS/package.mo");
+getErrorString();
+loadString( "
+model sig
+Real y ;
+Real x(start=-1) ;
+
+equation
+  der(x) = 1 ;
+  y = ThermoS.Math.regStep(x, 0, 1, 1) ;
+
+initial equation
+  x = -5  ;
+end sig;
+
+");
+getErrorString();
+cd("./work");
+simulate(sig,stopTime=10);
+getErrorString();
+str := "OMPlot --plotParametric --curve-width=2 --filename=\"sig_res.mat\" {x,y}" ;
+system(str);
+
