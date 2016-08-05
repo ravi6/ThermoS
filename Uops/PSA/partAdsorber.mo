@@ -134,13 +134,12 @@ end for; // end of all component balances
 // Boundary Conditions
 
  for  n in  1:Nc-1 loop       // nth Component 
-    Coef_y[:, n] * vTz[:, N-1] =  if(u[N-1] > 0) then // (p_in - p[1]), 
-                                      bedParams.Pe * u[N-1] * (y[N-1, n] - yin_in[n])
-                                  else  0 ; // bed inlet
 
-    Coef_y[:, n] * vTz[:, N]   =  if(u[N] > 0) then   // (p[N] - p_out), 
-                                    0 
-                                  else bedParams.Pe * u[N] * (y[N, n] - yin_out[n]) ; // bed outlet 
+    Coef_y[:, n] * vTz[:, N-1] =  max(u[N-1], 0) 
+                                  * bedParams.Pe * u[N-1] * (y[N-1, n] - yin_in[n]) ; // bed inlet
+
+    Coef_y[:, n] * vTz[:, N]   =  max(-u[N], 0)
+                                  * bedParams.Pe * u[N] * (y[N, n] - yin_out[n]) ; // bed outlet 
  end for;
 
 // Pressure Boundary Conditions
@@ -149,3 +148,19 @@ end for; // end of all component balances
 //     Coef_p[:] * vTz[:, N]   = 0 ;   // outlet pressure  (zero gradient = no flow)
 
 end partAdsorber;
+
+/*
+    Coef_y[:, n] * vTz[:, N-1] =  if(u[N-1] > 0) then // (p_in - p[1]), 
+                                      bedParams.Pe * u[N-1] * (y[N-1, n] - yin_in[n])
+                                  else  0 ; // bed inlet
+
+    Coef_y[:, n] * vTz[:, N]   =  if(u[N] > 0) then   // (p[N] - p_out), 
+                                    0 
+                                  else bedParams.Pe * u[N] * (y[N, n] - yin_out[n]) ; // bed outlet 
+
+    Coef_y[:, n] * vTz[:, N-1] =  regStep(u[N-1]-uTol, // (p_in - p[1]), 
+                                      bedParams.Pe * u[N-1] * (y[N-1, n] - yin_in[n]),  0, uTol) ; // bed inlet
+
+    Coef_y[:, n] * vTz[:, N]   =  regStep(u[N]+uTol,    // (p[N] - p_out), 
+                                    0,  bedParams.Pe * u[N] * (y[N, n] - yin_out[n]), uTol) ; // bed outlet 
+*/

@@ -83,29 +83,22 @@ equation
   inlet_outState  = Medium.setState_pTX(inlet.p, bedParams.Tbed, inlet.Xi_outflow);
   outlet_outState = Medium.setState_pTX(outlet.p, bedParams.Tbed, outlet.Xi_outflow);
 
-  inlet.m_flow = u[N-1] * bedParams.Uref * bedParams.csArea 
-                  * homotopy( actual = (regStep(u[N-1], Medium.density(inlet_inState), 
-                                    Medium.density(inlet_outState), uTol)),
-                              simplified = 1.0 ) ;
 
-//                  * regStep(p_in-p[1], Medium.density(inlet_inState), Medium.density(inlet_outState)) ;
+  inlet.m_flow = sign(u[N-1]) * bedParams.Uref * bedParams.csArea 
+                  * (max(u[N-1], 0) * Medium.density(inlet_inState) +  
+                      max(-u[N-1], 0) * Medium.density(inlet_outState)) ;
+
 
 // Note flow convetion dictates that outflows are negative 
-  outlet.m_flow = - u[N]  * bedParams.Uref * bedParams.csArea 
-                  * homotopy( actual = (regStep(-u[N], Medium.density(outlet_inState), 
-                                   Medium.density(outlet_outState), uTol)),
-                              simplified = 1.0 ) ;
-
-//                * regStep(p[N]-p_out, Medium.density(outlet_inState), Medium.density(outlet_outState)) ;
+  outlet.m_flow = - sign(u[N])  * bedParams.Uref * bedParams.csArea 
+                  * (max(-u[N], 0) * Medium.density(outlet_inState)  +
+                     max(u[N], 0) *  Medium.density(outlet_outState));
 
 // Set Enthalpys of outflow streams (that would result if flow is out of the device)
   inlet.h_outflow = Medium.specificEnthalpy(inlet_outState) ;
   outlet.h_outflow = Medium.specificEnthalpy(outlet_outState) ;
 
 end Adsorber;
-
-
-
 
  /* Avoiding T_hX calls
   inlet_inState.p = inlet.p;
@@ -122,3 +115,23 @@ end Adsorber;
 //     inStream(outlet.Xi_outflow[i]) =   ( 1 / sum (yin_out .* Mw))  *   yin_out[i] * Mw[i] ;
  */
 
+/*
+  Temporarymove
+  inlet.m_flow = u[N-1] * bedParams.Uref * bedParams.csArea 
+                  * homotopy( actual = (regStep(u[N-1], Medium.density(inlet_inState), 
+                                    Medium.density(inlet_outState), uTol)),
+                              simplified = 1.0 ) ;
+
+//                  * regStep(p_in-p[1], Medium.density(inlet_inState), Medium.density(inlet_outState)) ;
+
+// Note flow convetion dictates that outflows are negative 
+  outlet.m_flow = - u[N]  * bedParams.Uref * bedParams.csArea 
+                  * homotopy( actual = (regStep(-u[N], Medium.density(outlet_inState), 
+                                   Medium.density(outlet_outState), uTol)),
+                              simplified = 1.0 ) ;
+
+//                * regStep(p[N]-p_out, Medium.density(outlet_inState), Medium.density(outlet_outState)) ;
+*/
+
+//                  * regStep(p_in-p[1], Medium.density(inlet_inState), Medium.density(inlet_outState)) ;
+//                * regStep(p[N]-p_out, Medium.density(outlet_inState), Medium.density(outlet_outState)) ;
