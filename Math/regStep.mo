@@ -14,12 +14,9 @@ input Real yminus   ;
 input Real Tol      ;
 output Real y       ;
 
-protected
-  Real Alpha ;
-  constant Integer SF = 5  ;
 
 algorithm
-  Alpha := 1.0 / ( 1.0 + exp(-SF * x/Tol) ) ;
-  y := (1 - Alpha) * yminus + Alpha * yplus ;
-//annotation(Inline="true", smoothorder=3) ;
+  y :=           ( 1.0 / (1.0 + exp(-x/Tol)) )  * yplus
+       +  (1.0 - ( 1.0 / (1.0 + exp(-x/Tol)) )) * yminus ;
+annotation(Inline="true", smoothorder=3) ;
 end regStep;

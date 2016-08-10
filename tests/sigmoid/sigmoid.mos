@@ -6,17 +6,17 @@ Real y ;
 Real x(start=-1) ;
 
 equation
-  der(x) = 1 ;
-  y = ThermoS.Math.regStep(x, 0, 1, 1) ;
+  der(x) = 10 ;
+  y = ThermoS.Math.regStep(x, -1, 1, 10) ;
 
 initial equation
-  x = -5  ;
+  x = -100  ;
 end sig;
 
 ");
 getErrorString();
 cd("./work");
-simulate(sig,stopTime=10);
+simulate(sig,stopTime=20);
 getErrorString();
 str := "OMPlot --plotParametric --curve-width=2 --filename=\"sig_res.mat\" {x,y}" ;
 system(str);

@@ -1,0 +1,19 @@
+/* Testing NoEvent  mechanisms  */
+loadString(
+"
+model evnt
+    import Modelica.Constants.pi ;
+    parameter Real lowlimit = 0;
+    parameter Real highlimit = 1;
+    Real x (start=0);
+    Real y (start=0);
+  equation
+      der(x) =   2*  pi * cos(2*pi*time) ;
+  //    y = noEvent(if(x>0) then 3 else -3) ;
+      y = max(x,0) ;
+  end evnt;
+");
+
+cd("work");
+simulate(evnt, stopTime=10, simflags="");
+plot({y});

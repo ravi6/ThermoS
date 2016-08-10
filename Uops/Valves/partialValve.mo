@@ -33,8 +33,8 @@ equation
   // Mass balance
   inlet.m_flow + outlet.m_flow = 0;
 
-//  med.p  = regStep(inlet.p - outlet.p, inlet.p, outlet.p, dpTol) ;
-  med.p  = sqrt(inlet.p * outlet.p) ;
+  med.p  = ThermoS.Math.regStep(inlet.p - outlet.p, inlet.p, outlet.p, dpTol) ;
+//  med.p  = sqrt(inlet.p * outlet.p) ;
   med.h  = inlet.h_outflow  ;
   med.Xi = inlet.Xi_outflow ;
    
