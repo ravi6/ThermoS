@@ -33,8 +33,7 @@ equation
   // Mass balance
   inlet.m_flow + outlet.m_flow = 0;
 
-  med.p  = ThermoS.Math.regStep(inlet.p - outlet.p, inlet.p, outlet.p, dpTol) ;
-//  med.p  = sqrt(inlet.p * outlet.p) ;
+  med.p  = noEvent(if(inlet.m_flow > 0) then inlet.p else outlet.p) ;
   med.h  = inlet.h_outflow  ;
   med.Xi = inlet.Xi_outflow ;
    
@@ -145,5 +144,7 @@ end partialValve;
                                    Medium.setState_phX(inlet.p,  inlet.h_outflow, inlet.Xi_outflow), 
                                    Medium.setState_phX(outlet.p, outlet.h_outflow, outlet.Xi_outflow),
                                    dpTol);
+//  med.p  = ThermoS.Math.regStep(inlet.p - outlet.p, inlet.p, outlet.p, dpTol) ;
+//  med.p  = sqrt(inlet.p * outlet.p) ;
 */
 

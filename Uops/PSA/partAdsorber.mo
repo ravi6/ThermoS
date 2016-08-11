@@ -134,13 +134,13 @@ end for; // end of all component balances
 // Boundary Conditions
 
  for  n in  1:Nc-1 loop       // nth Component 
+    Coef_y[:, n] * vTz[:, N-1] =  if(inlet.m_flow >= 0) then 
+                                      bedParams.Pe * u[N-1] * (y[N-1, n] - yin_in[n])
+                                  else  0 ; // bed inlet
 
-
-    Coef_y[:, n] * vTz[:, N-1] =  ThermoS.Math.regStep(u[N-1]-uTol, // (p_in - p[1]), 
-                                      bedParams.Pe * u[N-1] * (y[N-1, n] - yin_in[n]),  0, uTol) ; // bed inlet
-
-    Coef_y[:, n] * vTz[:, N]   =  ThermoS.Math.regStep(u[N]+uTol,    // (p[N] - p_out), 
-                                    0,  bedParams.Pe * u[N] * (y[N, n] - yin_out[n]), uTol) ; // bed outlet 
+    Coef_y[:, n] * vTz[:, N]   =  if(outlet.m_flow < 0) then   
+                                    0 
+                                  else bedParams.Pe * u[N] * (y[N, n] - yin_out[n]) ; // bed outlet 
  end for;
 
 // Pressure Boundary Conditions
@@ -163,5 +163,11 @@ end partAdsorber;
                                       bedParams.Pe * u[N-1] * (y[N-1, n] - yin_in[n]),  0, uTol) ; // bed inlet
 
     Coef_y[:, n] * vTz[:, N]   =  regStep(u[N]+uTol,    // (p[N] - p_out), 
+                                    0,  bedParams.Pe * u[N] * (y[N, n] - yin_out[n]), uTol) ; // bed outlet 
+
+    Coef_y[:, n] * vTz[:, N-1] =  ThermoS.Math.regStep(u[N-1]-uTol, // (p_in - p[1]), 
+                                      bedParams.Pe * u[N-1] * (y[N-1, n] - yin_in[n]),  0, uTol) ; // bed inlet
+
+    Coef_y[:, n] * vTz[:, N]   =  ThermoS.Math.regStep(u[N]+uTol,    // (p[N] - p_out), 
                                     0,  bedParams.Pe * u[N] * (y[N, n] - yin_out[n]), uTol) ; // bed outlet 
 */
