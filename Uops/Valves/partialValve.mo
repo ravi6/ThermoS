@@ -14,7 +14,7 @@ import Modelica.Media.IdealGases.Common.MixtureGasNasa.h_TX;
   parameter Real dpTol = 100 ;  // Pressure Drop Tolerance used for state and flow transition
 
  // Medium.ThermodynamicState state (T(start=300), p(start=1e5), X(start=Medium.reference_X));
-  Medium.BaseProperties med; //(preferredMediumStates=true) ;  
+  Medium.BaseProperties med(preferredMediumStates=true) ;  
  
 equation
 
@@ -33,7 +33,8 @@ equation
   // Mass balance
   inlet.m_flow + outlet.m_flow = 0;
 
-  med.p  = noEvent(if(inlet.m_flow > 0) then inlet.p else outlet.p) ;
+ // med.p  = noEvent(if(inlet.m_flow > 0) then inlet.p else outlet.p) ;
+  med.p  = max(inlet.p, outlet.p);
   med.h  = inlet.h_outflow  ;
   med.Xi = inlet.Xi_outflow ;
    

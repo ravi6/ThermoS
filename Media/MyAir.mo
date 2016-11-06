@@ -19,7 +19,7 @@ extends MixtureGasNasa (
          // The above line gives trouble with CODE GEN why ... especially with my singleBedModel "Case3"
          // Prepare a bug report ...
 // Modifying start values and Ranges 
-         Density(start=1, nominal=1),
+         Density(start=1, nominal=1, min=1e-3, max=10),
          AbsolutePressure(start=1e5, min=1e3, max=50e5, nominal=1e5),
          Temperature(start=300, min=200, max=2000, nominal=300),
          ThermodynamicState(p(start=1e5), T(start=300), X(start=reference_X)),

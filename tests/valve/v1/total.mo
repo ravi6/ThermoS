@@ -1,7 +1,7 @@
 model plant  
-  package Gas = ThermoS.Media.MyGas;
+  package Gas = ThermoS.Media.MyGas(MassFlowRate(min = -10, max = 20));
   constant Real[2] AirComp = {0.767, 0.233};
-  .ThermoS.Uops.Reservoir[1] src(redeclare each package Medium = Gas, each p = 3e5, each T = 300, each Xi = AirComp);
+  .ThermoS.Uops.Reservoir[1] src(redeclare each package Medium = Gas, each p = 2.05e5, each T = 300, each Xi = AirComp);
   .ThermoS.Uops.Reservoir[1] sink(redeclare each package Medium = Gas, each p = 1e5, each T = 300, each Xi = AirComp);
   .ThermoS.Uops.Valves.Valve[3] valve(redeclare each package Medium = Gas, vchar = {.ThermoS.Uops.Valves.Vchar.Linear, .ThermoS.Uops.Valves.Vchar.EquiPercent, .ThermoS.Uops.Valves.Vchar.FastActing});
 equation
@@ -13,19 +13,6 @@ equation
 end plant;
 
 package ThermoS  "A Modelica Package for Process Simulations" 
-  package Util  "General Utility functions" 
-    function strVec  
-      input Real[:] v;
-      output String s;
-    algorithm
-      s := "[";
-      for i in 1:size(v, 1) - 1 loop
-        s := s + String(v[i]) + ", ";
-      end for;
-      s := s + String(v[size(v, 1)]) + "] ";
-    end strVec;
-  end Util;
-
   package Uops  "Unit Operations in ThermoS Package" 
     package Valves  "Contains Valves and its interfaces " 
       partial model partialValve  
@@ -41,16 +28,20 @@ package ThermoS  "A Modelica Package for Process Simulations"
         inlet.Xi_outflow = inStream(outlet.Xi_outflow);
         outlet.Xi_outflow = inStream(inlet.Xi_outflow);
         inlet.m_flow + outlet.m_flow = 0;
-        med.p = .Modelica.Fluid.Utilities.regStep(inlet.p - outlet.p, inlet.p, outlet.p, dpTol);
-        med.h = .Modelica.Fluid.Utilities.regStep(inlet.p - outlet.p, inlet.h_outflow, outlet.h_outflow, dpTol);
-        med.Xi = .Modelica.Fluid.Utilities.regStep(inlet.p - outlet.p, inlet.Xi_outflow, outlet.Xi_outflow, dpTol);
+        med.p = max(inlet.p, outlet.p);
+        med.h = inlet.h_outflow;
+        med.Xi = inlet.Xi_outflow;
       end partialValve;
 
       model Valve  
         extends ThermoS.Uops.Valves.partialValve;
         parameter Vchar vchar = Vchar.Linear;
+        parameter .ThermoS.Types.Fraction pratChoke = 0.5;
+        parameter Boolean Compressible = true;
         .ThermoS.Types.Percent po(start = 50);
         .ThermoS.Types.Fraction charF(start = 1.0);
+        .ThermoS.Types.Fraction prat(start = 1.0);
+        .ThermoS.Types.Fraction choked;
       equation
         if vchar == Vchar.Linear then
           charF = po / 100;
@@ -59,8 +50,13 @@ package ThermoS  "A Modelica Package for Process Simulations"
         elseif vchar == Vchar.EquiPercent then
           charF = 35 ^ (po / 100 - 1);
         end if;
-        assert(med.d > 0, "Screwed up Compo" + ThermoS.Util.strVec(med.state.X), AssertionLevel.warning);
-        inlet.m_flow = cv * charF * sqrt(max(0, med.d)) * .Modelica.Fluid.Utilities.regRoot(inlet.p - outlet.p, dpTol);
+        prat = min(inlet.p, outlet.p) / max(inlet.p, outlet.p);
+        choked = 1.0 / (1.0 + exp(-(pratChoke - prat) / 0.01));
+        if Compressible then
+          inlet.m_flow = cv * charF * sqrt(med.d) * ((1 - choked) * .Modelica.Fluid.Utilities.regRoot(inlet.p - outlet.p, dpTol) + choked * sign(inlet.p - outlet.p) * sqrt(0.5 * max(inlet.p, outlet.p)));
+        else
+          inlet.m_flow = cv * charF * sqrt(med.d) * .Modelica.Fluid.Utilities.regRoot(inlet.p - outlet.p, dpTol);
+        end if;
       end Valve;
 
       type Vchar = enumeration(Linear "Linear Valve", FastActing "Fast Acting Valve", EquiPercent "Equi-Percent Valve") "Enumeration Defining Valve Behaviour";
@@ -90,7 +86,7 @@ package ThermoS  "A Modelica Package for Process Simulations"
 
   package Media  "All fluids that ThermoS knows about" 
     package MyGas  "Specific ideal Gas Mixture" 
-      extends .Modelica.Media.IdealGases.Common.MixtureGasNasa(preferredMediumStates = true, data = {.Modelica.Media.IdealGases.Common.SingleGasesData.N2, .Modelica.Media.IdealGases.Common.SingleGasesData.O2, .Modelica.Media.IdealGases.Common.SingleGasesData.CO2}, fluidConstants = {.Modelica.Media.IdealGases.Common.FluidData.N2, .Modelica.Media.IdealGases.Common.FluidData.O2, .Modelica.Media.IdealGases.Common.FluidData.CO2}, substanceNames = {"Nitrogen", "Oxygen", "CarbonDioxide"}, reducedX = true, reference_X = {0.7, 0.2, 0.1}, Density(start = 1, nominal = 1), AbsolutePressure(start = 1e5, min = 1e3, max = 50e5, nominal = 1e5), Temperature(start = 300, min = 200, max = 2000, nominal = 300), ThermodynamicState(p(start = 1e5), T(start = 300), X(start = reference_X)), MassFraction(start = 0.333333), MoleFraction(start = 0.333333));
+      extends .Modelica.Media.IdealGases.Common.MixtureGasNasa(preferredMediumStates = true, data = {.Modelica.Media.IdealGases.Common.SingleGasesData.N2, .Modelica.Media.IdealGases.Common.SingleGasesData.O2, .Modelica.Media.IdealGases.Common.SingleGasesData.CO2}, fluidConstants = {.Modelica.Media.IdealGases.Common.FluidData.N2, .Modelica.Media.IdealGases.Common.FluidData.O2, .Modelica.Media.IdealGases.Common.FluidData.CO2}, substanceNames = {"Nitrogen", "Oxygen", "CarbonDioxide"}, reducedX = true, reference_X = {0.7, 0.2, 0.1}, Density(start = 1, nominal = 1), AbsolutePressure(start = 1e5, min = 1e3, max = 50e5, nominal = 1e5), Temperature(start = 300, min = 200, max = 2000, nominal = 300), ThermodynamicState(p(start = 1e5), T(start = 300), X(start = reference_X)), MassFraction(start = 0.333333));
     end MyGas;
   end Media;
 end ThermoS;
@@ -149,17 +145,6 @@ package Modelica  "Modelica Standard Library - Version 3.2.2"
       algorithm
         dy := dx * 0.5 * (x * x + 2 * delta * delta) / (x * x + delta * delta) ^ 1.25;
       end regRoot_der;
-
-      function regStep  "Approximation of a general step, such that the characteristic is continuous and differentiable" 
-        extends Modelica.Icons.Function;
-        input Real x "Abscissa value";
-        input Real y1 "Ordinate value for x > 0";
-        input Real y2 "Ordinate value for x < 0";
-        input Real x_small(min = 0) = 1e-5 "Approximation of step for -x_small <= x <= x_small; x_small >= 0 required";
-        output Real y "Ordinate value to approximate y = if x > 0 then y1 else y2";
-      algorithm
-        y := smooth(1, if x > x_small then y1 else if x < (-x_small) then y2 else if x_small > 0 then x / x_small * ((x / x_small) ^ 2 - 3) * (y2 - y1) / 4 + (y1 + y2) / 2 else (y1 + y2) / 2);
-      end regStep;
     end Utilities;
   end Fluid;
 

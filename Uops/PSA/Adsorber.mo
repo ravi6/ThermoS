@@ -50,8 +50,8 @@ equation
     end for;
 
 // Pressure Boundary Conditions
-  p_in =  inlet.p / bedParams.Pref  ;
-  p_out = outlet.p / bedParams.Pref ;
+  p_in =  inlet.p / bedParams.Pref    ;
+  p_out = outlet.p / bedParams.Pref   ;
 
 // ********************************************************************
 //  The following is to provided connectivity of adsorber to external world
@@ -68,11 +68,11 @@ equation
  // Avoiding T_hX calls (assuming reducedX)
 //==========================================================================
   inlet_inState.p = inlet.p;
-  inlet_inState.X =  cat(1, inStream(inlet.Xi_outflow), {1 - sum(inStream(inlet.Xi_outflow))});
+  inlet_inState.X =  cat(1, inStream(inlet.Xi_outflow),  {max(0, 1 - sum(inStream(inlet.Xi_outflow)))});
   inStream(inlet.h_outflow) = Medium.specificEnthalpy(inlet_inState);
 
   outlet_inState.p =  outlet.p;
-  outlet_inState.X =  cat(1, inStream(outlet.Xi_outflow), {1 - sum(inStream(outlet.Xi_outflow))});
+  outlet_inState.X =  cat(1, inStream(outlet.Xi_outflow), {max(0, 1 - sum(inStream(outlet.Xi_outflow)))});
   inStream(outlet.h_outflow) = Medium.specificEnthalpy(outlet_inState);
 //==========================================================================
 
@@ -85,14 +85,14 @@ equation
 
 
   inlet.m_flow = sign(u[N-1]) * bedParams.Uref * bedParams.csArea 
-                  * (max(u[N-1], 0) * Medium.density(inlet_inState) +  
-                      max(-u[N-1], 0) * Medium.density(inlet_outState)) ;
+                   * (max(u[N-1], 0) * Medium.density(inlet_inState) +  
+                       max(-u[N-1], 0) * Medium.density(inlet_outState)) ;
 
 
 // Note flow convetion dictates that outflows are negative 
   outlet.m_flow = - sign(u[N])  * bedParams.Uref * bedParams.csArea 
-                  * (max(-u[N], 0) * Medium.density(outlet_inState)  +
-                     max(u[N], 0) *  Medium.density(outlet_outState));
+                   * (max(-u[N], 0) * Medium.density(outlet_inState)  +
+                      max(u[N], 0) *  Medium.density(outlet_outState));
 
 // Set Enthalpys of outflow streams (that would result if flow is out of the device)
   inlet.h_outflow = Medium.specificEnthalpy(inlet_outState) ;
@@ -135,3 +135,6 @@ end Adsorber;
 
 //                  * regStep(p_in-p[1], Medium.density(inlet_inState), Medium.density(inlet_outState)) ;
 //                * regStep(p[N]-p_out, Medium.density(outlet_inState), Medium.density(outlet_outState)) ;
+
+//                  * (Medium.density(inlet_inState) +  Medium.density(inlet_outState)) * 0.5 ;  // try averaging
+//                  * (Medium.density(outlet_inState)  +  Medium.density(outlet_outState)) * 0.5 ;

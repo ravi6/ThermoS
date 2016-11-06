@@ -61,6 +61,10 @@ print("Plotting\n");
 //       curveWidth=2, externalWindow=true, title = "Flow Rate kg/s");
 plot({valve[1].inlet.m_flow, valve[2].inlet.m_flow, valve[3].inlet.m_flow},
        curveWidth=2, externalWindow=true, title = "Flow Rate kg/s");
+//plot({valve[1].blend, valve[2].blend, valve[3].blend},
+ //      curveWidth=2, externalWindow=true, title = "Blend Factor");
+plot({valve[1].choked, valve[2].choked, valve[3].choked},
+       curveWidth=2, externalWindow=true, title = "Choked");
 getErrorString();
 
 

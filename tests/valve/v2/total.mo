@@ -32,7 +32,7 @@ package ThermoS  "A Modelica Package for Process Simulations"
         inlet.Xi_outflow = inStream(outlet.Xi_outflow);
         outlet.Xi_outflow = inStream(inlet.Xi_outflow);
         inlet.m_flow + outlet.m_flow = 0;
-        med.p = noEvent(if inlet.m_flow > 0 then inlet.p else outlet.p);
+        med.p = max(inlet.p, outlet.p);
         med.h = inlet.h_outflow;
         med.Xi = inlet.Xi_outflow;
       end partialValve;
@@ -40,8 +40,12 @@ package ThermoS  "A Modelica Package for Process Simulations"
       model Valve  
         extends ThermoS.Uops.Valves.partialValve;
         parameter Vchar vchar = Vchar.Linear;
+        parameter .ThermoS.Types.Fraction pratChoke = 0.5;
+        parameter Boolean Compressible = true;
         .ThermoS.Types.Percent po(start = 50);
         .ThermoS.Types.Fraction charF(start = 1.0);
+        .ThermoS.Types.Fraction prat(start = 1.0);
+        .ThermoS.Types.Fraction blend(start = 1.0);
       equation
         if vchar == Vchar.Linear then
           charF = po / 100;
@@ -50,7 +54,13 @@ package ThermoS  "A Modelica Package for Process Simulations"
         elseif vchar == Vchar.EquiPercent then
           charF = 35 ^ (po / 100 - 1);
         end if;
-        inlet.m_flow = cv * charF * sqrt(med.d) * .Modelica.Fluid.Utilities.regRoot(inlet.p - outlet.p, dpTol);
+        prat = min(inlet.p, outlet.p) / max(inlet.p, outlet.p);
+        blend = 1.0 / (1.0 + exp(-(prat - pratChoke) / 0.01));
+        if Compressible then
+          inlet.m_flow = cv * charF * sqrt(med.d) * ((1 - blend) * .Modelica.Fluid.Utilities.regRoot(inlet.p - outlet.p, dpTol) + blend * sign(inlet.p - outlet.p) * sqrt(0.5 * max(inlet.p, outlet.p)));
+        else
+          inlet.m_flow = cv * charF * sqrt(med.d) * .Modelica.Fluid.Utilities.regRoot(inlet.p - outlet.p, dpTol);
+        end if;
       end Valve;
 
       type Vchar = enumeration(Linear "Linear Valve", FastActing "Fast Acting Valve", EquiPercent "Equi-Percent Valve") "Enumeration Defining Valve Behaviour";
@@ -112,7 +122,7 @@ package ThermoS  "A Modelica Package for Process Simulations"
 
   package Media  "All fluids that ThermoS knows about" 
     package MyGas  "Specific ideal Gas Mixture" 
-      extends .Modelica.Media.IdealGases.Common.MixtureGasNasa(preferredMediumStates = true, data = {.Modelica.Media.IdealGases.Common.SingleGasesData.N2, .Modelica.Media.IdealGases.Common.SingleGasesData.O2, .Modelica.Media.IdealGases.Common.SingleGasesData.CO2}, fluidConstants = {.Modelica.Media.IdealGases.Common.FluidData.N2, .Modelica.Media.IdealGases.Common.FluidData.O2, .Modelica.Media.IdealGases.Common.FluidData.CO2}, substanceNames = {"Nitrogen", "Oxygen", "CarbonDioxide"}, reducedX = true, reference_X = {0.7, 0.2, 0.1}, Density(start = 1, nominal = 1), AbsolutePressure(start = 1e5, min = 1e3, max = 50e5, nominal = 1e5), Temperature(start = 300, min = 200, max = 2000, nominal = 300), ThermodynamicState(p(start = 1e5), T(start = 300), X(start = reference_X)), MassFraction(start = 0.333333), MoleFraction(start = 0.333333));
+      extends .Modelica.Media.IdealGases.Common.MixtureGasNasa(preferredMediumStates = true, data = {.Modelica.Media.IdealGases.Common.SingleGasesData.N2, .Modelica.Media.IdealGases.Common.SingleGasesData.O2, .Modelica.Media.IdealGases.Common.SingleGasesData.CO2}, fluidConstants = {.Modelica.Media.IdealGases.Common.FluidData.N2, .Modelica.Media.IdealGases.Common.FluidData.O2, .Modelica.Media.IdealGases.Common.FluidData.CO2}, substanceNames = {"Nitrogen", "Oxygen", "CarbonDioxide"}, reducedX = true, reference_X = {0.7, 0.2, 0.1}, Density(start = 1, nominal = 1), AbsolutePressure(start = 1e5, min = 1e3, max = 50e5, nominal = 1e5), Temperature(start = 300, min = 200, max = 2000, nominal = 300), ThermodynamicState(p(start = 1e5), T(start = 300), X(start = reference_X)), MassFraction(start = 0.333333));
     end MyGas;
   end Media;
 end ThermoS;
