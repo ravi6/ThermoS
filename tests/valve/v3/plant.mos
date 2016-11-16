@@ -59,14 +59,12 @@ print("Plotting\n");
 print("Plotting\n");
 //plot({valve[1].inlet.m_flow, valve[2].inlet.m_flow},
 //       curveWidth=2, externalWindow=true, title = "Flow Rate kg/s");
-plot({valve[1].inlet.m_flow, valve[2].inlet.m_flow, valve[3].inlet.m_flow},
+plot({v1.inlet.m_flow, v2.inlet.m_flow},
        curveWidth=2, externalWindow=true, title = "Flow Rate kg/s");
 system("sleep 2");
-plot({valve[1].po, valve[2].po, valve[3].po},
+plot({v1.po, v2.po},
        curveWidth=2, externalWindow=true, title = "Percent Open");
 system("sleep 2");
-plot({valve[1].choked, valve[2].choked, valve[3].choked},
-       curveWidth=2, externalWindow=true, title = "Choked");
 getErrorString();
 
 

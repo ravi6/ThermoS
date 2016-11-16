@@ -8,11 +8,9 @@ parameter Fraction pratChoke  = 0.5              ;  // Maximum pressure ratio at
 parameter Boolean  Compressible = true           ;  // Default to compressible flow
                                                   
 
-Percent      po    (start=1.0)            ;               // Valve % Open  
+Percent      po    (stateSelect=StateSelect.always)           ;               // Valve % Open  
 Fraction     charF (start=1.0)           ;               // Characteristic Multiplier
 Fraction     prat  (start=1.0)           ;
-Fraction     choked                       ;
-
 
 
 equation
@@ -28,18 +26,14 @@ equation
 
     prat = min(inlet.p, outlet.p) / max(inlet.p, outlet.p) ;
 
-
-// Make Valve equaiton absolutely continuous and differentiable both near zero flows
+// Make Valve equaiton continuous and differentiable both near zero flows
 // and choked conditions
 
-    choked =  ( 1.0 / (1.0 + exp(-(pratChoke - prat)/0.01)) )  ; // Blending function
-
     if (Compressible) then
-       inlet.m_flow = cv * charF  *  sqrt(abs(med.d)) *
-                    ( (1 - choked) * regRoot(inlet.p - outlet.p, dpTol)  +     // unchoked
-                           choked  * sign(inlet.p - outlet.p) * sqrt(0.5 * max(inlet.p, outlet.p))) ; // choked
+       inlet.m_flow = cv * charF  *  sqrt(abs(med.d) * max(inlet.p, outlet.p)) * sign(inlet.p - outlet.p) 
+                         * regRoot(1 - max(prat, 0.5), dpTol) ;       // Covers Choking Region (with C0 continuity)
     else
-       inlet.m_flow = cv * charF  *  sqrt(med.d) *   regRoot(inlet.p - outlet.p, dpTol) ;
+       inlet.m_flow = cv * charF  *  sqrt(abs(med.d * inlet.p)) * regRoot(1 - outlet.p/inlet.p, dpTol) ;
     end if; 
 
 end Valve;

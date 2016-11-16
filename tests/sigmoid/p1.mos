@@ -5,23 +5,23 @@ model sig
     Real y, yp ;
     Real x(start=0) ;
     Real alpha ;
-    parameter Real delta = 0.02 ;
-    parameter Real Tol   = 0.02 ;
+    parameter Real delta = 0.01 ;
+    parameter Real Tol   = 0.01 ;
 
     equation
-      der(x) = 0.0001 ;
+      der(x) = 2/1000 ;
       y =  x/(x*x+delta*delta)^0.25;
       alpha =  ( 1.0 / (1.0 + exp(-(abs(x)-0.5)/Tol)) )  ;
       yp =    sign(x) * alpha * sqrt(0.5) + (1.0 - alpha) * y ;
 
     initial equation
-      x = -2  ;
+      x = -1  ;
 end sig;
 
 ");
 getErrorString();
 cd("./work");
-simulate(sig,stopTime=40000);
+simulate(sig,stopTime=1000);
 getErrorString();
-str := "OMPlot --plotParametric --curve-width=2 --filename=\"sig_res.mat\" {x,yp} {x,y}" ;
+str := "OMPlot --plotParametric --curve-width=2 --filename=\"sig_res.mat\" {x,alpha}" ;
 system(str);

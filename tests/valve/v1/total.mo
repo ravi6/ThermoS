@@ -3,10 +3,10 @@ model plant
   constant Real[2] AirComp = {0.767, 0.233};
   .ThermoS.Uops.Reservoir[1] src(redeclare each package Medium = Gas, each p = 2.05e5, each T = 300, each Xi = AirComp);
   .ThermoS.Uops.Reservoir[1] sink(redeclare each package Medium = Gas, each p = 1e5, each T = 300, each Xi = AirComp);
-  .ThermoS.Uops.Valves.Valve[3] valve(redeclare each package Medium = Gas, vchar = {.ThermoS.Uops.Valves.Vchar.Linear, .ThermoS.Uops.Valves.Vchar.EquiPercent, .ThermoS.Uops.Valves.Vchar.FastActing});
+  .ThermoS.Uops.Valves.Valve[3] valve(redeclare each package Medium = Gas, each Compressible = false, vchar = {.ThermoS.Uops.Valves.Vchar.Linear, .ThermoS.Uops.Valves.Vchar.EquiPercent, .ThermoS.Uops.Valves.Vchar.FastActing});
 equation
   for k in 1:3 loop
-    valve[k].po = 10 * time;
+    valve[k].po = 10 + 10 * time;
     connect(src[1].port, valve[k].inlet);
     connect(valve[k].outlet, sink[1].port);
   end for;
@@ -21,7 +21,7 @@ package ThermoS  "A Modelica Package for Process Simulations"
         .Modelica.Fluid.Interfaces.FluidPort outlet(redeclare package Medium = Medium);
         parameter Real cv = 1.0 / sqrt(1e5);
         parameter Real dpTol = 100;
-        Medium.BaseProperties med;
+        Medium.BaseProperties med(preferredMediumStates = true);
       equation
         outlet.h_outflow = inStream(inlet.h_outflow);
         inlet.h_outflow = inStream(outlet.h_outflow);
@@ -38,7 +38,7 @@ package ThermoS  "A Modelica Package for Process Simulations"
         parameter Vchar vchar = Vchar.Linear;
         parameter .ThermoS.Types.Fraction pratChoke = 0.5;
         parameter Boolean Compressible = true;
-        .ThermoS.Types.Percent po(start = 50);
+        .ThermoS.Types.Percent po(start = 1.0);
         .ThermoS.Types.Fraction charF(start = 1.0);
         .ThermoS.Types.Fraction prat(start = 1.0);
         .ThermoS.Types.Fraction choked;
@@ -53,7 +53,7 @@ package ThermoS  "A Modelica Package for Process Simulations"
         prat = min(inlet.p, outlet.p) / max(inlet.p, outlet.p);
         choked = 1.0 / (1.0 + exp(-(pratChoke - prat) / 0.01));
         if Compressible then
-          inlet.m_flow = cv * charF * sqrt(med.d) * ((1 - choked) * .Modelica.Fluid.Utilities.regRoot(inlet.p - outlet.p, dpTol) + choked * sign(inlet.p - outlet.p) * sqrt(0.5 * max(inlet.p, outlet.p)));
+          inlet.m_flow = cv * charF * sqrt(abs(med.d)) * sign(inlet.p - outlet.p) * sqrt(max(inlet.p, outlet.p)) * ((1 - choked) * .Modelica.Fluid.Utilities.regRoot(1 - prat, dpTol) + choked * sqrt(0.5));
         else
           inlet.m_flow = cv * charF * sqrt(med.d) * .Modelica.Fluid.Utilities.regRoot(inlet.p - outlet.p, dpTol);
         end if;

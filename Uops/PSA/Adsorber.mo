@@ -100,6 +100,37 @@ equation
 
 end Adsorber;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  /* Avoiding T_hX calls
   inlet_inState.p = inlet.p;
   inlet_inState.X = if Medium.reducedX then  cat(1, inStream(inlet.Xi_outflow), {1 - sum(inStream(inlet.Xi_outflow))})

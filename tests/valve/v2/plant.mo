@@ -21,8 +21,8 @@ model plant
 //  Valve v1 (redeclare each package Medium = Gas, vchar = Vchar.Linear);
 //  Valve v2 (redeclare each package Medium = Gas, vchar = Vchar.EquiPercent);
 
-  Valve v1 (redeclare each package Medium = Gas, cv=0.004/sqrt(0.5e5));
-  Valve v2 (redeclare each package Medium = Gas, cv=0.004/sqrt(0.5e5), vchar=Vchar.EquiPercent);
+  Valve v1 (redeclare each package Medium = Gas, cv=0.004/sqrt(0.5e5), Compressible=true, dpTol=0.1);
+  Valve v2 (redeclare each package Medium = Gas, cv=0.004/sqrt(0.5e5), vchar=Vchar.EquiPercent, Compressible=false);
 
   P3Mixer Node(redeclare package Medium = Gas,  vol=1.0e-6) ;
 

@@ -135,11 +135,11 @@ end for; // end of all component balances
 
  for  n in  1:Nc-1 loop       // nth Component 
 
-    Coef_y[:, n] * vTz[:, N-1] =  if(inlet.m_flow > 0) then 
+    Coef_y[:, n] * vTz[:, N-1] =  if(u[N-1] > 0) then 
                                       bedParams.Pe * u[N-1] * (y[N-1, n] - yin_in[n])
                                   else  0 ; // bed inlet
 
-    Coef_y[:, n] * vTz[:, N]   =  if(outlet.m_flow < 0) then   
+    Coef_y[:, n] * vTz[:, N]   =  if(u[N] >= 0) then   
                                     0 
                                   else bedParams.Pe * u[N] * (y[N, n] - yin_out[n]) ; // bed outlet 
 
@@ -156,9 +156,14 @@ end for; // end of all component balances
  end for;
 
 // Pressure Boundary Conditions
-     Coef_p[:] * vT[:, N-1] = p_in ;    // Inlet  pressure 
-     Coef_p[:] * vT[:, N] = p_out ;    // outlet  pressure 
-//     Coef_p[:] * vTz[:, N]   = 0 ;   // outlet pressure  (zero gradient = no flow)
+         0 = if (inlet.m_flow == 0.0) then Coef_p[:] * vTz[:, N-1]
+             else Coef_p[:] * vT[:, N-1] - p_in ;    // Inlet  pressure 
+          
+
+          0 = if (outlet.m_flow == 0.0) then Coef_p[:] * vTz[:, N]
+              else Coef_p[:] * vT[:, N] - p_out ;    // outlet  pressure 
+
+//        Coef_p[:] * vTz[:, N]   = 0;    //  (zero gradient = no flow)
 
 end partAdsorber;
 

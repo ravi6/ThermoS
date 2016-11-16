@@ -1,0 +1,20 @@
+loadFile("/home/ravi/DSTO/projects/Om/ThermoS/package.mo");
+getErrorString();
+loadString( "
+
+model sig
+   Real x(start=-0.5, fixed=false),y ;
+    ThermoS.Math.blend blend(Tol=0.01) ;
+
+   equation
+     der(x) = 0.001 ;
+     blend.x = x  ;
+     y = blend.f ;
+end sig;
+");
+getErrorString();
+cd("./work");
+simulate(sig,stopTime=1000);
+getErrorString();
+str := "OMPlot --plotParametric --curve-width=2 --filename=\"sig_res.mat\" {x,y}" ;
+system(str);
