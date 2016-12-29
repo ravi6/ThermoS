@@ -24,6 +24,5 @@ extends MixtureGasNasa (
          Temperature(start=300, min=200, max=2000, nominal=300),
          ThermodynamicState(p(start=1e5), T(start=300), X(start=reference_X)),
          MassFraction(start=0.333333), MoleFraction(start=0.333333)
-); //end of Extending MixtureGasNasa
-
-end MyGas;
+);
+end MyGas; 
