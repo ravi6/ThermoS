@@ -86,25 +86,14 @@ equation
   outlet_outState = Medium.setState_pTX(outlet.p, bedParams.Tbed, outlet.Xi_outflow);
 
 
-/*
   inlet.m_flow = sign(u[N-1]) * bedParams.Uref * bedParams.csArea 
                    * (max(u[N-1], 0) * Medium.density(inlet_inState) +  
                        max(-u[N-1], 0) * Medium.density(inlet_outState)) ;
-*/
-  inlet.m_flow = sign(uf1.y) * bedParams.Uref * bedParams.csArea 
-                   * (max(uf1.y, 0) * Medium.density(inlet_inState) +  
-                       max(-uf1.y, 0) * Medium.density(inlet_outState)) ;
 
 // Note flow convetion dictates that outflows are negative 
-/*
   outlet.m_flow = - sign(u[N])  * bedParams.Uref * bedParams.csArea 
                    * (max(-u[N], 0) * Medium.density(outlet_inState)  +
                       max(u[N], 0) *  Medium.density(outlet_outState));
-
-*/
-  outlet.m_flow = - sign(uf2.y)  * bedParams.Uref * bedParams.csArea 
-                   * (max(-uf2.y, 0) * Medium.density(outlet_inState)  +
-                      max(uf2.y, 0) *  Medium.density(outlet_outState));
 
 // Set Enthalpys of outflow streams (that would result if flow is out of the device)
   inlet.h_outflow = Medium.specificEnthalpy(inlet_outState) ;

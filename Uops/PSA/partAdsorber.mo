@@ -46,7 +46,6 @@ Coef [N, Nc]   Coef_Q   ;    // Coeffs. of collocation for adsorbed concentratio
 Frac   [N, Nc]   y(each stateSelect=StateSelect.always)      ;    // Gas mole fractions at collocation points
 Vel    [N]       u      ;   // Gas velocity at collocation pionts
 Press  [N]       p(each stateSelect=StateSelect.always)     ;   // Gas pressure at collocation pionts
-ThermoS.Math.filter    uf1(tau=100e-3), uf2(tau=100e-3) ;
 
 
 Conc [N, Nc]   Q(each stateSelect=StateSelect.always)        ;   // Adsorbed concentraion in solid  at collocation points
@@ -133,13 +132,11 @@ end for; // end of all component balances
 
 // Boundary Conditions
 
-uf1.x = u[N-1]; uf2.x = u[N] ;  // Gitter removal
-
 
  for  n in  1:Nc-1 loop       // nth Component 
 
-    Coef_y[:, n] * vTz[:, N-1] =  bedParams.Pe * max(uf1.y, 0) * (y[N-1, n] - yin_in[n]) ; // bed inlet
-    Coef_y[:, n] * vTz[:, N]   =  bedParams.Pe * min(uf2.y, 0) * (y[N, n] - yin_out[n]) ; // bed outlet 
+    Coef_y[:, n] * vTz[:, N-1] =  bedParams.Pe * max(u[N-1], 0) * (y[N-1, n] - yin_in[n]) ; // bed inlet
+    Coef_y[:, n] * vTz[:, N]   =  bedParams.Pe * min(u[N], 0) * (y[N, n] - yin_out[n]) ; // bed outlet 
 
  end for;
 
