@@ -5,13 +5,13 @@ model plant
   .ThermoS.Uops.Reservoir sink(redeclare package Medium = Gas, p = 1e5, T = 300, Xi = AirComp);
   .ThermoS.Uops.Valves.Valve v1(redeclare each package Medium = Gas, cv = 0.004 / sqrt(0.5e5));
   .ThermoS.Uops.Valves.Valve v2(redeclare each package Medium = Gas, cv = 0.004 / sqrt(0.5e5), vchar = .ThermoS.Uops.Valves.Vchar.EquiPercent);
-  .ThermoS.Uops.Tanks.P3Mixer Node(redeclare package Medium = Gas, vol = 1.0e-6);
+  .ThermoS.Uops.Tanks.portMixer Node(redeclare package Medium = Gas, vol = 10e-6, N = 3, Tset = 400);
 equation
-  v1.po = 10 * time;
-  v2.po = 10 * time;
-  connect(src.port, Node.port1);
-  connect(v1.inlet, Node.port2);
-  connect(v2.inlet, Node.port3);
+  v1.po = 40;
+  v2.po = 40;
+  connect(src.port, Node.port[1]);
+  connect(v1.inlet, Node.port[2]);
+  connect(v2.inlet, Node.port[3]);
   connect(v2.outlet, sink.port);
   connect(v1.outlet, sink.port);
 end plant;
@@ -32,7 +32,7 @@ package ThermoS  "A Modelica Package for Process Simulations"
         inlet.Xi_outflow = inStream(outlet.Xi_outflow);
         outlet.Xi_outflow = inStream(inlet.Xi_outflow);
         inlet.m_flow + outlet.m_flow = 0;
-        med.p = noEvent(if inlet.m_flow > 0 then inlet.p else outlet.p);
+        med.p = max(inlet.p, outlet.p);
         med.h = inlet.h_outflow;
         med.Xi = inlet.Xi_outflow;
       end partialValve;
@@ -40,8 +40,11 @@ package ThermoS  "A Modelica Package for Process Simulations"
       model Valve  
         extends ThermoS.Uops.Valves.partialValve;
         parameter Vchar vchar = Vchar.Linear;
-        .ThermoS.Types.Percent po(start = 50);
+        parameter .ThermoS.Types.Fraction pratChoke = 0.5;
+        parameter Boolean Compressible = true;
+        .ThermoS.Types.Percent po(start = 0.0);
         .ThermoS.Types.Fraction charF(start = 1.0);
+        .ThermoS.Types.Fraction prat(start = 1.0);
       equation
         if vchar == Vchar.Linear then
           charF = po / 100;
@@ -50,42 +53,52 @@ package ThermoS  "A Modelica Package for Process Simulations"
         elseif vchar == Vchar.EquiPercent then
           charF = 35 ^ (po / 100 - 1);
         end if;
-        inlet.m_flow = cv * charF * sqrt(med.d) * .Modelica.Fluid.Utilities.regRoot(inlet.p - outlet.p, dpTol);
+        prat = min(inlet.p, outlet.p) / max(inlet.p, outlet.p);
+        if Compressible then
+          inlet.m_flow = cv * max(0, charF) * sqrt(max(med.d, 0) * max(inlet.p, outlet.p)) * sign(inlet.p - outlet.p) * .Modelica.Fluid.Utilities.regRoot(1 - max(prat, 0.5), dpTol);
+        else
+          inlet.m_flow = cv * charF * sqrt(med.d * inlet.p) * .Modelica.Fluid.Utilities.regRoot(1 - outlet.p / inlet.p, dpTol);
+        end if;
       end Valve;
 
       type Vchar = enumeration(Linear "Linear Valve", FastActing "Fast Acting Valve", EquiPercent "Equi-Percent Valve") "Enumeration Defining Valve Behaviour";
     end Valves;
 
     package Tanks  " Tanks in ThermoS Package" 
-      model P3Mixer  
+      model portMixer  
         replaceable package Medium = .Modelica.Media.Interfaces.PartialMixtureMedium;
-        .Modelica.Fluid.Interfaces.FluidPort port1(redeclare package Medium = Medium);
-        .Modelica.Fluid.Interfaces.FluidPort port2(redeclare package Medium = Medium);
-        .Modelica.Fluid.Interfaces.FluidPort port3(redeclare package Medium = Medium);
         parameter .Modelica.SIunits.Volume vol = 1;
+        parameter Boolean Adiabatic = false;
+        parameter Medium.Temperature Tset = 300;
+        parameter Integer N = 2;
+        .Modelica.Fluid.Interfaces.FluidPort[N] port(redeclare each package Medium = Medium);
         .Modelica.SIunits.Mass m;
         Medium.Temperature T;
         Medium.AbsolutePressure p;
         Medium.MassFraction[Medium.nXi] Xi;
         Medium.BaseProperties medium;
+        .Modelica.SIunits.Heat Q_in;
       equation
+        if Adiabatic then
+          Q_in = 0;
+        else
+          T = Tset;
+        end if;
         medium.T = T;
         medium.p = p;
         medium.Xi = Xi;
         m = medium.d * vol;
-        der(m) = port1.m_flow + port2.m_flow + port3.m_flow;
-        der(Xi * m) = actualStream(port1.Xi_outflow) * port1.m_flow + actualStream(port2.Xi_outflow) * port2.m_flow + actualStream(port3.Xi_outflow) * port3.m_flow;
-        der(m * medium.h) = port1.m_flow * actualStream(port1.h_outflow) + port2.m_flow * actualStream(port2.h_outflow) + port3.m_flow * actualStream(port3.h_outflow) + vol * der(p);
-        port1.Xi_outflow = medium.Xi;
-        port2.Xi_outflow = medium.Xi;
-        port3.Xi_outflow = medium.Xi;
-        port1.h_outflow = medium.h;
-        port2.h_outflow = medium.h;
-        port3.h_outflow = medium.h;
-        port1.p = p;
-        port2.p = p;
-        port3.p = p;
-      end P3Mixer;
+        der(m) = sum(port[:].m_flow);
+        for j in 1:Medium.nXi loop
+          der(Xi[j] * m) = sum(actualStream(port[i].Xi_outflow[j]) * port[i].m_flow for i in 1:N);
+        end for;
+        der(m * medium.h) = sum(port[i].m_flow * actualStream(port[i].h_outflow) for i in 1:N) + vol * der(p) + Q_in;
+        for i in 1:N loop
+          port[i].Xi_outflow = medium.Xi;
+          port[i].h_outflow = medium.h;
+          port[i].p = p;
+        end for;
+      end portMixer;
     end Tanks;
 
     model Reservoir  
@@ -1287,6 +1300,7 @@ package Modelica  "Modelica Standard Library - Version 3.2.2"
     type Temperature = ThermodynamicTemperature;
     type Compressibility = Real(final quantity = "Compressibility", final unit = "1/Pa");
     type IsothermalCompressibility = Compressibility;
+    type Heat = Real(final quantity = "Energy", final unit = "J");
     type ThermalConductivity = Real(final quantity = "ThermalConductivity", final unit = "W/(m.K)");
     type SpecificHeatCapacity = Real(final quantity = "SpecificHeatCapacity", final unit = "J/(kg.K)");
     type RatioOfSpecificHeatCapacities = Real(final quantity = "RatioOfSpecificHeatCapacities", final unit = "1");

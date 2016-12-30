@@ -3,7 +3,7 @@
 within ThermoS.Uops.Tanks;
 model Cvolume
 /*
-*  An adiabatic Volume with one port 
+*  An adiabatic/Isothermal Volume with one port 
 */
 
     replaceable package Medium = PartialMixtureMedium ;
@@ -11,6 +11,8 @@ model Cvolume
 
 //  Parameters
   parameter    Volume   	   vol   = 1    ;   // Tank Volume (m3)
+  parameter    Boolean   Adiabatic = false      ;   // default Isothermal
+  parameter    Medium.Temperature  Tset = 300   ;   // Isothermal Temperature
 
 // State Variables
     Mass			m		;	// Mass of Gas in the vessal 
@@ -19,8 +21,16 @@ model Cvolume
     Medium.AbsolutePressure	p		;
     Medium.MassFraction		Xi[Medium.nXi]	;
     Medium.SpecificEnthalpy	h		;
+    Heat			Q_in            ;
 
   equation
+
+      if Adiabatic then
+         Q_in = 0.0 ;
+      else
+         T = Tset ;
+      end if;
+
       state = Medium.setState_pTX(p, T, Xi) ;
       h     = Medium.specificEnthalpy(state) ;
 
@@ -34,7 +44,7 @@ model Cvolume
 
      // Enthalpy Balance
      der(m*h) =  port.m_flow * actualStream(port.h_outflow)
-		     + vol * der(p) ; 
+		     + vol * der(p)  + Q_in; 
 
      // Assume gas in tank is well mixed (ie. its contents are at outlet condition)
         port.Xi_outflow = Xi ;

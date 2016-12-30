@@ -5,7 +5,7 @@
 
 /***************     Load Library and Models   *********/
 echo(false);
-N := 10; tEnd := 10; 
+N := 10; tEnd := 1; 
 sim := if system("zenity --question --text Simulate?") == 0 then true else false;
 
 print(getSettings()); print("\n\n****** Loading of packages etc. *****\n\n");
@@ -63,5 +63,8 @@ plot({v1.inlet.m_flow, v2.inlet.m_flow},
 system("sleep 2");
 plot({Node.m},
        curveWidth=2, externalWindow=true, title = "Flow Rate kg/s");
+system("sleep 2");
+plot({Node.Q_in},
+       curveWidth=2, externalWindow=true, title = "Q_in (W)");
 getErrorString();
 
