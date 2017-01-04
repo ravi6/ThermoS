@@ -6,13 +6,17 @@ import ThermoS.Math.Chebychev.*  ;
 /*  Adsorption Column Model 
                   Author: R. Saripalli
                   Date:   10th March 2015 
-                  Last Modified:  12th Jan 2016
+                  Last Modified:  3rd Jan 2017
 */
 
 /*  Extend this model to provide necessary B.Cs and I.Cs
        bedParams Record contains all the necessary input data
        note: the default Record contains bed data for Zeolite X5
              for N2/O2 separation
+
+    Error in Component balance equaiton rectified. The error is in the
+    axial dispersion term expansion. Hopefully this is the last of the bugs.
+    If axial dispersion is significant it will have significant impact.
 */
 
 parameter Real pTol = 1e-3 ;  // b.c change regularized Step Tolerence
@@ -23,6 +27,12 @@ constant Integer N =  10 ;
 // Chebychev package functions used to get all the data needed for collocation
 constant Real [:] zi = sTnots(N-2)        ;  // Interior Collocation Points
 constant Real [:] z  = cat(1, zi, {0, 1}) ;  // Including boundaries
+         0 = if (inlet.m_flow == 0) then Coef_p[:] * vTz[:, N-1]
+             else Coef_p[:] * vT[:, N-1] - p_in ;    // Inlet  pressure 
+          
+          0 = if (outlet.m_flow == 0.0) then Coef_p[:] * vTz[:, N]
+              else Coef_p[:] * vT[:, N] - p_out ;    // outlet  pressure 
+
 
 constant Real [:,:] vT   = transpose(sT(N, z))     ;  // Cheby values (index i) at z (index j)
 constant Real [:,:] vTz  = transpose(sTx(N, z))    ;  // first deriv Cheby values (index i) at z (index j)
@@ -77,8 +87,6 @@ for n in 1:Nc-1 loop
 end for ;
 
 for i in 1:N loop
-      // y[i, Nc] = 1 .- min(1, sum ( y[i, n] for n in 1 : Nc-1 )) ; 
-      //y[i, Nc] = 1 .-  sum ( y[i, n] for n in 1 : Nc-1 ) ; 
        sum ( y[i, n] for n in 1 : Nc ) = 1 ; 
 end for ; 
 
@@ -88,7 +96,8 @@ for n in 1:Nc loop
            Qeq[m, n] = max(0, 
                            bedParams.Qs[n] * ( bedParams.B[n] *  p[m] * y[m, n] ) 
                            / ( bedParams.Tb + p[m] * sum ( bedParams.B[j] *  y[m, j] for j in 1 : Nc) ));
-          S[m, n]    =   bedParams.Km[n] * (Qeq[m, n] - max(0, Q[m, n])) ;  // Rate of adsorption
+          S[m, n]    =  homotopy(actual = bedParams.Km[n] * (Qeq[m, n] - max(0, Q[m, n])),   // Rate of adsorption
+                                 simplified = 0) ;
     end for ;
 end for ;
 
@@ -100,9 +109,9 @@ end for ;
                  +  u[m]  *  Coef_y[:, n] * vTz[:, m] )                  //       u * dy_i/dz)
                  - (1.0 / bedParams.Pe) * (                              //  - (1/Pe)*( 
                     p[m] * Coef_y[:, n] * vTzz[:, m]                     //       p * d2y_i/dz2 
-                    + y[m, n] * (  Coef_p * vTzz[:, m]                   //       + yi * (d2p/dz2 
-                                    + 2 * (Coef_p * vTz[:, m])           //                 + 2 * dp/dz 
-                                        * (Coef_y[:, n] * vTz[:, m]) ))  //                  * dyi/dz))
+                    + y[m, n] * Coef_p * vTzz[:, m]                      //       + yi * d2p/dz2 
+                                    + 2 * (Coef_p * vTz[:, m])           //       + 2 * dp/dz 
+                                        * (Coef_y[:, n] * vTz[:, m])  )  //           * dyi/dz)
              +  ( S[m, n]                                                // ( dQ_i/dt
                   - y[m, n]                                              //    - y_i
                     * sum ( S[m, j] for j in 1 : Nc )                    //         * sum (dQ_i/dt)
@@ -133,6 +142,7 @@ end for; // end of all component balances
 
 // Boundary Conditions
 
+
  for  n in  1:Nc-1 loop       // nth Component 
 
     Coef_y[:, n] * vTz[:, N-1] =  bedParams.Pe * max(u[N-1], 0) * (y[N-1, n] - yin_in[n]) ; // bed inlet
@@ -141,14 +151,15 @@ end for; // end of all component balances
  end for;
 
 // Pressure Boundary Conditions
-//             Coef_p[:] * vT[:, N-1] = p_in   ;    // Inlet  pressure 
-//             Coef_p[:] * vT[:, N]   = p_out    ;    // outlet  pressure 
-
-         0 = if (inlet.m_flow == 0.0) then Coef_p[:] * vTz[:, N-1]
+// When flow is zero we need pressure gradient set not the pressure ... hence this coniditional eqn.
+         0 = if (inlet.m_flow == 0) then Coef_p[:] * vTz[:, N-1]
              else Coef_p[:] * vT[:, N-1] - p_in ;    // Inlet  pressure 
           
           0 = if (outlet.m_flow == 0.0) then Coef_p[:] * vTz[:, N]
               else Coef_p[:] * vT[:, N] - p_out ;    // outlet  pressure 
+
+         //    Coef_p[:] * vT[:, N-1] = p_in   ;    // Inlet  pressure 
+         //    Coef_p[:] * vT[:, N]   = p_out    ;    // outlet  pressure 
 
 //        Coef_p[:] * vTz[:, N]   = 0;    //  (zero gradient = no flow)
 
@@ -194,4 +205,15 @@ end partAdsorber;
 
     Coef_y[:, n] * vTz[:, N]   =  ThermoS.Math.regStep(p[N] - p[N-2],
                                           bedParams.Pe * u[N] * (y[N, n] - yin_out[n]), 0.0, pTol) ; // bed outlet 
+      // y[i, Nc] = 1 .- min(1, sum ( y[i, n] for n in 1 : Nc-1 )) ; 
+      //y[i, Nc] = 1 .-  sum ( y[i, n] for n in 1 : Nc-1 ) ; 
 */
+/*
+         0 = if (inlet.m_flow == 0) then Coef_p[:] * vTz[:, N-1]
+             else Coef_p[:] * vT[:, N-1] - p_in ;    // Inlet  pressure 
+          
+          0 = if (outlet.m_flow == 0.0) then Coef_p[:] * vTz[:, N]
+              else Coef_p[:] * vT[:, N] - p_out ;    // outlet  pressure 
+
+*/
+
