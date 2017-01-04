@@ -157,6 +157,22 @@ function printVars
                  end for;
 end printVars;
 
+function getVars
+// Get a bunch of variables at a given time
+
+     input String  resFile ;
+     input String[:]   varNames ;
+     input Real    sTime   ;
+     output String str ;
+
+     algorithm
+                str := "";
+                for k in 1:size(varNames,1) loop
+                   str := str + String(val(stringVariableName(varNames[k]), sTime, resFile));
+                   str := str + " " ;
+                 end for;
+end getVars;
+
 package DataSave  "Contains Matlab Friendly Save calls"
 
     replaceable constant  String outFile = "data" ;
