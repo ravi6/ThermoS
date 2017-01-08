@@ -6,13 +6,17 @@ import ThermoS.Math.Chebychev.*  ;
 /*  Adsorption Column Model 
                   Author: R. Saripalli
                   Date:   10th March 2015 
-                  Last Modified:  12th Jan 2016
+                  Last Modified:  3rd Jan 2017
 */
 
 /*  Extend this model to provide necessary B.Cs and I.Cs
        bedParams Record contains all the necessary input data
        note: the default Record contains bed data for Zeolite X5
              for N2/O2 separation
+
+    Error in Component balance equaiton rectified. The error is in the
+    axial dispersion term expansion. Hopefully this is the last of the bugs.
+    If axial dispersion is significant it will have significant impact.
 */
 
 parameter Real pTol = 1e-3 ;  // b.c change regularized Step Tolerence
@@ -99,9 +103,9 @@ end for ;
                  +  u[m]  *  Coef_y[:, n] * vTz[:, m] )                  //       u * dy_i/dz)
                  - (1.0 / bedParams.Pe) * (                              //  - (1/Pe)*( 
                     p[m] * Coef_y[:, n] * vTzz[:, m]                     //       p * d2y_i/dz2 
-                    + y[m, n] * (  Coef_p * vTzz[:, m]                   //       + yi * (d2p/dz2 
-                                    + 2 * (Coef_p * vTz[:, m])           //                 + 2 * dp/dz 
-                                        * (Coef_y[:, n] * vTz[:, m]) ))  //                  * dyi/dz))
+                    + y[m, n] * Coef_p * vTzz[:, m]                      //       + yi * d2p/dz2 
+                                    + 2 * (Coef_p * vTz[:, m])           //       + 2 * dp/dz 
+                                        * (Coef_y[:, n] * vTz[:, m])  )  //           * dyi/dz)
              +  ( S[m, n]                                                // ( dQ_i/dt
                   - y[m, n]                                              //    - y_i
                     * sum ( S[m, j] for j in 1 : Nc )                    //         * sum (dQ_i/dt)
