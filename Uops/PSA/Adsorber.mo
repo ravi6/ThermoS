@@ -93,7 +93,7 @@ equation
 
 
 // Note flow convetion dictates that outflows are negative 
-  outlet.m_flow = - sign(u[N])  * bedParams.Uref * bedParams.voidage
+  outlet.m_flow = - sign(u[N])  * bedParams.Uref * bedParams.csArea * bedParams.voidage
                    * (max(-u[N], 0) * Medium.density(outlet_inState)  +
                       max(u[N], 0) *  Medium.density(outlet_outState));
 

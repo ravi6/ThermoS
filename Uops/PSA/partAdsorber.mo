@@ -92,8 +92,10 @@ for n in 1:Nc loop
            Qeq[m, n] = max(0, 
                            bedParams.Qs[n] * ( bedParams.B[n] *  p[m] * y[m, n] ) 
                            / ( bedParams.Tb + p[m] * sum ( bedParams.B[j] *  y[m, j] for j in 1 : Nc) ));
-          S[m, n]    =  homotopy(actual = bedParams.Km[n] * (Qeq[m, n] - max(0, Q[m, n])),   // Rate of adsorption
-                                 simplified = 0) ;
+          S[m, n]    =  bedParams.Km[n] * (Qeq[m, n] - max(0, Q[m, n]));   // Rate of adsorption
+                       
+          //S[m, n]    =  homotopy(actual = bedParams.Km[n] * (Qeq[m, n] - max(0, Q[m, n])),   // Rate of adsorption
+           //                      simplified = 0) ;
     end for ;
 end for ;
 
