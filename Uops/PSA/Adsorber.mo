@@ -5,7 +5,7 @@ model Adsorber extends partAdsorber ;
 Author: Ravi Saripalli
 Version:  1.0
 Date   : 3rd Jul 2015
-Last Modfied :
+Last Modfied : 16th Jan 2017
 */
 
 /* A full blown PSA Adsorber with two ports 
@@ -16,6 +16,8 @@ Last Modfied :
           -  We assume that Medium uses structurally independant composition spec.
              that is only Nc-1 compositions are evaluted and And the composition of
              the last element is = 1.0 - sum(yi)
+
+     note that time in equation here is non-dimenstion   t_star = t * Uref/L
 */
 
   import Modelica.Fluid.Interfaces.* ;
@@ -84,13 +86,14 @@ equation
   outlet_outState = Medium.setState_pTX(outlet.p, bedParams.Tbed, outlet.Xi_outflow);
 
 
-  inlet.m_flow = sign(u[N-1]) * bedParams.Uref * bedParams.csArea 
+// Note: u is inerstetial velocity
+  inlet.m_flow = sign(u[N-1]) * bedParams.Uref * bedParams.csArea * bedParams.voidage
                    * (max(u[N-1], 0) * Medium.density(inlet_inState) +  
                        max(-u[N-1], 0) * Medium.density(inlet_outState)) ;
 
 
 // Note flow convetion dictates that outflows are negative 
-  outlet.m_flow = - sign(u[N])  * bedParams.Uref * bedParams.csArea 
+  outlet.m_flow = - sign(u[N])  * bedParams.Uref * bedParams.voidage
                    * (max(-u[N], 0) * Medium.density(outlet_inState)  +
                       max(u[N], 0) *  Medium.density(outlet_outState));
 

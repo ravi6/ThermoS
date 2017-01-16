@@ -17,6 +17,8 @@ import ThermoS.Math.Chebychev.*  ;
     Error in Component balance equaiton rectified. The error is in the
     axial dispersion term expansion. Hopefully this is the last of the bugs.
     If axial dispersion is significant it will have significant impact.
+
+    Also, note that time in equation here is non-dimenstion   t_star = t * Uref/L
 */
 
 parameter Real pTol = 1e-3 ;  // b.c change regularized Step Tolerence
@@ -27,12 +29,6 @@ constant Integer N =  10 ;
 // Chebychev package functions used to get all the data needed for collocation
 constant Real [:] zi = sTnots(N-2)        ;  // Interior Collocation Points
 constant Real [:] z  = cat(1, zi, {0, 1}) ;  // Including boundaries
-         0 = if (inlet.m_flow == 0) then Coef_p[:] * vTz[:, N-1]
-             else Coef_p[:] * vT[:, N-1] - p_in ;    // Inlet  pressure 
-          
-          0 = if (outlet.m_flow == 0.0) then Coef_p[:] * vTz[:, N]
-              else Coef_p[:] * vT[:, N] - p_out ;    // outlet  pressure 
-
 
 constant Real [:,:] vT   = transpose(sT(N, z))     ;  // Cheby values (index i) at z (index j)
 constant Real [:,:] vTz  = transpose(sTx(N, z))    ;  // first deriv Cheby values (index i) at z (index j)
@@ -151,17 +147,19 @@ end for; // end of all component balances
  end for;
 
 // Pressure Boundary Conditions
-// When flow is zero we need pressure gradient set not the pressure ... hence this coniditional eqn.
-         0 = if (inlet.m_flow == 0) then Coef_p[:] * vTz[:, N-1]
-             else Coef_p[:] * vT[:, N-1] - p_in ;    // Inlet  pressure 
-          
-          0 = if (outlet.m_flow == 0.0) then Coef_p[:] * vTz[:, N]
-              else Coef_p[:] * vT[:, N] - p_out ;    // outlet  pressure 
-
-         //    Coef_p[:] * vT[:, N-1] = p_in   ;    // Inlet  pressure 
-         //    Coef_p[:] * vT[:, N]   = p_out    ;    // outlet  pressure 
+             Coef_p[:] * vT[:, N-1] = p_in   ;    // Inlet  pressure 
+             Coef_p[:] * vT[:, N]   = p_out    ;    // outlet  pressure 
 
 //        Coef_p[:] * vTz[:, N]   = 0;    //  (zero gradient = no flow)
+
+// We need the following to cover noflow conditions otherwise the above pressure spec. would be enough
+/*
+         0 = if (inlet.m_flow <> 0) then Coef_p[:] * vTz[:, N-1]
+             else Coef_p[:] * vT[:, N-1] - p_in ;    // Inlet  pressure 
+          
+          0 = if (outlet.m_flow <>  0.0) then Coef_p[:] * vTz[:, N]
+              else Coef_p[:] * vT[:, N] - p_out ;    // outlet  pressure 
+*/
 
 end partAdsorber;
 

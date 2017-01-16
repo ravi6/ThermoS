@@ -8,7 +8,7 @@ parameter Fraction pratChoke  = 0.5              ;  // Maximum pressure ratio at
 parameter Boolean  Compressible = true           ;  // Default to compressible flow
                                                   
 
-Percent      po    (stateSelect=StateSelect.always)           ;               // Valve % Open  
+Percent      po    (start=1.0)           ;               // Valve % Open  
 Fraction     charF (start=1.0)           ;               // Characteristic Multiplier
 Fraction     prat  (start=1.0)           ;
 
