@@ -2,17 +2,18 @@ within ThermoS.Math;
 // Date: 3rd Nov. 2016
 // Author: Ravi Saripalli
 
-function sMin0
-/*  A smooth Min(x,0) function, C1 continuous
+function sMin
+/*  A smooth Min(x,y) function, C1 continuous
     Courtesy of GAMS
 */
 
 input Real x        ;
+input Real y        ;
 input Real eps      ;  // Tolerance of error
-output Real y       ;
+output Real z       ;
 
 
 algorithm
- y := - ( sqrt( (x * x) + (eps * eps) )  - x  ) / 2 ;
+ z := - ( sqrt((x - y)^2 + eps^2 ) - (x - y) ) / 2 ;
 annotation(Inline="true", smoothOrder=2) ;
-end sMin0 ; 
+end sMin ; 

@@ -20,6 +20,7 @@ Last Modfied :
 
   import Modelica.Fluid.Interfaces.* ;
   import Modelica.Media.Interfaces.* ;
+  import ThermoS.Math.max ;
 
 
   bedParamsRec   bedParams ;

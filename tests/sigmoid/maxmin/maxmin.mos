@@ -1,0 +1,27 @@
+loadFile("/home/ravi/hobby/chem/om/ThermoS/package.mo");
+getErrorString();
+loadString( "
+model mmm
+
+Real ymin, ymax ;
+Real x(start=-1) ;
+
+equation
+  der(x) = 1 ;
+  ymin = ThermoS.Math.sMin(x,5,0.01) ;
+  ymax = ThermoS.Math.sMax(x,3,0.01) ;
+
+initial equation
+  x = -10 ;
+end mmm;
+
+");
+getErrorString();
+cd("./work");
+simulate(mmm,stopTime=20,numberOfIntervals=10000);
+getErrorString();
+str := "OMPlot --plotParametric --curve-width=2 --filename=\"mmm_res.mat\" {x,ymin}" ;
+system(str);
+str := "OMPlot --plotParametric --curve-width=2 --filename=\"mmm_res.mat\" {x,ymax}" ;
+system(str);
+

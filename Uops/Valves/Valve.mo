@@ -34,7 +34,7 @@ equation
 
 
     if (Compressible) then
-           inlet.m_flow = cv * charF *  sqrt(med.d * max(inlet.p, outlet.p))
+           inlet.m_flow = cv * max(0,charF) *  sqrt(max(0,med.d)) * sqrt(max(inlet.p, outlet.p))
                        * sign(inlet.p - outlet.p)  * regRoot(1 - max(prat, 0.5), dpTol ) ; 
   //         inlet.m_flow = cv * charF *  500 * (inlet.p - outlet.p) ;
    
