@@ -38,19 +38,16 @@ type Frac = Real(min=0, max=1, start=0.5, nominal=1);
 type Vel  = Real(min=-10, max=10, nominal = 0.1, start = 0) ;
 type Conc = Real(min=0, max=100, nominal = 1, start = 1.0); 
 
-type QCoef = Real(min=-300, max=300) ;  // Don't bad guess these lest you have problems
-type yCoef = Real(min=-1, max=1) ;  // Don't bad guess these lest you have problems
-type pCoef = Real(min=-15, max=15) ;  // Don't bad guess these lest you have problems
-type uCoef = Real(min=-15, max=15) ;  // Don't bad guess these lest you have problems
+type Coef = Real(min=-300, max=300) ;  // Don't bad guess these lest you have problems
 
-type Src  = Real(min=-500, max=500, start=0); // , start = 0); 
+type Src  = Real(min=-500, max=500, start=0); 
 type Press = Real(min=1e-2, max=20, start=1, nominal=1);
 type Temp = Real(min=0.9, max=5, start=1, nominal=1); 
 
-yCoef [N, Nc-1] Coef_y   ;    // Coeffs. of collocation for gas mole fraction
-pCoef [N]       Coef_p   ;    // Coeffs. of collocation for gas pressure
-uCoef [N]       Coef_u   ;    // Coeffs. of collocation for gas pressure
-QCoef [N, Nc]   Coef_Q   ;    // Coeffs. of collocation for adsorbed concentration
+Coef [N, Nc-1] Coef_y   ;    // Coeffs. of collocation for gas mole fraction
+Coef [N]       Coef_p   ;    // Coeffs. of collocation for gas pressure
+Coef [N]       Coef_u   ;    // Coeffs. of collocation for gas pressure
+Coef [N, Nc]   Coef_Q   ;    // Coeffs. of collocation for adsorbed concentration
 
 Frac   [N, Nc]   y(each stateSelect=StateSelect.always)      ;    // Gas mole fractions at collocation points
 Vel    [N]       u      ;   // Gas velocity at collocation pionts
