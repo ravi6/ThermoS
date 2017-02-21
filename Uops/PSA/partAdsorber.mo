@@ -39,7 +39,7 @@ constant Real [:]   vTi  = sTi(N)                  ;  // Cheby integrals over 0 
 type Frac = Real(min=0, max=1, start=0.5, nominal=1);
 type Vel  = Real(min=-130, max=130, nominal = 0.1, start = 0) ;
 type Conc = Real(min=0, max=100, nominal = 1, start = 1.0); 
-type Coef = Real(min=-120, max=120) ;  // Don't bad guess these lest you have problems
+type Coef = Real(min=-10, max=10) ;  // Don't bad guess these lest you have problems
 type Src  = Real(min=-200, max=200, start=0); // , start = 0); 
 type Press = Real(min=1e-2, max=20, start=1, nominal=1);
 type Temp = Real(min=0.9, max=5, start=1, nominal=1); 
@@ -49,12 +49,12 @@ Coef [N]       Coef_p   ;    // Coeffs. of collocation for gas pressure
 Coef [N]       Coef_u   ;    // Coeffs. of collocation for gas pressure
 Coef [N, Nc]   Coef_Q   ;    // Coeffs. of collocation for adsorbed concentration
 
-Frac   [N, Nc]   y(each stateSelect=StateSelect.always)      ;    // Gas mole fractions at collocation points
+Frac   [N, Nc]   y ; //(each stateSelect=StateSelect.always)      ;    // Gas mole fractions at collocation points
 Vel    [N]       u      ;   // Gas velocity at collocation pionts
-Press  [N]       p(each stateSelect=StateSelect.always)     ;   // Gas pressure at collocation pionts
+Press  [N]       p ; //(each stateSelect=StateSelect.always)     ;   // Gas pressure at collocation pionts
 
 
-Conc [N, Nc]   Q(each stateSelect=StateSelect.always)        ;   // Adsorbed concentraion in solid  at collocation points
+Conc [N, Nc]   Q ; //(each stateSelect=StateSelect.always)        ;   // Adsorbed concentraion in solid  at collocation points
 Conc [N, Nc]   Qeq      ;   // Adsorbed eqilibrium concentraion in solid  at collocation points
 Src  [N, Nc]   S        ;   // Adsorbed rate  at collocation points
 
@@ -89,10 +89,9 @@ end for ;
 for n in 1:Nc loop              
       Q[:, n] =  Coef_Q[:, n] * vT   ;
     for m in 1:N loop
-           Qeq[m, n] = max(0, 
-                           bedParams.Qs[n] * ( bedParams.B[n] *  p[m] * y[m, n] ) 
-                           / ( bedParams.Tb + p[m] * sum ( bedParams.B[j] *  y[m, j] for j in 1 : Nc) ));
-          S[m, n]    =  bedParams.Km[n] * (Qeq[m, n] - max(0, Q[m, n]));   // Rate of adsorption
+           Qeq[m, n] = bedParams.Qs[n] * ( bedParams.B[n] *  p[m] * y[m, n] ) 
+                           / ( bedParams.Tb + p[m] * sum ( bedParams.B[j] *  y[m, j] for j in 1 : Nc) );
+          S[m, n]    =  (bedParams.Km[n]/p[m]) * (Qeq[m, n] -  Q[m, n]);   // Rate of adsorption
                        
           //S[m, n]    =  homotopy(actual = bedParams.Km[n] * (Qeq[m, n] - max(0, Q[m, n])),   // Rate of adsorption
            //                      simplified = 0) ;
