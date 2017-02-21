@@ -7,7 +7,7 @@ model Valve                        // A control Valve
 
 parameter Vchar vchar = Vchar.Linear             ;  // Valve Charachteristics (Linear by default)
 parameter Fraction pratChoke  = 0.5              ;  // Maximum pressure ratio at choking point
-parameter Boolean  Compressible = true           ;  // Default to compressible flow
+parameter Boolean  Compressible = true            ;  // Default to compressible flow
                                                   
 
 Percent      po    (start=0.0)            ;               // Valve % Open  

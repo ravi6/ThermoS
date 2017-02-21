@@ -2,6 +2,7 @@ within ThermoS.Uops.PSA ;
 
 partial model partAdsorber
 import ThermoS.Math.Chebychev.*  ;
+import ThermoS.Math.clip ;
 
 /*  Adsorption Column Model 
                   Author: R. Saripalli
@@ -38,10 +39,10 @@ type Frac = Real(min=0, max=1, start=0.5, nominal=1);
 type Vel  = Real(min=-10, max=10, nominal = 0.1, start = 0) ;
 type Conc = Real(min=0, max=100, nominal = 1, start = 1.0); 
 
-type Coef = Real(min=-300, max=300) ;  // Don't bad guess these lest you have problems
+type Coef = Real(min=-200, max=200) ;  // Don't bad guess these lest you have problems
 
-type Src  = Real(min=-500, max=500, start=0); 
-type Press = Real(min=1e-2, max=20, start=1, nominal=1);
+type Src  = Real(min=-50, max=50, start=0); 
+type Press = Real(min=1e-2, max=10, start=1, nominal=1);
 type Temp = Real(min=0.9, max=5, start=1, nominal=1); 
 
 Coef [N, Nc-1] Coef_y   ;    // Coeffs. of collocation for gas mole fraction
@@ -49,12 +50,12 @@ Coef [N]       Coef_p   ;    // Coeffs. of collocation for gas pressure
 Coef [N]       Coef_u   ;    // Coeffs. of collocation for gas pressure
 Coef [N, Nc]   Coef_Q   ;    // Coeffs. of collocation for adsorbed concentration
 
-Frac   [N, Nc]   y(each stateSelect=StateSelect.always)      ;    // Gas mole fractions at collocation points
+Frac   [N, Nc]   y; //(each stateSelect=StateSelect.always)      ;    // Gas mole fractions at collocation points
 Vel    [N]       u      ;   // Gas velocity at collocation pionts
-Press  [N]       p(each stateSelect=StateSelect.always)     ;   // Gas pressure at collocation pionts
+Press  [N]       p; //(each stateSelect=StateSelect.always)     ;   // Gas pressure at collocation pionts
 
 
-Conc [N, Nc]   Q(each stateSelect=StateSelect.always)        ;   // Adsorbed concentraion in solid  at collocation points
+Conc [N, Nc]   Q; //(each stateSelect=StateSelect.always)        ;   // Adsorbed concentraion in solid  at collocation points
 Conc [N, Nc]   Qeq      ;   // Adsorbed eqilibrium concentraion in solid  at collocation points
 Src  [N, Nc]   S        ;   // Adsorbed rate  at collocation points
 
@@ -64,6 +65,7 @@ Press            p_in(start=1), p_out(start=1)       ;    // Gas pressure at ups
 
 
 Real [N] zs   ;  // Including boundaries
+
 
 equation
 
@@ -88,13 +90,15 @@ end for ;
 
 for n in 1:Nc loop              
       Q[:, n] =  Coef_Q[:, n] * vT   ;
+end for ;
+
+for n in 1:Nc loop              
     for m in 1:N loop
-           Qeq[m, n] = max(0, 
-                           bedParams.Qs[n] * ( bedParams.B[n] *  p[m] * y[m, n] ) 
-                           / ( bedParams.Tb + p[m] * sum ( bedParams.B[j] *  y[m, j] for j in 1 : Nc) ));
-//          S[m, n]    =  homotopy(actual = bedParams.Km[n] * (Qeq[m, n] - max(0, Q[m, n])),   // Rate of adsorption
-//                                 simplified = 0) ;
-           S[m, n]    =   bedParams.Km[n] * (Qeq[m, n] - max(0, Q[m, n]));   // Rate of adsorption
+           Qeq[m, n] = bedParams.Qs[n] * ( bedParams.B[n] *  p[m] * y[m, n] ) 
+                           / ( bedParams.Tb + p[m] * sum ( bedParams.B[j] *  y[m, j] for j in 1 : Nc) );
+
+// Note: Km reduces with pressure as Diffisivity changes with pressure
+           S[m, n]   =   (bedParams.Km[n]) * (Qeq[m, n] -  Q[m, n]);   // Rate of adsorption
     end for ;
 end for ;
 
@@ -119,12 +123,11 @@ end for; // end of all component balances
 
 // Total Mass Balance Equaiton 
      for m in 1:N-2 loop      // interior Collocation
-       der (Coef_p) * vT[:, m]                  // dp/dt  
+       der (Coef_p) * vT[:, m]                 // dp/dt  
             + u[m] * Coef_p * vTz[:, m]        // + u * dp/dz
-//            + p[m] * ( - (1.0 / bedParams.Kappa) * Coef_p * vTzz[:, m] )        // + p * du/dz
-              + p[m] * Coef_u * vTz[:, m]                                         // + p * du/dz
-               + bedParams.Epsilon                                      // (1-e)/e
-                    *  bedParams.Tb * sum ( S[m, j] for j in 1 : Nc )   //    T     * sum (dQ_i/dt)
+              + p[m] * Coef_u * vTz[:, m]      // + p * du/dz
+               + bedParams.Epsilon             // (1-e)/e
+                    *  bedParams.Tb * sum ( S[m, j] for j in 1 : Nc )   //  T * sum (dQ_i/dt)
                = 0 ; 
      end for;
 
@@ -153,6 +156,8 @@ end for; // end of all component balances
              Coef_p[:] * vT[:, N]   = p_out    ;    // outlet  pressure 
 
 //        Coef_p[:] * vTz[:, N]   = 0;    //  (zero gradient = no flow)
+
+
 
 end partAdsorber;
 
