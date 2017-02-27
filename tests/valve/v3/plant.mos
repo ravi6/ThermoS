@@ -5,11 +5,12 @@
 
 /***************     Load Library and Models   *********/
 echo(false);
-N := 10; tEnd := 10; 
+N := 10; tEnd := 1; 
 sim := if system("zenity --question --text Simulate?") == 0 then true else false;
 
 print(getSettings()); print("\n\n****** Loading of packages etc. *****\n\n");
-ThermoLib := "/home/ravi/DSTO/projects/Om/ThermoS/package.mo";
+ThermoLib := "/home/ravi/hobby/chem/om/ThermoS/package.mo";
+
 for f in {ThermoLib, "plant.mo"} loop
 	if(loadFile(f)) then
 	   print ( f + " Loaded\n");
@@ -32,6 +33,7 @@ print("Cleaning Up Work Area\n") ; system("rm work/*"); cd("./work");   system("
 
 flags :=  "-lv=LOG_LS,LOG_INIT,LOG_NLS  -w " ;  
 print("Starting the Plant \n");
+echo(true);
 simulate(plant, startTime=0, outputFormat="mat", 
          stopTime=tEnd,   // tolerance=1e-3, iniStepSize=iniStepSize, 
          simflags=flags) ;
@@ -57,25 +59,16 @@ end if ;  // Skip simulation
 print("Plotting\n");
 
 print("Plotting\n");
-//plot({valve[1].inlet.m_flow, valve[2].inlet.m_flow},
-//       curveWidth=2, externalWindow=true, title = "Flow Rate kg/s");
+plot({v1.po, v1.spo},
+       curveWidth=2, externalWindow=true, title = "opening");
+system("sleep 2");
 plot({v1.inlet.m_flow, v2.inlet.m_flow},
        curveWidth=2, externalWindow=true, title = "Flow Rate kg/s");
 system("sleep 2");
-plot({v1.po, v2.po},
-       curveWidth=2, externalWindow=true, title = "Percent Open");
+plot({Node.m},
+       curveWidth=2, externalWindow=true, title = "Flow Rate kg/s");
 system("sleep 2");
+plot({Node.Q_in},
+       curveWidth=2, externalWindow=true, title = "Q_in (W)");
 getErrorString();
 
-
-
-//setCommandLineOptions("+d=bltdump"); // pickup initialization errrors
-//setCommandLineOptions("+d=addDerAliases");  // Don't know this
-//setCommandLineOptions("+d=noTearing");
-//flags := flags + " -overrideFile ../init ";
-//OpenModelica.Scripting.setMatchingAlgorithm("omc");
-// OpenModelica.Scripting.setIndexReductionMethod("dummyDerivatives");
-//setCommandLineOptions("+d=noTearing");
-//setCommandLineOptions("+d=dumpdaelow,bltdump");
-// setCommandLineOptions("+d=bltdump");
-//OpenModelica.Scripting.setTearingMethod("omcTearing");

@@ -22,8 +22,11 @@ Last Modfied : 16th Jan 2017
 
   import Modelica.Fluid.Interfaces.* ;
   import Modelica.Media.Interfaces.* ;
+  import ThermoS.Math.max ;
+
 
   bedParamsRec   bedParams ;
+
   // A packedbed adsorber with two ports (we want Medium to use reducedX=false)
   replaceable package Medium = PartialMixtureMedium ;
 
@@ -85,12 +88,10 @@ equation
   inlet_outState  = Medium.setState_pTX(inlet.p, bedParams.Tbed, inlet.Xi_outflow);
   outlet_outState = Medium.setState_pTX(outlet.p, bedParams.Tbed, outlet.Xi_outflow);
 
-
-// Note: u is inerstetial velocity
+// Note that u is interstetial gas velociity
   inlet.m_flow = sign(u[N-1]) * bedParams.Uref * bedParams.csArea * bedParams.voidage
                    * (max(u[N-1], 0) * Medium.density(inlet_inState) +  
                        max(-u[N-1], 0) * Medium.density(inlet_outState)) ;
-
 
 // Note flow convetion dictates that outflows are negative 
   outlet.m_flow = - sign(u[N])  * bedParams.Uref * bedParams.csArea * bedParams.voidage

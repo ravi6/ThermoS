@@ -2,6 +2,7 @@ within ThermoS.Uops.PSA ;
 
 partial model partAdsorber
 import ThermoS.Math.Chebychev.*  ;
+import ThermoS.Math.clip ;
 
 /*  Adsorption Column Model 
                   Author: R. Saripalli
@@ -14,7 +15,7 @@ import ThermoS.Math.Chebychev.*  ;
        note: the default Record contains bed data for Zeolite X5
              for N2/O2 separation
 
-    Error in Component balance equaiton rectified. The error is in the
+    Error in Component balance equation rectified. The error is in the
     axial dispersion term expansion. Hopefully this is the last of the bugs.
     If axial dispersion is significant it will have significant impact.
 
@@ -37,8 +38,10 @@ constant Real [:]   vTi  = sTi(N)                  ;  // Cheby integrals over 0 
 
 // Add some limits to variables (might assist in convergence ???)
 type Frac = Real(min=0, max=1, start=0.5, nominal=1);
-type Vel  = Real(min=-130, max=130, nominal = 0.1, start = 0) ;
+type Vel  = Real(min=-10, max=10, nominal = 0.1, start = 0) ;
 type Conc = Real(min=0, max=100, nominal = 1, start = 1.0); 
+
+
 type Coef = Real(min=-10, max=10) ;  // Don't bad guess these lest you have problems
 type Src  = Real(min=-200, max=200, start=0); // , start = 0); 
 type Press = Real(min=1e-2, max=20, start=1, nominal=1);
@@ -49,12 +52,11 @@ Coef [N]       Coef_p   ;    // Coeffs. of collocation for gas pressure
 Coef [N]       Coef_u   ;    // Coeffs. of collocation for gas pressure
 Coef [N, Nc]   Coef_Q   ;    // Coeffs. of collocation for adsorbed concentration
 
-Frac   [N, Nc]   y ; //(each stateSelect=StateSelect.always)      ;    // Gas mole fractions at collocation points
-Vel    [N]       u      ;   // Gas velocity at collocation pionts
-Press  [N]       p ; //(each stateSelect=StateSelect.always)     ;   // Gas pressure at collocation pionts
+Frac   [N, Nc]   y      ; //(each stateSelect=StateSelect.always);    // Gas mole fractions at collocation points
+Vel    [N]       u      ; // Gas velocity at collocation pionts
+Press  [N]       p      ; //(each stateSelect=StateSelect.always);   // Gas pressure at collocation pionts
+Conc   [N, Nc]   Q      ; //(each stateSelect=StateSelect.always);   // Adsorbed concentraion in solid  at collocation points
 
-
-Conc [N, Nc]   Q ; //(each stateSelect=StateSelect.always)        ;   // Adsorbed concentraion in solid  at collocation points
 Conc [N, Nc]   Qeq      ;   // Adsorbed eqilibrium concentraion in solid  at collocation points
 Src  [N, Nc]   S        ;   // Adsorbed rate  at collocation points
 
@@ -62,13 +64,11 @@ Src  [N, Nc]   S        ;   // Adsorbed rate  at collocation points
 Frac   [Nc]      yin_in, yin_out       ;    // Gas mole fractions (z=0- & z=1+ used when flow is into bed)
 Press            p_in(start=1), p_out(start=1)       ;    // Gas pressure at upstream (z=0, z=1)
 
-
 Real [N] zs   ;  // Including boundaries
 
 equation
 
 zs = z ;       // I need this as I can't access constants in post processing
-
 
 // Nodal Values of pressure and velocity
 p =    Coef_p * vT ;
@@ -88,13 +88,15 @@ end for ;
 
 for n in 1:Nc loop              
       Q[:, n] =  Coef_Q[:, n] * vT   ;
+end for ;
+
+for n in 1:Nc loop              
     for m in 1:N loop
            Qeq[m, n] = bedParams.Qs[n] * ( bedParams.B[n] *  p[m] * y[m, n] ) 
                            / ( bedParams.Tb + p[m] * sum ( bedParams.B[j] *  y[m, j] for j in 1 : Nc) );
+
+         // Note: Km reduces with pressure as Diffisivity changes with pressure 
           S[m, n]    =  (bedParams.Km[n]/p[m]) * (Qeq[m, n] -  Q[m, n]);   // Rate of adsorption
-                       
-          //S[m, n]    =  homotopy(actual = bedParams.Km[n] * (Qeq[m, n] - max(0, Q[m, n])),   // Rate of adsorption
-           //                      simplified = 0) ;
     end for ;
 end for ;
 
@@ -119,11 +121,11 @@ end for; // end of all component balances
 
 // Total Mass Balance Equaiton 
      for m in 1:N-2 loop      // interior Collocation
-       der (Coef_p) * vT[:, m]                  // dp/dt  
+       der (Coef_p) * vT[:, m]                 // dp/dt  
             + u[m] * Coef_p * vTz[:, m]        // + u * dp/dz
-            + p[m] * ( - (1.0 / bedParams.Kappa) * Coef_p * vTzz[:, m] )        // + p * du/dz
-               + bedParams.Epsilon                                      // (1-e)/e
-                    *  bedParams.Tb * sum ( S[m, j] for j in 1 : Nc )   //    T     * sum (dQ_i/dt)
+              + p[m] * Coef_u * vTz[:, m]      // + p * du/dz
+               + bedParams.Epsilon             // (1-e)/e
+                    *  bedParams.Tb * sum ( S[m, j] for j in 1 : Nc )   //  T * sum (dQ_i/dt)
                = 0 ; 
      end for;
 
@@ -153,66 +155,4 @@ end for; // end of all component balances
 
 //        Coef_p[:] * vTz[:, N]   = 0;    //  (zero gradient = no flow)
 
-// We need the following to cover noflow conditions otherwise the above pressure spec. would be enough
-/*
-         0 = if (inlet.m_flow <> 0) then Coef_p[:] * vTz[:, N-1]
-             else Coef_p[:] * vT[:, N-1] - p_in ;    // Inlet  pressure 
-          
-          0 = if (outlet.m_flow <>  0.0) then Coef_p[:] * vTz[:, N]
-              else Coef_p[:] * vT[:, N] - p_out ;    // outlet  pressure 
-*/
-
 end partAdsorber;
-
-
-
-/*
-    Coef_y[:, n] * vTz[:, N-1] =  if(u[N-1] > 0) then // (p_in - p[1]), 
-                                      bedParams.Pe * u[N-1] * (y[N-1, n] - yin_in[n])
-                                  else  0 ; // bed inlet
-
-    Coef_y[:, n] * vTz[:, N]   =  if(u[N] > 0) then   // (p[N] - p_out), 
-                                    0 
-                                  else bedParams.Pe * u[N] * (y[N, n] - yin_out[n]) ; // bed outlet 
-
-    Coef_y[:, n] * vTz[:, N-1] =  regStep(u[N-1]-uTol, // (p_in - p[1]), 
-                                      bedParams.Pe * u[N-1] * (y[N-1, n] - yin_in[n]),  0, uTol) ; // bed inlet
-
-    Coef_y[:, n] * vTz[:, N]   =  regStep(u[N]+uTol,    // (p[N] - p_out), 
-                                    0,  bedParams.Pe * u[N] * (y[N, n] - yin_out[n]), uTol) ; // bed outlet 
-
-    Coef_y[:, n] * vTz[:, N-1] =  ThermoS.Math.regStep(u[N-1]-uTol, // (p_in - p[1]), 
-                                      bedParams.Pe * u[N-1] * (y[N-1, n] - yin_in[n]),  0, uTol) ; // bed inlet
-
-    Coef_y[:, n] * vTz[:, N]   =  ThermoS.Math.regStep(u[N]+uTol,    // (p[N] - p_out), 
-                                    0,  bedParams.Pe * u[N] * (y[N, n] - yin_out[n]), uTol) ; // bed outlet 
-             Coef_p[:] * vT[:, N-1] = p_in   ;    // Inlet  pressure 
-             Coef_p[:] * vT[:, N]   = p_out    ;    // outlet  pressure 
-
-    Coef_y[:, n] * vTz[:, N-1] =  if(u[N-1] > 0) then 
-                                      bedParams.Pe * u[N-1] * (y[N-1, n] - yin_in[n])
-                                  else  0 ; // bed inlet
-
-    Coef_y[:, n] * vTz[:, N]   =  if(u[N] >= 0) then   
-                                    0 
-                                  else bedParams.Pe * u[N] * (y[N, n] - yin_out[n]) ; // bed outlet 
-
-// Smoothedout B.C changes during flow reversal
-
-    Coef_y[:, n] * vTz[:, N-1] =  ThermoS.Math.regStep(p[N-1] - p[1], 
-                                          bedParams.Pe * u[N-1] * (y[N-1, n] - yin_in[n]), 0.0, pTol) ; // bed inlet
-
-    Coef_y[:, n] * vTz[:, N]   =  ThermoS.Math.regStep(p[N] - p[N-2],
-                                          bedParams.Pe * u[N] * (y[N, n] - yin_out[n]), 0.0, pTol) ; // bed outlet 
-      // y[i, Nc] = 1 .- min(1, sum ( y[i, n] for n in 1 : Nc-1 )) ; 
-      //y[i, Nc] = 1 .-  sum ( y[i, n] for n in 1 : Nc-1 ) ; 
-*/
-/*
-         0 = if (inlet.m_flow == 0) then Coef_p[:] * vTz[:, N-1]
-             else Coef_p[:] * vT[:, N-1] - p_in ;    // Inlet  pressure 
-          
-          0 = if (outlet.m_flow == 0.0) then Coef_p[:] * vTz[:, N]
-              else Coef_p[:] * vT[:, N] - p_out ;    // outlet  pressure 
-
-*/
-

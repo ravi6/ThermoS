@@ -1,11 +1,11 @@
 model plant
 /*
   Author: Ravi Saripalli
-      Testing P3Mixer .... Works very well
+      Testing portMixer .... Works very well
 */
 
   import ThermoS.Uops.Reservoir;
-  import ThermoS.Uops.Tanks.P3Mixer;
+  import ThermoS.Uops.Tanks.portMixer;
   import ThermoS.Uops.Valves.Valve ;
   import ThermoS.Uops.Valves.Vchar ;
   import ThermoS.Types.*;
@@ -24,15 +24,15 @@ model plant
   Valve v1 (redeclare each package Medium = Gas, cv=0.004/sqrt(0.5e5), Compressible=true, dpTol=0.1);
   Valve v2 (redeclare each package Medium = Gas, cv=0.004/sqrt(0.5e5), vchar=Vchar.EquiPercent, Compressible=false);
 
-  P3Mixer Node(redeclare package Medium = Gas,  vol=1.0e-6) ;
+  portMixer Node(redeclare package Medium = Gas,  vol=10e-6, N=3, Tset=400) ;
 
 equation
 
-       v1.po =   10 * time ;
-       v2.po =   10 * time ;
-       connect (src.port, Node.port1) ;
-       connect (v1.inlet, Node.port2) ;
-       connect (v2.inlet, Node.port3) ;
+       v1.po =   40  ;
+       v2.po =   40  ;
+       connect (src.port, Node.port[1]) ;
+       connect (v1.inlet, Node.port[2]) ;
+       connect (v2.inlet, Node.port[3]) ;
        connect(v2.outlet, sink.port) ;
        connect(v1.outlet, sink.port);
    
