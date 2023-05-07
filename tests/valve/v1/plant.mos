@@ -1,6 +1,7 @@
 /*  A simple script Template to run my Plant Model
           Author: Ravi Saripalli
 	  Date:   23th Jul. 2015
+          Modified: 6th May. 2023
 */  
 
 /***************     Load Library and Models   *********/
@@ -9,7 +10,7 @@ N := 10; tEnd := 10;
 sim := if system("zenity --question --text Simulate?") == 0 then true else false;
 
 print(getSettings()); print("\n\n****** Loading of packages etc. *****\n\n");
-ThermoLib := "/home/ravi/DSTO/projects/Om/ThermoS/package.mo";
+ThermoLib := getEnvironmentVar("THERMOS") + "/package.mo";
 for f in {ThermoLib, "plant.mo"} loop
 	if(loadFile(f)) then
 	   print ( f + " Loaded\n");
@@ -65,10 +66,6 @@ system("sleep 2");
 plot({valve[1].po, valve[2].po, valve[3].po},
        curveWidth=2, externalWindow=true, title = "Percent Open");
 system("sleep 2");
-plot({valve[1].choked, valve[2].choked, valve[3].choked},
-       curveWidth=2, externalWindow=true, title = "Choked");
-getErrorString();
-
 
 
 //setCommandLineOptions("+d=bltdump"); // pickup initialization errrors

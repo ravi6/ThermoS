@@ -5,6 +5,6 @@ package Uops   "Unit Operations in ThermoS Package"
    import Modelica.Fluid.Interfaces.FluidPort;
    import Modelica.Fluid.Utilities.*;  // Some regularization functions
 
-   import Modelica.SIunits.* ;        // Embrace SI units
+   import Modelica.Units.SI.* ;        // Embrace SI units
    import ThermoS.Types.* ;           // My own Concoctions
 end Uops;
