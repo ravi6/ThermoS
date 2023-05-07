@@ -7,10 +7,10 @@
 */  
 
 /***************     Load Library and Models   *********/
-echo(false) ;
+echo(true) ;
 print(getSettings());
 
-ThermoLib := "/home/ravi/DSTO/projects/Om/ThermoS/package.mo";
+ThermoLib := getEnvironmentVar("THERMOS") + "/package.mo";
 if(loadFile(ThermoLib)) then
    print ("ThermoS Loaded\n");
 else
@@ -26,6 +26,11 @@ else
    exit(1);
 end if;
 
+print("Saving Total Model in total.mo \n") ;
+saveTotalModel("total.mo",plant); // gives stand alone mo file to send out for debug reports.
+print(getErrorString());
+
+//ThermoS.Util.getInfo();  // Gives me the list of all switches in omc
 print(checkModel(plant));  // This should pickup flattening errors
 
 /************ Cleanup Work **********/
@@ -43,7 +48,7 @@ flags :=  ""; // "-lv=LOG_NLS " ;
 /**    Dot Touch this section  else you lose diagnostics**/
 print("Starting the Plant \n");
 echo(true); // you need both echo and getErrorString() weird ...
-simulate(plant, startTime=0, outputFormat="mat", 
+simulate(plant, startTime=0, outputFormat="csv", 
          stopTime=tEnd,  // tolerance=1e-6, 
          cflags="-ffloat-store", simflags=flags) ;
 getErrorString();
@@ -51,7 +56,7 @@ echo(false);
 /**    Dot Touch this section  **/
 
 // *** Check Simulation run/translation failures  ***
-sVars :=  readSimulationResultVars("plant_res.mat") ; //print(sVars);
+sVars :=  readSimulationResultVars("plant_res.csv") ; //print(sVars);
 if (size(sVars,1) == 0) then  // no variables then bailout
   print("simulation failed ... bailing out\n");
   exit(1);

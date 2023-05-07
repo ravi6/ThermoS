@@ -5,14 +5,13 @@
 
 /***************     Load Library and Models   *********/
 echo(false);
-N := 10; tEnd := 1; 
+N := 10; tEnd := 0.2; 
 
 
 sim := if system("zenity --question --text Simulate?") == 0 then true else false;
 //system("export ans=`zenity --list --column Option compile sim plot`");
 print(getSettings()); print("\n\n****** Loading of packages etc. *****\n\n");
 ThermoLib := getEnvironmentVar("THERMOS") + "/package.mo";
-sim:=0;
 
 for f in {ThermoLib, "plant.mo"} loop
 	if(loadFile(f)) then
@@ -37,7 +36,7 @@ if (sim) then
 	flags :=  "-lv=LOG_LS,LOG_INIT,LOG_NLS  -w " ;  
 	print("Starting the Plant \n");
 	echo(true);
-	simulate(plant, startTime=0, outputFormat="mat", 
+	simulate(plant, startTime=0, outputFormat="csv", 
 		 stopTime=tEnd,   // tolerance=1e-3, iniStepSize=iniStepSize, 
 		 simflags=flags) ;
 	print(getErrorString());
@@ -45,7 +44,7 @@ if (sim) then
 	// *** Check Simulation run/translation failures  ***
 	echo(true);
 	system("./plant") ; // force the stupid thing to run when dummyDerivatives are Selected
-	sVars :=  readSimulationResultVars("plant_res.mat") ; //print(sVars);
+	sVars :=  readSimulationResultVars("plant_res.csv") ; //print(sVars);
 	if (size(sVars,1) == 0) then  // no variables then bailout
 	  print("simulation failed ... bailing out\n");
 	  // exit(1);

@@ -10,7 +10,7 @@
 echo(false) ;
 print(getSettings());
 
-ThermoLib := "/home/ravi/DSTO/projects/Om/ThermoS/package.mo";
+ThermoLib := getEnvironmentVar("THERMOS") + "/package.mo";
 if(loadFile(ThermoLib)) then
    print ("ThermoS Loaded\n");
 else

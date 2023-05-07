@@ -10,7 +10,7 @@ model plant
   import ThermoS.Uops.Valves.Valve ;
   import ThermoS.Uops.Reservoir;
 
-  constant Real Air[MyGas.nXi]={0.79, 0.21, 0} ;  // Note reducedXi .. is false here
+  constant Real Air[MyGas.nXi]={0.79, 0.21} ; 
   OpenTank    tank(redeclare package Medium = MyGas, in_pos = 0.44); 
   Reservoir   lake(redeclare package Medium = MyGas, p = 1e5, T = 300, Xi=Air); // Xi will be null for single component fluid
                                                     // but you need to specify for multicomponents Xi=fill(1./MyGas.nS, MyGas.nXi)); 
