@@ -14,14 +14,17 @@ model plant
                                        MassFlowRate(nominal=1))  ;
 
   constant MassFraction Xstart[1] = {0.79};
-  Reservoir    src   (redeclare package Medium = Medium, p = 5e5, T = 300, Xi = Xstart); // Reservoir 1
-  Reservoir    sink   (redeclare package Medium = Medium, p = 1e5, T = 300, Xi = Xstart, port.m_flow(start=0.0)); // Reservoir 2
+  Reservoir    src   (redeclare package Medium = Medium, 
+                          p = 5e5, T = 300, Xi = Xstart); // Reservoir 1
+  Reservoir    sink   (redeclare package Medium = Medium, 
+                         p = 1e5, T = 300, Xi = Xstart, port.m_flow(start=0.0)); // Reservoir 2
 
   RealValve    v1 (redeclare package Medium = Medium, cv=1/sqrt(0.5e5));
   RealValve    v2 (redeclare package Medium = Medium, cv=1/sqrt(0.5e5));
   
 
-  Cvolume    buffer(redeclare package Medium = Medium, port.m_flow(start=1.0, nominal=1e-3), vol=1);
+  Cvolume    buffer(redeclare package Medium 
+              = Medium, port.m_flow(start=1.0, nominal=1e-3), vol=1);
 equation
 
     connect (src.port, v1.inlet);

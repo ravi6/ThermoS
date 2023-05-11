@@ -7,7 +7,7 @@ model plant
   import ThermoS.Types.*;
   import ThermoS.Media.MyGas;
 
-  constant Real AirComp[3] = {0.767,0.233,0};
+  constant Real AirComp[2] = {0.767,0.233}; /* reduced Xi is true */
 
   Reservoir     res1	(redeclare package Medium = MyGas, p = 5e5, T = 300, Xi = AirComp); // Reservoir 1
   Reservoir 	res2	(redeclare package Medium = MyGas, p = 5e5, T = 600, Xi = AirComp); // Reservoir 2

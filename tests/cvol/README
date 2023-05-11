@@ -12,3 +12,8 @@ normal flow) you get not glitches.
 On the other hand, using gastank in series is a lot more easily
 handled. I think for my adsorber issues tank in line is a better
 approximation to reality, than a buffer (or surge tank)
+
+10th May 2023
+    Moving to ModelicaLib 4.0.0  with omc  version 22
+    Had to remove Thermodynamic state specificaiton in MyAir 
+    

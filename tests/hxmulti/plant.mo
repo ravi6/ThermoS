@@ -7,7 +7,7 @@ model plant
   import ThermoS.Types.*;
   import ThermoS.Media.MyGas;
 
-  constant Real AirComp[3] = {0.767,0.233,0};
+  constant Real AirComp[2] = {0.767,0.233}; // reduced Xi
   parameter Integer Nseg =20  ;
   parameter Boolean CoCurrent = false ;
 

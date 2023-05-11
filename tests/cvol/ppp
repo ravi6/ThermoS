@@ -1,4 +1,7 @@
 #!/bin/bash
+omplot(){
+  OMPlot --filename="work/plant_res.mat" $1
+}
 omplot "buffer.port.m_flow v1.inlet.m_flow v2.inlet.m_flow  --ylabel=kg/s"
 omplot "buffer.p  --ylabel=BufferP(pa)"
 omplot "buffer.T  --ylabel=BufferT(K)"

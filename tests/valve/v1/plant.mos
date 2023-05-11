@@ -28,6 +28,7 @@ saveTotalModel("total.mo",plant); // gives stand alone mo file to send out for d
 
 //ThermoS.Util.getInfo();  // Gives me the list of all switches in omc
 setCommandLineOptions("+d=initialization"); // pickup initialization errrors
+setCommandLineOptions("--simCodeTarget=JavaScript"); // pickup initialization errrors
 /************ Cleanup Work **********/
 print("Cleaning Up Work Area\n") ; system("rm work/*"); cd("./work");   system("pwd");
 
