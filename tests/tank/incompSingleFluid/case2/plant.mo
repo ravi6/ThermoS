@@ -6,7 +6,7 @@ model plant
   import ThermoS.Types.*;
   import ThermoS.Uops.*;
   import ThermoS.Media.JP8;
-  import ThermoS.Uops.OpenTank ;
+  import ThermoS.Uops.Tanks.OpenTank ;
   import ThermoS.Uops.Valves.Valve ;
   import ThermoS.Uops.Reservoir;
 

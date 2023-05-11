@@ -10,7 +10,7 @@
 echo(false) ;
 print(getSettings());
 
-ThermoLib := "/home/ravi/DSTO/projects/Om/ThermoS/package.mo";
+ThermoLib := getEnvironmentVar("THERMOS") + "/package.mo";
 if(loadFile(ThermoLib)) then
    print ("ThermoS Loaded\n");
 else
@@ -37,8 +37,10 @@ system("rm work/*"); cd("./work");   system("pwd");
 tEnd := 80*60; //iniStepSize := 1  ;
 //count := integer(floor(tEnd / iniStepSize)) ;
 
-setDebugFlags("infoXmlOperations");
-flags :=  ""; // "-lv=LOG_NLS " ;  
+//setDebugFlags("infoXmlOperations");
+flags := "" ; //  "-lv=LOG_NLS " ;  
+saveTotalModelDebug("total.mo",plant); // gives stand alone mo file to send out for debug reports.
+getErrorString();
 
 /**    Dot Touch this section  else you lose diagnostics**/
 print("Starting the Plant \n");

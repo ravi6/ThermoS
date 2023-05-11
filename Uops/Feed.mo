@@ -20,5 +20,5 @@ model Feed
     outlet.h_outflow = medium.h ;
     outlet.m_flow = - mdot ; // It is negative because it is going out 
 //    outlet.h_outflow = Medium.specificEnthalpy(state) ;
-//    outlet.Xi_outflow = Xi;
+    outlet.Xi_outflow = Xi;   // This was commented out before ...why
 end Feed;

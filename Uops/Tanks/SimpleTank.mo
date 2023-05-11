@@ -1,6 +1,6 @@
 within ThermoS.Uops.Tanks;
 
-model SimpleTank   " An Open Tank "
+model SimpleTank    " An Open Tank "
    
 
 /*It has two connections

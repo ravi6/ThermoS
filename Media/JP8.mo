@@ -4,11 +4,11 @@ package JP8 "Aviation Fuel JP8"
 
 extends Modelica.Media.Incompressible.TableBased (
                  mediumName = "Aviation Fuel JP 8",
-                 T_min = Modelica.SIunits.Conversions.NonSIunits.from_degC(-50), 
-                 T_max = Modelica.SIunits.Conversions.NonSIunits.from_degC(230), 
+                 T_min = Modelica.Units.Conversions.from_degC(-50), // to Kelvin 
+                 T_max = Modelica.Units.Conversions.from_degC(230), 
                  TinK = false,      // Table Temperatures are in C
                  T0 = 273.15, 
-                  reducedX = true,
+                  // reducedX = true,
               tableDensity = [-40.0, 850; 0.0, 822 ; 20.0, 808 ; 90.0, 760 ],
               tableHeatCapacity = [31.3, 2000; 60, 2125; 100, 2300; 183, 2660],
               tableConductivity = [-6.8, 0.12; 49.3, 0.101; 118, 0.098; 219.5, 0.0803],

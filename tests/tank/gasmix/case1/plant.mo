@@ -4,16 +4,17 @@ model plant
   	 12th Feb 2015 
 */
   import ThermoS.Types.*;
-  import ThermoS.Uops.*;
   import ThermoS.Media.MyGas;
+  import ThermoS.Uops.Feed ;
   import ThermoS.Uops.Valves.Valve;
   import ThermoS.Uops.Tanks.OpenTank ;
+  import ThermoS.Uops.Reservoir ;
 
   constant    Real Air[MyGas.nXi] = {0.79, 0.21} ;
-  OpenTank    tank(redeclare package Medium = MyGas, in_pos = 0.44); 
-  Reservoir   lake(redeclare package Medium = MyGas, p=1e5, T=300, Xi=Air); // Reservoir 1
   Feed        supply (redeclare package Medium = MyGas); // InletFlow to tank
   Valve       valve (redeclare package Medium = MyGas) ; //, cv = 1e-3 / sqrt(100)) ;
+  OpenTank    tank(redeclare package Medium = MyGas,  in_pos = 0.44); 
+  Reservoir   lake(redeclare package Medium = MyGas, p=1e5, T=300, Xi=Air); // Reservoir 1
 
 equation
      supply.mdot = 5 + 4.95 * sin(6*time) ; 

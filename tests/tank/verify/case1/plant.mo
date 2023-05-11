@@ -34,10 +34,27 @@ equation
      tank2.Q_in = U * 0.5 * ((120+273) - tank2.Tf) ;
      tank1.tvol = 1000 ; tank2.tvol = 1000 ;
 
+// ===========================================================
+
+/*These eqns should have been intrinsically added
+  since mediaum state of SimpleTank has Pa pressure
+  But I had to explicitly add these. What is even strange
+  is that with 3.2.1 library only inlet port pressure linkage
+  need to be specified
+  But now with Lib 4.0.0 we need for all connected ports, inlet or outlet
+*/
+
 // Well we need to say where our inlet is 
      tank1.inlet.p = tank1.Pa ;  // This spec is need to use simple tank
      tank2.inlet.p = tank2.Pa ;  // This spec is need to use simple tank
     
+// Don;t know why I got away without these two before
+// Outlets need to know the pressure of the tank
+     tank1.outlet.p = tank1.Pa ;
+     tank2.outlet.p = tank2.Pa ;
+// ===========================================================
+
+
 // Out flows of the tanks
      prod1.inlet.m_flow = feed1.mdot ;
      prod2.inlet.m_flow = feed2.mdot ;

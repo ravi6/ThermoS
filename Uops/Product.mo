@@ -20,7 +20,7 @@ equation
     medium.T = T ;
     medium.Xi = Xi ;
 
-  inlet.h_outlfow = medium.h ;  
+  inlet.h_outflow = medium.h ;  
   inlet.Xi_outflow = Xi;  // state X size is alwasy nS
 
 end Product;

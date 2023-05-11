@@ -1,3 +1,16 @@
 Problem solution checked with the literature values.
 Ref: http://www.chemeng.kmutt.ac.th/cheps/CHE654_2012_Homework4_Solutions.pdf
 Page:10-15
+
+Date: 11th May 2023
+  Now this model is not working since upgrading
+to Modelica 4.0.0 ... It thinks that there are
+two fewer eqns than variables. Beats me.
+Even the OpenTank model case Under Tanks tests
+has similar issue. The problem appears to be with
+Inlet and Outlet models.
+
+Figured it out. I had to specify pressures at the inlet/output
+ports of the SimpleTank. I specified it just for inlet port connections
+but not at the outlet port connections. I would have thought these 
+should have been implemented through connect statement. 

@@ -1,0 +1,52 @@
+/*  Dealing with zenity return values from OMScript 
+          Author: Ravi Saripalli
+	  Date:   10th May 2023
+
+Usage: 
+       To be invoked from another .mos shell script as below
+         opts := "opt1 opt2 opt3 ..." ;
+         runScript("ask.mos") ;
+       This will show zenity GUI to select an option
+       Selected option is stored in variable "ans"
+       It is upto you how you use this variable
+
+NB: So convoluted you may say. I haven't found any
+    simple way to read user input into variable with mos script
+
+Complete example script is as follows
+=====================================
+  opts:="one two three" ;
+  runScript("ask.mos");
+
+  if eq(ans, "two") then
+    print("got two") ;
+  else if eq(ans, "three") then
+    print("got three") ;
+  else if eq(ans, "one") then
+    print("got one") ;
+  end if;
+  end if;
+  end if;
+=====================================
+*/  
+
+/* string Comparison in OMScripts */
+echo(false);
+loadString("
+function eq
+     input String i ; 
+     input String j ; 
+     output  Boolean ans ;
+     algorithm 
+       if ( i == j ) then
+	 ans := true ;
+       else
+	 ans := false ;
+       end if;
+    end eq;
+");
+
+  system("zenity --list --column Option " + opts + "  > /tmp/option" );
+  opt:=readFile("/tmp/option");
+  (i, txt):=regex(opt,"[a-zA-Z]*"); // clunky as readFile return string is a mess
+  ans:=txt[1] ;

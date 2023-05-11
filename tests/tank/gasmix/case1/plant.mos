@@ -27,12 +27,11 @@ else
 end if;
 
 print("Saving Total Model in total.mo \n") ;
-saveTotalModel("total.mo",plant); // gives stand alone mo file to send out for debug reports.
+saveTotalModelDebug("total.mo",plant); // gives stand alone mo file to send out for debug reports.
 print(getErrorString());
 
 //ThermoS.Util.getInfo();  // Gives me the list of all switches in omc
 print(checkModel(plant));  // This should pickup flattening errors
-
 /************ Cleanup Work **********/
 print("Cleaning Up Work Area\n") ;
 system("rm work/*"); cd("./work");   system("pwd");
