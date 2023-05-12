@@ -44,17 +44,6 @@ equation
   But now with Lib 4.0.0 we need for all connected ports, inlet or outlet
 */
 
-// Well we need to say where our inlet is 
-     tank1.inlet.p = tank1.Pa ;  // This spec is need to use simple tank
-     tank2.inlet.p = tank2.Pa ;  // This spec is need to use simple tank
-    
-// Don;t know why I got away without these two before
-// Outlets need to know the pressure of the tank
-     tank1.outlet.p = tank1.Pa ;
-     tank2.outlet.p = tank2.Pa ;
-// ===========================================================
-
-
 // Out flows of the tanks
      prod1.inlet.m_flow = feed1.mdot ;
      prod2.inlet.m_flow = feed2.mdot ;
@@ -67,6 +56,12 @@ equation
      tank1.Pa = 1e5 ;  tank2.Pa = 1e5 ;
      T1 = tank1.Tf - 273 ;
      T2 = tank2.Tf - 273 ;
+
+// Set pressure in the tank at ports
+   tank1.inlet.p = tank1.Pa ;
+   tank2.inlet.p = tank1.Pa ;
+   tank1.outlet.p = tank1.Pa ;
+   tank2.outlet.p = tank1.Pa ;
 
 
 initial algorithm

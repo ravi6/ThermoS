@@ -15,7 +15,7 @@ model SimpleTank    " An Open Tank "
 
   Heat				Q_in		    ; // Heat tranferred to fluid  
   Temperature			Tf		    ; // Tank Fluid temperature (K)
-  Temperature                   Pa                  ; // Ambient Pressure
+  Pressure                      Pa                  ; // Ambient Pressure
   Energy			U		    ; // Internal energy of fluid fvol
   SpecificHeatCapacity          Cp    		    ; // Specific heat of fluid in fvol
   Medium.ThermodynamicState	state 		    ; // Fluid state in the tank
@@ -48,5 +48,6 @@ model SimpleTank    " An Open Tank "
      outlet.Xi_outflow = inStream(inlet.Xi_outflow) ;  // Normal flow
      inlet.Xi_outflow = inStream(outlet.Xi_outflow) ;  // for  Reverse flow
      inlet.h_outflow = outlet.h_outflow ;   // Well mixed condition 
+
 
 end SimpleTank;

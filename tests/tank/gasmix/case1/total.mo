@@ -82,7 +82,7 @@ package ThermoS
         FluidPort outlet(redeclare package Medium = Medium);
         Heat Q_in;
         Temperature Tf;
-        Temperature Pa;
+        Pressure Pa;
         Energy U;
         SpecificHeatCapacity Cp;
         Medium.ThermodynamicState state;

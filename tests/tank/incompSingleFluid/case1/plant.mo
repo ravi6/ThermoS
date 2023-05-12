@@ -24,10 +24,10 @@ equation
      connect (valve.outlet, lake.port) ;
 
      tank.hcoef = 150 ;
-     tank.Pa   = 1e5 ;  tank.Ta =300 ;
-     valve.po  = 60 ;
+     tank.Pa    = 1e5 ;  tank.Ta = 300 ;
+     valve.po   = 60 ;
 
 initial algorithm
-    tank.pFull := 50 ; tank.Tf    := 400 ; 
+    tank.pFull := 50 ; tank.Tf := 400 ; 
 
 end plant;
