@@ -1,0 +1,28 @@
+#Plot variables with gnuplot
+data="work/plant_res.csv"
+set datafile separator ","
+xlabel = "time (s)"
+
+set multiplot layout 4,1
+set grid
+
+set nokey
+set ylabel   "Tank P(bar)"
+plot data using (column("time")):(column("tank.p")*1e-5) w l lw 2 
+
+set nokey
+set ylabel  "Tank T(C)"
+plot data using (column("time")):(column("tank.T")-273) w l  lw 2
+
+set key
+set ylabel ""
+plot data using (column("time")):(column("pid.sp")*1e-5) w l lw 2 title "sp", \
+     data using (column("time")):(column("pid.pv")*1e-5) w l lw 2 title "pv"
+
+set key
+set ylabel "lpm(s)"
+plot data using (column("time")):(-column("pid.mv")*60e3) w l lw 2 title "inlet", \
+     data using (column("time")):(-column("tank.outlet.m_flow")*60e3) w l lw 2 title "outlet"
+
+unset multiplot
+pause(-1)
