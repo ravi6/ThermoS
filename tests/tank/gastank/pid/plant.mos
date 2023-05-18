@@ -38,10 +38,12 @@ system("rm work/*"); cd("./work");   system("pwd");
 
 
 // *****  Simulation / translation ******
-tEnd := 150; iniStepSize := 1  ;
+tEnd := 20; iniStepSize := 0.01  ;
 count := integer(floor(tEnd / iniStepSize)) ;
 
 setDebugFlags("infoXmlOperations");
+setCommandLineOptions("-d=initialization");
+setCommandLineOptions("-d=aliasConflicts");
 flags :=  ""; // "-lv=LOG_NLS " ;  
 
 /**    Dot Touch this section  else you lose diagnostics**/

@@ -8,23 +8,24 @@ model plant
   import ThermoS.Uops.Controller;
   constant Real[MyGas.nXi] Air = {0.79, 0.21};
   Feed supply(redeclare package Medium = MyGas);
-  Valve valve(redeclare package Medium = MyGas, cv = (1000e-3/60)/sqrt(4e4));
+  Valve valve(redeclare package Medium = MyGas, cv = (1000e-3/60)/sqrt(4e5));
   GasTank tank(redeclare package Medium = MyGas, vol = 0.2, Q_in = 0);
   Reservoir atm(redeclare package Medium = MyGas, p = 1e5, T = 300, Xi = Air);
-  Controller pid(Kc = 20, Ti = 10, Td = 0, reverseActing = true, pvMin = 0, pvMax = 10e5, mvMin = 0, mvMax = 1000e-3/60);
+  Controller pid(Kc = 1e2, Ti = 10, Td = 0, reverseActing = true, pvMin = 0, pvMax = 10e5, mvMax = 0, mvMin = -1000e-3/60);
 initial algorithm
   tank.T := 300;
   tank.p := 1e5;
+  tank.Xi := Air;
 equation
   connect(supply.outlet, tank.inlet);
   connect(tank.outlet, valve.inlet);
   connect(valve.outlet, atm.port);
-  pid.sp = 6e5;
+  pid.sp = 1e5 + 6e5*(1 - exp(-time/10));
   pid.pv = tank.p;
   pid.mv = -supply.mdot;
   supply.T = 300;
   supply.Xi = fill(1.0/MyGas.nS, MyGas.nXi);
-  valve.po = 50*abs(sin(6*0.01*time));
+  valve.po = 50;
 end plant;
 
 package ThermoS
@@ -154,6 +155,7 @@ package ThermoS
       Real sp(min = pvMin, max = pvMax);
       Real pv;
       Real mv(min = mvMin, max = mvMax);
+      Real op;
       Real err;
       Real intErr;
     initial equation
@@ -161,7 +163,8 @@ package ThermoS
     equation
       err = (sp - pv);
       der(intErr) = noEvent(if mv < mvMin and err < 0 or mv > mvMax and err > 0 then 0 else err);
-      mv = action*((mvMax - mvMin)/(pvMax - pvMin))*Kc*(err + intErr/Ti + Td*der(err)) + mvMin;
+      op = action*((mvMax - mvMin)/(pvMax - pvMin))*Kc*(err + intErr/Ti + Td*der(err)) + mvMin;
+      mv = op;
     end Controller;
 
     import Modelica.Media.Interfaces.PartialMixtureMedium;
@@ -172,7 +175,7 @@ package ThermoS
   end Uops;
 
   package Types
-    type Percent = Real(unit = "%", min = 0, max = 100);
+    type Percent = Real(unit = "p", min = 0, max = 100);
     type Fraction = Real(min = 0, max = 1.0);
   end Types;
 

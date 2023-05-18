@@ -17,6 +17,7 @@ model Controller
   Real sp(min = pvMin, max = pvMax); // Setpoint
   Real pv; //  Present value 
   Real mv(min = mvMin, max = mvMax); // Controller Output (manipulated)
+  Real op; // unconstrained mv
   Real err; // Setpoint - Present value 
   Real intErr; // error integral
 equation
@@ -26,8 +27,16 @@ equation
                                   or 
                            mv > mvMax and err > 0 
                         then 0 else err);
-  mv  = action * ((mvMax - mvMin) / (pvMax - pvMin)) 
+  op  = action * ((mvMax - mvMin) / (pvMax - pvMin)) 
          *   Kc * ( err  + intErr / Ti  + Td * der(err) )  + mvMin ;   
+
+ // Contain Contrller action
+/*
+  mv = noEvent(if op < mvMin then  mvMin
+                elseif op > mvMax then mvMax 
+                else op);
+*/
+      mv = op ;
 initial equation
   intErr = 0;
 end Controller;
