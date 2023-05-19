@@ -16,18 +16,18 @@ model plant
   Valve       valve (redeclare package Medium = MyGas , cv = (1000e-3/60) / sqrt(4e5)) ;
   GasTank     tank (redeclare package Medium = MyGas, vol = 0.2 , Q_in=0); 
   Reservoir   atm (redeclare package Medium = MyGas, p=1e5, T=300, Xi=Air); // Reservoir 1
-  Controller  pid (Kc = 1e2 , Ti = 10, Td = 0, reverseActing = true,
-                   pvMin = 0, pvMax = 10e5, 
-                   mvMax = 0, mvMin = -1000e-3/60);
+  Controller  pid (Kc = 1e3 , Ti = 1, Td = 0, reverseActing = true,
+                   pvMin = 1e5, pvMax = 11e5, 
+                   mvMin = 0, mvMax = 1000e-3/60);
   
 equation
      connect (supply.outlet, tank.inlet) ;
      connect (tank.outlet, valve.inlet) ;
      connect (valve.outlet, atm.port) ;
 
-     pid.sp = 1e5 + 6e5 * (1 - exp(-time/10)) ; // Tank Pressure setpoint
+     pid.sp = 1e5 + 3e5 * (1 - exp(-time/10)) ; // Tank Pressure setpoint
      pid.pv = tank.p ;
-     pid.mv = -supply.mdot ;
+     pid.mv = supply.outlet.m_flow ;
 
      // supply.mdot = 1000 * 1e-3/60 ; // + 4.95 * sin(6*time) ; 
      supply.T = 300 ; // for a force feed you need flow, temp and comp

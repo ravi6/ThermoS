@@ -22,12 +22,15 @@ plot data using (column("time")):(column("pid.sp")*1e-5) w l lw 2 title "sp", \
 unset multiplot
 
 set term qt 2
-set multiplot layout 3,1
+set multiplot layout 2,1
 set grid
 
 set ylabel "lpm(s)"
+#plot data using (column("time")):(column("pid.mv")*60e3) w l lw 2 title "mv"
+#plot data using (column("time")):(column("tank.outlet.m_flow")*60e3) w l lw 2 title "outflow"
+#plot data using (column("time")):(column("tank.inlet.m_flow")*60e3) w l lw 2 title "inflow"
+#plot data using (column("time")):(column("supply.mdot")*60e3) w l lw 2 title "mdot"
 plot data using (column("time")):(column("pid.mv")*60e3) w l lw 2 title "mv"
-plot data using (column("time")):(-column("tank.outlet.m_flow")*60e3) w l lw 2 title "outlet"
-plot data using (column("time")):(column("supply.mdot")*60e3) w l lw 2 title "mdot"
+plot data using (column("time")):(column("pid.err")*1e-5) w l lw 2 title "err"
 
 pause(-1)

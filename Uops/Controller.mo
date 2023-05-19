@@ -31,12 +31,14 @@ equation
          *   Kc * ( err  + intErr / Ti  + Td * der(err) )  + mvMin ;   
 
  // Contain Contrller action
+
+  mv = op ;
 /*
   mv = noEvent(if op < mvMin then  mvMin
                 elseif op > mvMax then mvMax 
                 else op);
 */
-      mv = op ;
+
 initial equation
   intErr = 0;
 end Controller;
