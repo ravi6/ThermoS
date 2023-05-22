@@ -38,7 +38,7 @@ system("rm work/*"); cd("./work");   system("pwd");
 
 
 // *****  Simulation / translation ******
-tEnd := 150; iniStepSize := 1  ;
+tEnd := 2400; iniStepSize := 0.01  ;
 count := integer(floor(tEnd / iniStepSize)) ;
 
 setDebugFlags("infoXmlOperations");

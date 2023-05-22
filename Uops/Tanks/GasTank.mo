@@ -24,7 +24,8 @@ model GasTank
     Medium.MassFraction		Xi[Medium.nXi]	;
     Medium.SpecificEnthalpy	h		;
     
-    Medium.BaseProperties  medium ;
+    Medium.BaseProperties  medium ; //(p(start=1e5), T(start=300),
+                                   // Xi(start={1/Medium.nXi, 1/Medium.nXi})) ;
 
   equation
  //     state = Medium.setState_pTX(p, T, Xi) ;

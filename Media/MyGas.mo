@@ -20,7 +20,7 @@ extends MixtureGasNasa (
 // Modifying start values and Ranges 
          Density(start=1, nominal=1),
          AbsolutePressure(start=1e5, min=1e3, max=50e5, nominal=1e5),
-         Temperature(start=300, min=200, max=2000, nominal=300),
-         MassFraction(start=0.333333), MoleFraction(start=0.333333)
+         Temperature(start=300, min=200, max=2000, nominal=300) //,
+         //MassFraction(start=0.333333), MoleFraction(start=0.333333)
 );
 end MyGas; 

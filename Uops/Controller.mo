@@ -11,17 +11,18 @@ model Controller
   parameter Real mvMax = 100;
   parameter Real pvMin = 0;
   parameter Real pvMax = 100;
-  parameter Integer action = if reverseActing then -1
-                             else 1 ;
+  parameter Integer action = if reverseActing then 1
+                             else -1 ;
                              
   Real sp(min = pvMin, max = pvMax); // Setpoint
   Real pv; //  Present value 
   Real mv(min = mvMin, max = mvMax); // Controller Output (manipulated)
-  Real op; // unconstrained mv
+  Real op(min = mvMin, max = mvMax); // unconstrained mv
   Real err; // Setpoint - Present value 
   Real intErr; // error integral
 equation
   err = (sp - pv) ;
+
   // Integral Action with (No windup)
   der(intErr) = noEvent(if mv < mvMin and err < 0 
                                   or 
@@ -32,12 +33,10 @@ equation
 
  // Contain Contrller action
 
-  mv = op ;
-/*
+ // mv = op ;
   mv = noEvent(if op < mvMin then  mvMin
                 elseif op > mvMax then mvMax 
                 else op);
-*/
 
 initial equation
   intErr = 0;

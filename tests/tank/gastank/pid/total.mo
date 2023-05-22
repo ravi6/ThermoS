@@ -11,7 +11,7 @@ model plant
   Valve valve(redeclare package Medium = MyGas, cv = (1000e-3/60)/sqrt(4e5));
   GasTank tank(redeclare package Medium = MyGas, vol = 0.2, Q_in = 0);
   Reservoir atm(redeclare package Medium = MyGas, p = 1e5, T = 300, Xi = Air);
-  Controller pid(Kc = 1e3, Ti = 1, Td = 0, reverseActing = true, pvMin = 1e5, pvMax = 11e5, mvMin = 0, mvMax = 1000e-3/60);
+  Controller pid(Kc = 1e4, Ti = 100, Td = 0, reverseActing = true, pvMin = 1e5, pvMax = 11e5, mvMin = 0, mvMax = 6000e-3/60);
 initial algorithm
   tank.T := 300;
   tank.p := 1e5;
@@ -20,9 +20,9 @@ equation
   connect(supply.outlet, tank.inlet);
   connect(tank.outlet, valve.inlet);
   connect(valve.outlet, atm.port);
-  pid.sp = 1e5 + 3e5*(1 - exp(-time/10));
+  pid.sp = 1e5 + 6e5*(1 - exp(-time/10));
   pid.pv = tank.p;
-  pid.mv = supply.outlet.m_flow;
+  pid.mv = tank.inlet.m_flow;
   supply.T = 300;
   supply.Xi = fill(1.0/MyGas.nS, MyGas.nXi);
   valve.po = 50;
@@ -68,9 +68,9 @@ package ThermoS
         end if;
         prat = min(inlet.p, outlet.p)/max(inlet.p, outlet.p);
         if (Compressible) then
-          inlet.m_flow = cv*max(0, charF)*sqrt(max(0, med.d))*sqrt(max(inlet.p, outlet.p))*sign(inlet.p - outlet.p)*regRoot(1 - max(prat, 0.5), dpTol);
+          inlet.m_flow = noEvent(if (prat > 1 or prat < 1) then cv*max(0, charF)*sqrt(max(0, med.d))*sqrt(max(inlet.p, outlet.p))*sign(inlet.p - outlet.p)*regRoot(1 - max(prat, 0.5), dpTol) else 0);
         else
-          inlet.m_flow = cv*charF*sqrt(med.d*inlet.p)*regRoot(1 - outlet.p/inlet.p, dpTol);
+          inlet.m_flow = cv*charF*sqrt(med.d*inlet.p)*regRoot2(1 - outlet.p/inlet.p, dpTol);
         end if;
       end Valve;
 
@@ -151,11 +151,11 @@ package ThermoS
       parameter Real mvMax = 100;
       parameter Real pvMin = 0;
       parameter Real pvMax = 100;
-      parameter Integer action = if reverseActing then -1 else 1;
+      parameter Integer action = if reverseActing then 1 else -1;
       Real sp(min = pvMin, max = pvMax);
       Real pv;
       Real mv(min = mvMin, max = mvMax);
-      Real op;
+      Real op(min = mvMin, max = mvMax);
       Real err;
       Real intErr;
     initial equation
@@ -164,7 +164,7 @@ package ThermoS
       err = (sp - pv);
       der(intErr) = noEvent(if mv < mvMin and err < 0 or mv > mvMax and err > 0 then 0 else err);
       op = action*((mvMax - mvMin)/(pvMax - pvMin))*Kc*(err + intErr/Ti + Td*der(err)) + mvMin;
-      mv = op;
+      mv = noEvent(if op < mvMin then mvMin elseif op > mvMax then mvMax else op);
     end Controller;
 
     import Modelica.Media.Interfaces.PartialMixtureMedium;
@@ -185,7 +185,7 @@ package ThermoS
       import Modelica.Media.IdealGases.Common.SingleGasesData;
       import Modelica.Media.IdealGases.Common.FluidData;
       extends MixtureGasNasa(data = {SingleGasesData.N2, // note data is of type  DataRecord[:]
-      SingleGasesData.O2, SingleGasesData.CO2}, fluidConstants = {FluidData.N2, FluidData.O2, FluidData.CO2}, substanceNames = {"Nitrogen", "Oxygen", "CarbonDioxide"}, reducedX = true, reference_X = {0.7, 0.2, 0.1}, Density(start = 1, nominal = 1), AbsolutePressure(start = 1e5, min = 1e3, max = 50e5, nominal = 1e5), Temperature(start = 300, min = 200, max = 2000, nominal = 300), MassFraction(start = 0.333333), MoleFraction(start = 0.333333));
+      SingleGasesData.O2, SingleGasesData.CO2}, fluidConstants = {FluidData.N2, FluidData.O2, FluidData.CO2}, substanceNames = {"Nitrogen", "Oxygen", "CarbonDioxide"}, reducedX = true, reference_X = {0.7, 0.2, 0.1}, Density(start = 1, nominal = 1), AbsolutePressure(start = 1e5, min = 1e3, max = 50e5, nominal = 1e5), Temperature(start = 300, min = 200, max = 2000, nominal = 300));
     end MyGas;
   end Media;
 end ThermoS;

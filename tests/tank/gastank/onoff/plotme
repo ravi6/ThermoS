@@ -3,27 +3,25 @@ data="work/plant_res.csv"
 set datafile separator ","
 xlabel = "time (s)"
 
-set multiplot layout 4,1
+set term qt 1
 set grid
 
-set nokey
-set ylabel  "Tank P(bar)"
-plot data using (column("time")):(column("tank.p")*1e-5) w l lw 2 
+set multiplot layout 2,1
 
 set nokey
 set ylabel  "Tank T(C)"
 plot data using (column("time")):(column("tank.T")-273) w l  lw 2
 
 set key
-set ylabel   "Tank Pressure (bar)"
-plot \
-     data using (column("time")):(column("onoff.sp")*1e-5) w l lw 2 title "sp", \
-     data using (column("time")):(column("onoff.pv")*1e-5) w l lw 2 title "pv", \
-
-set key
-set ylabel   "lpm(s)"
-plot \
-     data using (column("time")):(-column("onoff.mv")*60e3) w l lw 2 title "inflow", \
-     data using (column("time")):(-column("tank.outlet.m_flow")*60e3) w l lw 2 title "outFlow"
+set ylabel ""
+plot data using (column("time")):(column("onoff.sp")*1e-5) w l lw 2 title "sp", \
+     data using (column("time")):(column("onoff.pv")*1e-5) w l lw 2 title "pv"
 unset multiplot
+
+set term qt 2
+set grid
+set ylabel "lpm(s)"
+set multiplot layout 2,1
+plot data using (column("time")):(-column("tank.outlet.m_flow")*60e3) w l lw 2 title "outflow"
+plot data using (column("time")):(column("tank.inlet.m_flow")*60e3) w l lw 2 title "inflow"
 pause(-1)

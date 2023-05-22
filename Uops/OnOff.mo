@@ -15,16 +15,16 @@ model OnOff
 equation
   err = (sp - pv) ;
   // On/Off with dead band
-  mv = noEvent(if pv > (sp + deadBand) then 
+  mv = noEvent(if pv >= (sp + deadBand) then 
                   mvMin 
-               else if pv < (sp - deadBand)  then 
+               elseif pv <= (sp - deadBand)  then 
                   mvMax
-               else if ((der(pv) < 0)  and  pv < sp) then
+               elseif (der(pv) > 0)  then
+                  mvMax
+               elseif (der(pv) < 0)  then
                   mvMin
-               else if ((der(pv) > 0) and pv > sp) then
-                  mvMax 
                else
-                  mvMax
+                  mvMin
                );
 initial equation
 end OnOff;

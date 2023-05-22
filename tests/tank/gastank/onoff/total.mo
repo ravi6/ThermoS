@@ -8,20 +8,21 @@ model plant
   import ThermoS.Uops.OnOff;
   constant Real[MyGas.nXi] Air = {0.79, 0.21};
   Feed supply(redeclare package Medium = MyGas);
-  Valve valve(redeclare package Medium = MyGas, cv = (1000e-3/60)/sqrt(4e4));
+  Valve valve(redeclare package Medium = MyGas, cv = (1000e-3/60)/sqrt(4e5));
   GasTank tank(redeclare package Medium = MyGas, vol = 0.2, Q_in = 0);
   Reservoir atm(redeclare package Medium = MyGas, p = 1e5, T = 300, Xi = Air);
   OnOff onoff(pvMin = 0, pvMax = 10e5, mvMin = 0, mvMax = 1000e-3/60, deadBand = 1e5);
 initial algorithm
   tank.T := 300;
   tank.p := 1e5;
+  tank.Xi := Air;
 equation
   connect(supply.outlet, tank.inlet);
   connect(tank.outlet, valve.inlet);
   connect(valve.outlet, atm.port);
-  onoff.sp = 6e5;
+  onoff.sp = 1e5 + 5e5;
   onoff.pv = tank.p;
-  supply.mdot = -onoff.mv;
+  onoff.mv = tank.inlet.m_flow;
   supply.T = 300;
   supply.Xi = fill(1.0/MyGas.nS, MyGas.nXi);
   valve.po = 50;
@@ -67,9 +68,9 @@ package ThermoS
         end if;
         prat = min(inlet.p, outlet.p)/max(inlet.p, outlet.p);
         if (Compressible) then
-          inlet.m_flow = cv*max(0, charF)*sqrt(max(0, med.d))*sqrt(max(inlet.p, outlet.p))*sign(inlet.p - outlet.p)*regRoot(1 - max(prat, 0.5), dpTol);
+          inlet.m_flow = noEvent(if (prat > 1 or prat < 1) then cv*max(0, charF)*sqrt(max(0, med.d))*sqrt(max(inlet.p, outlet.p))*sign(inlet.p - outlet.p)*regRoot(1 - max(prat, 0.5), dpTol) else 0);
         else
-          inlet.m_flow = cv*charF*sqrt(med.d*inlet.p)*regRoot(1 - outlet.p/inlet.p, dpTol);
+          inlet.m_flow = cv*charF*sqrt(med.d*inlet.p)*regRoot2(1 - outlet.p/inlet.p, dpTol);
         end if;
       end Valve;
 
@@ -135,7 +136,9 @@ package ThermoS
       Real err;
     equation
       err = (sp - pv);
-      mv = noEvent(if pv > (sp + deadBand) then mvMin else if pv < (sp - deadBand) then mvMax else if ((der(pv) < 0) and pv < sp) then mvMin else if ((der(pv) > 0) and pv > sp) then mvMax else mvMax);
+      mv = noEvent(if pv >= (sp + deadBand) then mvMin elseif pv <= (sp - deadBand) then mvMax
+       elseif (der(pv) > 0) then mvMax
+       elseif (der(pv) < 0) then mvMin else mvMin);
     end OnOff;
 
     package Interfaces end Interfaces;
@@ -164,7 +167,7 @@ package ThermoS
   end Uops;
 
   package Types
-    type Percent = Real(unit = "%", min = 0, max = 100);
+    type Percent = Real(unit = "p", min = 0, max = 100);
     type Fraction = Real(min = 0, max = 1.0);
   end Types;
 
@@ -174,7 +177,7 @@ package ThermoS
       import Modelica.Media.IdealGases.Common.SingleGasesData;
       import Modelica.Media.IdealGases.Common.FluidData;
       extends MixtureGasNasa(data = {SingleGasesData.N2, // note data is of type  DataRecord[:]
-      SingleGasesData.O2, SingleGasesData.CO2}, fluidConstants = {FluidData.N2, FluidData.O2, FluidData.CO2}, substanceNames = {"Nitrogen", "Oxygen", "CarbonDioxide"}, reducedX = true, reference_X = {0.7, 0.2, 0.1}, Density(start = 1, nominal = 1), AbsolutePressure(start = 1e5, min = 1e3, max = 50e5, nominal = 1e5), Temperature(start = 300, min = 200, max = 2000, nominal = 300), MassFraction(start = 0.333333), MoleFraction(start = 0.333333));
+      SingleGasesData.O2, SingleGasesData.CO2}, fluidConstants = {FluidData.N2, FluidData.O2, FluidData.CO2}, substanceNames = {"Nitrogen", "Oxygen", "CarbonDioxide"}, reducedX = true, reference_X = {0.7, 0.2, 0.1}, Density(start = 1, nominal = 1), AbsolutePressure(start = 1e5, min = 1e3, max = 50e5, nominal = 1e5), Temperature(start = 300, min = 200, max = 2000, nominal = 300));
     end MyGas;
   end Media;
 end ThermoS;

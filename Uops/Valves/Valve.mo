@@ -28,11 +28,16 @@ equation
 
 // Make Valve equaiton  continuous and differentiable both near zero flows
     if (Compressible) then
-           inlet.m_flow = cv * max(0,charF) *  sqrt(max(0,med.d)) * sqrt(max(inlet.p, outlet.p))
-                       * sign(inlet.p - outlet.p)  * regRoot(1 - max(prat, 0.5), dpTol ) ; 
+          inlet.m_flow = noEvent (
+                           if ( prat > 1  or prat < 1) then
+                             cv * max(0,charF) *  sqrt(max(0,med.d)) 
+                                * sqrt(max(inlet.p, outlet.p))
+                                * sign(inlet.p - outlet.p)  
+                                * regRoot(1 - max(prat, 0.5), dpTol )
+                            else 0 ) ; 
     else
        inlet.m_flow = cv * charF  *  sqrt(med.d * inlet.p)
-                        * regRoot(1 - outlet.p/inlet.p, dpTol) ; 
+                        * regRoot2(1 - outlet.p/inlet.p, dpTol) ; 
     end if; 
 
     

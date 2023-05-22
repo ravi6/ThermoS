@@ -14,7 +14,7 @@ model plant
 
   constant    Real Air[MyGas.nXi] = {0.79, 0.21} ;
   Feed        supply (redeclare package Medium = MyGas); // InletFlow to tank
-  Valve       valve (redeclare package Medium = MyGas , cv = (1000e-3/60) / sqrt(4e4)) ;
+  Valve       valve (redeclare package Medium = MyGas , cv = (1000e-3/60) / sqrt(4e5)) ;
   GasTank     tank (redeclare package Medium = MyGas, vol = 0.2 , Q_in=0); 
   Reservoir   atm (redeclare package Medium = MyGas, p=1e5, T=300, Xi=Air); // Reservoir 1
   OnOff       onoff (pvMin = 0, pvMax = 10e5, mvMin = 0, mvMax = 1000e-3/60,
@@ -25,9 +25,9 @@ equation
      connect (tank.outlet, valve.inlet) ;
      connect (valve.outlet, atm.port) ;
 
-     onoff.sp = 6e5 ; // Tank Pressure setpoint
+     onoff.sp = 1e5 + 5e5 ; //* (1 - exp(-time/10)) ; // soft ramp up Tank Pressure setpoint
      onoff.pv = tank.p ;  // Controller Measure Value
-     onoff.mv = - supply.mdot  ;  // mFlows are -ve when going out of a port
+     onoff.mv = tank.inlet.m_flow;
 
      // supply.mdot = 1000 * 1e-3/60 ; // + 4.95 * sin(6*time) ; 
      supply.T = 300 ; // for a force feed you need flow, temp and comp
@@ -38,5 +38,6 @@ equation
 initial algorithm
     tank.T := 300 ;  // Initial Temperature
     tank.p := 1e5 ;  // Initial Temperature
+    tank.Xi := Air ;
 
 end plant;
