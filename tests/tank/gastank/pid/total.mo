@@ -8,7 +8,7 @@ model plant
   import ThermoS.Uops.Controller;
   constant Real[MyGas.nXi] Air = {0.79, 0.21};
   Feed supply(redeclare package Medium = MyGas);
-  Valve valve(redeclare package Medium = MyGas, cv = (1000e-3/60)/sqrt(4e5));
+  Valve valve(redeclare package Medium = MyGas, cv = (1500e-3/60)/sqrt(1e4));
   GasTank tank(redeclare package Medium = MyGas, vol = 0.2, Q_in = 0);
   Reservoir atm(redeclare package Medium = MyGas, p = 1e5, T = 300, Xi = Air);
   Controller pid(Kc = 1e4, Ti = 100, Td = 0, reverseActing = true, pvMin = 1e5, pvMax = 11e5, mvMin = 0, mvMax = 6000e-3/60);
@@ -25,7 +25,7 @@ equation
   pid.mv = tank.inlet.m_flow;
   supply.T = 300;
   supply.Xi = fill(1.0/MyGas.nS, MyGas.nXi);
-  valve.po = 50;
+  valve.po = 80;
 end plant;
 
 package ThermoS
@@ -58,6 +58,7 @@ package ThermoS
         Percent po(start = 0.0);
         Fraction charF(start = 1.0);
         Fraction prat(start = 1.0);
+        Fraction Y(start = 1.0);
       equation
         if (vchar == Vchar.Linear) then
           charF = po/100;
@@ -68,7 +69,8 @@ package ThermoS
         end if;
         prat = min(inlet.p, outlet.p)/max(inlet.p, outlet.p);
         if (Compressible) then
-          inlet.m_flow = noEvent(if (prat > 1 or prat < 1) then cv*max(0, charF)*sqrt(max(0, med.d))*sqrt(max(inlet.p, outlet.p))*sign(inlet.p - outlet.p)*regRoot(1 - max(prat, 0.5), dpTol) else 0);
+          Y = 1 - (1 - prat)/(3*(1 - pratChoke));
+          inlet.m_flow = noEvent(if (prat > 1 or prat < 1) then cv*Y*max(0, charF)*sqrt(max(0, med.d))*sqrt(max(inlet.p, outlet.p))*sign(inlet.p - outlet.p)*regRoot(1 - max(prat, 0.5), dpTol) else 0);
         else
           inlet.m_flow = cv*charF*sqrt(med.d*inlet.p)*regRoot2(1 - outlet.p/inlet.p, dpTol);
         end if;

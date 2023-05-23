@@ -12,6 +12,7 @@ parameter Boolean  Compressible = true           ;  // Default to compressible f
 Percent      po    (start=0.0)           ;               // Valve % Open  
 Fraction     charF (start=1.0)           ;               // Characteristic Multiplier
 Fraction     prat  (start=1.0)           ;
+Fraction     Y     (start=1.0)           ; // Compressibility Factor
 
 equation
 
@@ -28,9 +29,10 @@ equation
 
 // Make Valve equaiton  continuous and differentiable both near zero flows
     if (Compressible) then
+          Y = 1 - (1 - prat) / ( 3 * (1 - pratChoke) ) ;
           inlet.m_flow = noEvent (
                            if ( prat > 1  or prat < 1) then
-                             cv * max(0,charF) *  sqrt(max(0,med.d)) 
+                             cv * Y * max(0,charF) *  sqrt(max(0,med.d)) 
                                 * sqrt(max(inlet.p, outlet.p))
                                 * sign(inlet.p - outlet.p)  
                                 * regRoot(1 - max(prat, 0.5), dpTol )
