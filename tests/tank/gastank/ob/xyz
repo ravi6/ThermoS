@@ -1,0 +1,14 @@
+#Plot variables with gnuplot
+data="work/plant_res.csv"
+set datafile separator ","
+xlabel = "time (s)"
+
+set term qt 1
+set grid
+set multiplot layout 5,1
+plot data using (column("time")):(column("supply.outlet.m_flow")*60e3) w l lw 2 title "inflow"
+plot data using (column("time")):(column("tank.inlet.m_flow")*60e3) w l lw 2 title "inflow"
+plot data using (column("time")):(column("tank.outlet.m_flow")*60e3) w l lw 2 title "outflow"
+plot data using (column("time")):(column("valve.inlet.m_flow")*60e3) w l lw 2 title "inflow"
+plot data using (column("time")):(column("valve.outlet.m_flow")*60e3) w l lw 2 title "outflow"
+pause(-1)
