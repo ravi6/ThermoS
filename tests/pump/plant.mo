@@ -2,9 +2,9 @@ model plant
 /*
   Author: Ravi Saripalli
   	 12th Feb 2015
+   Liquid Pump model tests 
+    reservoir  -> valve ->  opentank -> valve -> pump -> reservoir
 */
-  import ThermoS.Types.*;
-  import ThermoS.Uops.*;
   import ThermoS.Media.JP8;
   import ThermoS.Uops.Tanks.OpenTank ;
   import ThermoS.Uops.Valves.Valve ;
@@ -12,9 +12,10 @@ model plant
   import ThermoS.Uops.PumpBasic ;
 
   OpenTank    tank(redeclare package Medium = JP8, in_pos = 0.44); 
-  Reservoir   lake(redeclare package Medium = JP8, p= 1e5, T = 300); // Xi will be null for single component fluid
-                                                    // but you need to specify for multicomponents Xi=fill(1./JP8.nS, JP8.nXi)); 
-  Reservoir   dam(redeclare package Medium = JP8, p = 2e5, T = 300); 
+  Reservoir   lake(redeclare package Medium = JP8, p= 1e5, T = 300, Xi=fill(1./JP8.nS, JP8.nXi)); 
+                 // Xi will be null for single component fluid
+                 // but you need to specify for multicomponents Xi=fill(1./JP8.nS, JP8.nXi)); 
+  Reservoir   dam(redeclare package Medium = JP8, p = 2e5, T = 300, Xi=fill(1./JP8.nS, JP8.nXi));  
   Valve       vout (redeclare package Medium = JP8) ; //, cv = 1e-3 / sqrt(100)) ;
   Valve       vin (redeclare package Medium = JP8, cv = 0.5e-2 / sqrt(100)) ;
   PumpBasic   pump (redeclare package Medium = JP8); 
@@ -34,6 +35,6 @@ equation
      pump.Q = 0 ; pump.Ws = 20 ;
      dpvh = -(vout.outlet.p - vout.inlet.p) / (pump.Medium.density(pump.state) * 9.81) ;
 initial algorithm
-    tank.pFull := 80 ; tank.Tf    := 400 ; 
+    tank.pFull := 80 ; tank.Tf := 400 ; 
     pump.T := 300 ;
 end plant;

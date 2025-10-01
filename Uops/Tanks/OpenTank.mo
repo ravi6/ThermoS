@@ -2,7 +2,7 @@ within ThermoS.Uops.Tanks;
 
 model OpenTank   " An Open Tank "
    extends ThermoS.Uops.Interfaces.CylindricalTank ; 
-   extends SimpleTank ;
+   extends ThermoS.Uops.Tanks.SimpleTank ;
 
 /* It has two connections
      inlet ... can be located at any level in the tank

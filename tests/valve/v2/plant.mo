@@ -2,6 +2,10 @@ model plant
 /*
   Author: Ravi Saripalli
       Testing portMixer .... Works very well
+      Two valves are connect a port mixer to sink 
+      in parallel
+       (source) ---> (port Mixer) |----> v1 ---> sink
+                                  |----> v2 ---> sink
 */
 
   import ThermoS.Uops.Reservoir;

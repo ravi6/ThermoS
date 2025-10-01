@@ -1,6 +1,7 @@
 model plant
 /*
   Author: Ravi Saripalli
+  Testing three types of valves
 */
 
   import ThermoS.Uops.*;
