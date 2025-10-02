@@ -1,14 +1,13 @@
 /*  A simple script Template to run my Plant Model
           Author: Ravi Saripalli
 	  Date:   14 Jan. 2015
-       
-      No need to stick user library in OpenModelica Library
-     
 */  
 
 /***************     Load Library and Models   *********/
 echo(false) ;
 print(getSettings());
+resFormat := "mat" ;
+resFile := "plant_res." + resFormat ;
 
 ThermoLib := getEnvironmentVar("THERMOS") + "/package.mo";
 if(loadFile(ThermoLib)) then
@@ -37,20 +36,21 @@ tEnd := 10; iniStepSize := 1  ;
 count := integer(floor(tEnd / iniStepSize)) ;
 
 setDebugFlags("infoXmlOperations");
-flags :=  ""; // "-lv=LOG_NLS " ;  
+setDebugFlags("aliasConflicts");
+flags :=  "" ;  // "-lv=LOG_NLS " ;  
 
 /**    Dot Touch this section  else you lose diagnostics**/
 print("Starting the Plant \n");
 echo(true); // you need both echo and getErrorString() weird ...
-simulate(plant, startTime=0, outputFormat="csv", 
+simulate(plant, startTime=0, outputFormat=resFormat, 
          stopTime=tEnd,  // tolerance=1e-6, 
          cflags="-ffloat-store", simflags=flags) ;
 getErrorString();
-echo(false);
+echo(true);
 /**    Dot Touch this section  **/
 
 // *** Check Simulation run/translation failures  ***
-sVars :=  readSimulationResultVars("plant_res.csv") ; //print(sVars);
+sVars :=  readSimulationResultVars(resFile) ; //print(sVars);
 if (size(sVars,1) == 0) then  // no variables then bailout
   print("simulation failed ... bailing out\n");
   exit(1);
@@ -59,8 +59,18 @@ else
    print("No. of Plant Variables = " + String(size(sVars,1)) + "\n");
 end if;
 
-//   Plotting etc.
-print("Plotting\n");
-plot({htr.Tf, htr.Tw});// Summary.genReport("plant_res.mat", "htr", 5);
-getErrorString();
+loadFile("../summary.mo") ;
+print (getErrorString()) ;
 
+Summary.genReport ("htr", resFile, 5);
+print (getErrorString()) ;
+
+/*
+loadFile("../json.mo");  
+sVars :=  readSimulationResultVars(resFile) ;
+print("No. of Plant Variables = " + String(size(sVars,1)) + "\n");
+print("Creating JSON Data file \n");
+ans:=jsonResults(resFile, 0.5);
+print("Error: " + getSettings() + "\n");
+print("End JSON Data file \n");
+*/

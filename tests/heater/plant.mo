@@ -17,8 +17,6 @@ model plant
   HeaterCooler htr(redeclare package Medium = Gas, cf = 1.0e-3, 
                                         A_wf = 1,  h_wf = 150, 
                                         w_m = 1, w_cp = 420, holdup = 50);
-
-
 equation
 
     connect (res1.port, htr.inlet) ;
