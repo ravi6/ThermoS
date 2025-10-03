@@ -6,7 +6,7 @@
 /***************     Load Library and Models   *********/
 echo(false) ;
 print(getSettings());
-resFormat := "mat" ;
+resFormat := "csv" ;
 resFile := "plant_res." + resFormat ;
 
 ThermoLib := getEnvironmentVar("THERMOS") + "/package.mo";
@@ -58,12 +58,6 @@ else
    print("simulation done\n");
    print("No. of Plant Variables = " + String(size(sVars,1)) + "\n");
 end if;
-
-loadFile("../summary.mo") ;
-print (getErrorString()) ;
-
-Summary.genReport ("htr", resFile, 5);
-print (getErrorString()) ;
 
 /*
 loadFile("../json.mo");  

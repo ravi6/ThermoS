@@ -13,9 +13,12 @@ function genReport
      input String  resFile ;
      input Real    sTime   ;
 
+    protected Real data[:, :];
     algorithm 
-        data := readSimulationResult("plant_res.mat", stringVariableName("htr.inlet.m_flow"));
-        print (String(data[3])) ;
+         readSimulationResult("plant_res.csv", stringVariableName("time"));
+         print (getErrorString());
+         print (String(size(data,1))) ;
+         print ("  " + String(size(data,2))) ;
        
 /*
       print("=============<< Heater Summary >>=============");
