@@ -2,7 +2,6 @@
           Author: Ravi Saripalli
 	  Date:   23th Jul. 2015
           Modified: 24 Sep. 2024 
-          with some additional input from CHATGPT
 */  
 // ==================== SETTINGS ====================
 echo(false);

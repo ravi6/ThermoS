@@ -40,7 +40,7 @@ def report (uop, ts):
   print("==========================================")
 
 if len(sys.argv) < 2:
-   print ("Usage: python t.py <sample time>")
+   print (f"Usage: python {sys.argv[0]} <sample time>")
 else:
    ts = sys.argv[1]
    report ("htr", ts)
