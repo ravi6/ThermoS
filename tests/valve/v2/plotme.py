@@ -18,14 +18,14 @@ ax.grid(True) # Add a grid for better readability
 ax = axs[1]
 ax.plot(df["time"], df["Node.m"], color='blue', linestyle='-')
 ax.set_xlabel('time')
-ax.set_ylabel('Node Flow Rate (kg/s)')
+ax.set_ylabel('Mass in Port Mixer Node (kg)')
 ax.legend()
 ax.grid(True) # Add a grid for better readability
 
 ax = axs[2]
-ax.plot(df["time"], df["Node.Q_in"], color='blue', linestyle='-')
+ax.plot(df["time"], df["Node.Q_in"]/1000, color='blue', linestyle='-')
 ax.set_xlabel('time')
-ax.set_ylabel('Node Heat Flow (J/s)')
+ax.set_ylabel('Node Heat Flow (kW)')
 ax.legend()
 ax.grid(True) # Add a grid for better readability
 plt.show()

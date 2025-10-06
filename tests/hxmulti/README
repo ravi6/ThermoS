@@ -35,3 +35,21 @@ to ensure that the flow resistance coef. is scaled appropriately
 when excahnger segment length changes. (resistence decreases with
 square root of the path lenght... see pipe flow equaiton for clarity)
 
+6th Oct. 2025
+Refactoring the library to new version of omc 1.25
+A comparison of new test results for both co and counter current
+cases is made after ThermoS library is in line with version 1.25.
+
+  New Results
+    CoCurrent (exit T)    480(h)  382(c)
+    Counter               474(h)  382(c)
+  Old Results
+    CoCurrent (exit T)    476(h)  407(c)
+    Counter               463(h)  416(c)
+    
+Both were run with same No. segs and Hold up
+The medium was "MyGas". (Pure Air with %CO2=0)
+Is thermodynamic data updated ... unlikely ... but possible
+Anyother lurking bug ... Enthalpy calc those days had a glitch
+and I did write my own iterative T calc from H and incorporated
+in the library.  

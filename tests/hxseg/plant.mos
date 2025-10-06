@@ -1,11 +1,12 @@
-/*  A simple script Template to run my Plant Model
+/* A simple script Template to run my Plant Model
           Author: Ravi Saripalli
 	  Date:   23th Jul. 2015
           Modified: 24 Sep. 2024 
 */  
+
 // ==================== SETTINGS ====================
 echo(false);
-tEnd := 10;  // simulation stop time
+tEnd := 400;  // simulation stop time
 logFile := "log";
 resFormat := "csv" ;
 resFile := "plant_res." + resFormat ;
@@ -45,7 +46,7 @@ dumpXMLDAE("plant_dae.xml", plant);
 print("Simulate Plant");
 flags := "-lv=LOG_LS,LOG_INIT,LOG_NLS -w";
 
-simulate(plant, startTime=0, stopTime=tEnd, outputFormat=resFormat, simflags=flags);
+simulate(plant, startTime=0, stopTime=tEnd, outputFormat=resType, simflags=flags);
 checkStatus("simulate()");
 
 // ==================== READ SIMULATION RESULTS ====================
@@ -56,8 +57,7 @@ else
   print("Simulation completed successfully. Variables count: " + String(size(sVars,1)));
 end if;
 
-/*   Plotting etc.
-print("Plotting\n");
+/** 
 plot({hx.seg_h.Tf, hx.seg_c.Tf, hx.Tw},
        curveWidth=2, externalWindow=true, title = "Hx Temps)");
   system("sleep 1s");
@@ -71,4 +71,4 @@ plot({hx.portA_h.m_flow, hx.portA_c.m_flow},
   system("sleep 1s");
 
 getErrorString();
-*/
+**/

@@ -50,7 +50,7 @@ equation
      
 initial algorithm
     tank.T := 300 ;  // Initial Temperature
-    tank.p := 1e5 ;  // Initial Temperature
+    tank.p := 1e5 ;  // Initial Pressure
     tank.Xi := Air ;
 
 end plant;

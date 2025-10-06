@@ -34,7 +34,6 @@ system("rm work/*"); cd("./work");   system("pwd");
 // *****  Simulation / translation ******
 tEnd := 10; iniStepSize := 1  ;
 count := integer(floor(tEnd / iniStepSize)) ;
-
 setDebugFlags("infoXmlOperations");
 setDebugFlags("aliasConflicts");
 flags :=  "" ;  // "-lv=LOG_NLS " ;  

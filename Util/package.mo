@@ -149,10 +149,13 @@ function printVars
      input String  resFile ;
      input String[:]   varNames ;
      input Real    sTime   ;
+
+     protected String str ;
      algorithm
                 for k in 1:size(varNames,1) loop
-                   print( varNames[k] +  " = " 
-                    + String(val(stringVariableName(varNames[k]), sTime, resFile)) 
+                   str := varNames[k] ;
+                   print( str +  " = " 
+                    + String(val(stringVariableName(str), sTime, resFile)) 
                     + "\n" );
                  end for;
 end printVars;

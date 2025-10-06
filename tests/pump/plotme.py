@@ -23,8 +23,8 @@ ax.grid(True)
 
 
 ax = axs[2]
-ax.plot(df["time"], df["tank.Tf"], label = 'tank.Tf', color='blue', linestyle='-')
-ax.plot(df["time"], df["pump.T"], label = 'pump.T', color='red', linestyle='-')
+ax.plot(df["time"], df["tank.Tf"]-273, label = 'tank.Tf', color='blue', linestyle='-')
+ax.plot(df["time"], df["pump.T"]-273, label = 'pump.T', color='red', linestyle='-')
 ax.set_xlabel('time')
 ax.set_ylabel('Temp. (C)')
 ax.legend()
@@ -44,7 +44,7 @@ ax = axs[4]
 ax.plot(df["time"], df["pump.head"], label = 'pump head', color='blue', linestyle='-')
 ax.plot(df["time"], df["dpvh"], label = 'valve pdrop', color='red', linestyle='-')
 ax.set_xlabel('time')
-ax.set_ylabel('head (kPa)')
+ax.set_ylabel('head (m)')
 ax.legend()
 ax.grid(True) 
 

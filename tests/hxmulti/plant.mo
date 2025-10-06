@@ -2,6 +2,11 @@ model plant
 /*
   Author: Ravi Saripalli
   	 12th May 2014 
+  Hx is descritized into several segments
+  Pressure loss coeffcients (cf_x) are specified
+  as  (Loss Coeff for entire length) * sqrt (Nseg)
+  That way the overall Loss Coeff for the exchange does
+  not alter with no. of segments.
 */
   import ThermoS.Uops.*;
   import ThermoS.Types.*;
@@ -9,7 +14,7 @@ model plant
 
   constant Real AirComp[2] = {0.767,0.233}; // reduced Xi
   parameter Integer Nseg =20  ;
-  parameter Boolean CoCurrent = false ;
+  parameter Boolean CoCurrent = true ;
 
   Reservoir     res1	(redeclare package Medium = MyGas, p = 5e5, T = 300, Xi = AirComp); // Reservoir 1
   Reservoir 	res2	(redeclare package Medium = MyGas, p = 5e5, T = 600, Xi = AirComp); // Reservoir 2
