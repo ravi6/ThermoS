@@ -12,8 +12,13 @@ resFile := "plant_res." + resFormat ;
 
 // Force C backend and useful debug
 setCommandLineOptions("--simCodeTarget=C");
+setCommandLineOptions("+d=initialization +d=translation +d=instantiation");
 setDebugFlags("infoXmlOperations");
 setDebugFlags("aliasConflicts");
+setDebugFlags("frontend,omc,model");
+setDebugFlags("frontend,omc,model,parser,simulate");
+
+
 
 // Ensure clean working directory
 system("mkdir -p ./work"); cd("./work"); system("rm -rf *");
@@ -33,20 +38,20 @@ for f in {ThermoLib, "../plant.mo"} loop
 end for;
 
 // ==================== SAVE FLATTENED MODEL ====================
-print("Save Flattened Model (total.mo)\n");
+print("Saving Flattened Model (total.mo)\n");
 res := saveTotalModelDebug("total.mo", plant);
 if not res then
-  print("saveTotalModel failed\n") ; 
   print(getErrorString()+"\n");
+  print("saveTotalModel failed\n") ; 
 end if;
 //dumpXMLDAE("plant_dae.xml", plant);
 // ==================== SIMULATION ====================
 print("Simulate Plant");
 flags := "-lv=LOG_LS,LOG_INIT,LOG_NLS -w";
 
-simulate(plant, startTime=0, stopTime=tEnd, outputFormat=resType, simflags=flags,
-          numberOfIntervals=10000, iniStepSize =0.01);   //tolerance=1e-6,// iniStepSize=iniStepSize, 
-checkStatus("simulate()");
+simulate(plant, startTime=0, stopTime=tEnd, outputFormat=resFormat, simflags=flags,
+          numberOfIntervals=10000);   //tolerance=1e-6,// iniStepSize=iniStepSize, 
+print(getErrorString());
 
 // ==================== READ SIMULATION RESULTS ====================
 sVars := readSimulationResultVars(resFile);

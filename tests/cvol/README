@@ -20,3 +20,9 @@ approximation to reality, than a buffer (or surge tank)
    Damn new version omc 1.25  broke this model. Wasted
    one day trying to figure what the issue. Very frustrating.
    Looks like OM can not handle single port tank.    
+8th Oct 2025
+   Removed all belts and braces in terms of good guesses in start
+   section, and fixed incorrect variable resType and replaced eesFormat 
+   and model successfully ran. So my MyAir is PURE :))
+
+   run.
