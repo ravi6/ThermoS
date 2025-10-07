@@ -2,8 +2,11 @@ model plant
 /*
   Author: Ravi Saripalli
   	 12th Feb 2015
+
+  A fluid flow circuit
+    Tank -> pump -> NonRetValve -> heater -> back to Tank
 */
-//  import ThermoS.Types.*;
+  import ThermoS.Types.*;
   import ThermoS.Uops.PumpBasic;
   import ThermoS.Media.JP8;
   import ThermoS.Uops.Tanks.OpenTank ;
@@ -11,10 +14,9 @@ model plant
   import ThermoS.Uops.Valves.NonReturnValve ;
   import ThermoS.Uops.Reservoir;
 
-  OpenTank     tank(redeclare package Medium = JP8, in_pos = 0.3, h=1.0, d=0.1 ,
-                                          mf(start = 1, fixed=false)); 
-  NonReturnValve  valve (redeclare package Medium = JP8, cv = 1e-2 / sqrt(100),
-                                             med.T(start = 288.15, fixed=false)) ;
+  OpenTank     tank(redeclare package Medium = JP8, in_pos = 0.3, h=1.0, d=0.1) ;
+  NonReturnValve  valve (redeclare package Medium = JP8, cv = 1e-2 / sqrt(100));
+  //                                           med.T(start = 288.15, fixed=false)) ;
   PumpBasic    pump (redeclare package Medium = JP8, holdup = 1e-4,
                                          U(start=0, fixed=false)) ;
   HeaterCooler htr(redeclare package Medium = JP8, cf = 1e-3, 
@@ -46,4 +48,5 @@ equation
 initial algorithm
     tank.pFull := 80 ; tank.Tf    := 400 ; 
     htr.Tf :=300 ; htr.Tw :=300 ; 
+    pump.T :=300 ;
 end plant;

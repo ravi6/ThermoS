@@ -11,10 +11,10 @@ model Reservoir
   parameter Medium.Temperature          T               ;
   parameter Medium.MassFraction         Xi[Medium.nXi]  ;
 
-  Medium.BaseProperties       medium          ;
+  Medium.BaseProperties  medium (p(start=1e5), T(start=300), X(start=Medium.reference_X));
 
-//  Medium.ThermodynamicState state ;
-//  Medium.ThermodynamicState state (T(start=300), X(start=Medium.reference_X), p(start=1e5))   ;  // This is how you can have implicit start
+//  Medium.ThermodynamicState state (T(start=300), X(start=Medium.reference_X), p(start=1e5));
+// This is how you can have implicit start
 
   equation
 //    state 		= Medium.setState_pTX( p, T, Xi ); 

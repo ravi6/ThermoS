@@ -13,7 +13,7 @@ model PumpBasic
   parameter Volume		holdup  = 1e-3      ; // Pump fluid holdup 
   Medium.ThermodynamicState	state 		    ; // Fluid state in the pump
   Heat			        Q 	    	    ; // Heat input to the device
-  Temperature			T		    ; // Heater Fluid temperature (K)
+  Temperature			T		    ; // Pump  Fluid temperature (K)
   Energy			U		    ; // Internal energy of fluid holdup
 
   Power 		Ws	         	    ; // Power delivered to the fluid by the shaft 

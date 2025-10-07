@@ -16,7 +16,7 @@ model plant
   HeaterCooler htr(redeclare package Medium = JP8, cf = 1e-3, 
                                         A_wf = 1,  h_wf = 150, 
                                         w_m = 1, w_cp = 420, holdup = 1e-4);
-  Reservoir    lake(redeclare package Medium = JP8, p = 1e5, T = 300) ;
+  Reservoir    lake(redeclare package Medium = JP8, p = 1e5, T = 300 , Xi=fill(0,0)) ;
 
   record recdelp
       Real pump ;
@@ -49,8 +49,8 @@ equation
      
 
      tank.hcoef = 150 ; tank.Pa   = 1e5 ;  tank.Ta =300 ;
- //    valve.po = 80 ;
-    pump.Q = 0 ; pump.head = 1.2  * (1-exp(-time/120)) ;
+     valve.po = 80 ;
+     pump.Q = 0 ; pump.head = 1.2  * (1-exp(-time/120)) ;
      htr.Q_ew =  2000 * (1 - exp(-time/40)) ;
 
      delp.pump  = (pump.outlet.p - pump.inlet.p) / 1e3 ;

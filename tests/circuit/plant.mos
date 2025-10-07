@@ -7,7 +7,7 @@
 echo(false);
 tEnd := 400;  // simulation stop time
 logFile := "log";
-resFormat := "mat" ;
+resFormat := "csv" ;
 resFile := "plant_res." + resFormat ;
 
 // Force C backend and useful debug
@@ -49,8 +49,7 @@ print("Simulate Plant");
 flags := "-lv=LOG_LS,LOG_INIT,LOG_NLS -w";
 
 ans:=simulate(plant, startTime=0, stopTime=tEnd, 
-              numberOfIntervals=400,outputFormat=resFormat, simflags=flags,
-              method="dassl");
+              outputFormat=resFormat, simflags=flags);
  print (String(ans)) ;
  print(getErrorString()+"\n");
 checkStatus("simulate()");
@@ -62,20 +61,22 @@ if size(sVars,1) == 0 then
 else
   print("Simulation completed successfully. Variables count: " + String(size(sVars,1)));
 end if;
-t:=155;
-print("Plant Conditions at t=" + String(t) + "\n");
-ans := ThermoS.Util.printVars(resFile, 
-                          {"delp.pump", "delp.valve", "delp.heater",
-                           "pump.Vdot", "pump.Ws",
-                           "pump.inlet.m_flow", "pump.inlet.p",
-                           "pump.outlet.p", "valve.inlet.p",
-                           "valve.outlet.p", "htr.inlet.p",
-                           "htr.outlet.p","tank.Q_in","htr.Q_wf" 
-                          },
-                          t);
+
+if (resFormat == "mat") then   // works with mat files only
+  t:=1;
+  print("Plant Conditions at t=" + String(t) + "\n");
+  ans := ThermoS.Util.printVars(resFile, 
+			    {"time", "delp.pump", "delp.valve", "delp.heater",
+			     "pump.Vdot", "pump.Ws",
+			     "pump.inlet.m_flow", "pump.inlet.p",
+			     "pump.outlet.p", "valve.inlet.p",
+			     "valve.outlet.p", "htr.inlet.p",
+			     "htr.outlet.p","tank.Q_in","htr.Q_wf" 
+			    },
+			    t);
+end if;
 /*
 print("Plotting\n");
-// Plotting Begins
 plot(tank.level,
        curveWidth=2, externalWindow=true, title = "level(m)");
 system("sleep 1s");
