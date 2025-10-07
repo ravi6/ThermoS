@@ -35,15 +35,13 @@ for f in {ThermoLib, "../plant.mo"} loop
 end for;
 
 // ==================== SAVE FLATTENED MODEL ====================
-/*
 print("Save Flattened Model (total.mo)\n");
-res := saveTotalModel("total.mo", plant);
+res := saveTotalModelDebug("total.mo", plant);
 if not res then
   print("saveTotalModel failed\n") ; 
   print(getErrorString()+"\n");
 end if;
-dumpXMLDAE("plant_dae.xml", plant);
-*/
+#dumpXMLDAE("plant_dae.xml", plant);
 // ==================== SIMULATION ====================
 print("Simulate Plant");
 flags := "-lv=LOG_LS,LOG_INIT,LOG_NLS -w";

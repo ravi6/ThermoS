@@ -49,7 +49,7 @@ dumpXMLDAE("plant_dae.xml", plant);
 print("Simulate Plant");
 flags := "-lv=LOG_LS,LOG_INIT,LOG_NLS -w";
 
-simulate(plant, startTime=0, stopTime=tEnd, outputFormat=resType, simflags=flags);
+simulate(plant, startTime=0, stopTime=tEnd, outputFormat=resFormat, simflags=flags);
 checkStatus("simulate()");
 
 // ==================== READ SIMULATION RESULTS ====================
