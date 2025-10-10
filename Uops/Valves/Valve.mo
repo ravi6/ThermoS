@@ -40,6 +40,7 @@ equation
     else
        inlet.m_flow = cv * charF  *  sqrt(med.d * inlet.p)
                         * regRoot2(1 - outlet.p/inlet.p, dpTol) ; 
+       Y = 1  ; // redundant but needed in new version
     end if; 
 
     

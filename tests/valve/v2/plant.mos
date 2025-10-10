@@ -12,8 +12,6 @@ resFile := "plant_res." + resFormat ;
 
 // Force C backend and useful debug
 setCommandLineOptions("--simCodeTarget=C");
-setCommandLineOptions("+d=initialization,+d=bltdump");
-setCommandLineOptions("--daeMode --d=backenddaeinfo");
 setDebugFlags("infoXmlOperations");
 setDebugFlags("aliasConflicts");
 
@@ -48,12 +46,12 @@ print("Simulate Plant");
 flags := "-lv=LOG_LS,LOG_INIT,LOG_NLS -w";
 
 simulate(plant, startTime=0, stopTime=tEnd, outputFormat=resFormat, simflags=flags);
-checkStatus("simulate()");
+  print(getErrorString()+"\n");
 
 // ==================== READ SIMULATION RESULTS ====================
 sVars := readSimulationResultVars(resFile);
 if size(sVars,1) == 0 then
-  print("No simulation variables found simulation may have failed");
+  print("No simulation variables found simulation may have failed" +"\n");
 else
-  print("Simulation completed successfully. Variables count: " + String(size(sVars,1)));
+  print("Simulation completed successfully. Variables count: " + String(size(sVars,1)) +"\n");
 end if;

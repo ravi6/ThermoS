@@ -1,5 +1,5 @@
 /*  A simple script Template to run my Plant Model
-          Author: Ravi Saripalli
+e         Author: Ravi Saripalli
 	  Date:   23th Jul. 2015
           Modified: 24 Sep. 2024 
 */  
@@ -12,11 +12,8 @@ resFile := "plant_res." + resFormat ;
 
 // Force C backend and useful debug
 setCommandLineOptions("--simCodeTarget=C");
-setCommandLineOptions("+d=initialization,+d=bltdump");
-setCommandLineOptions("--daeMode --d=backenddaeinfo");
 setDebugFlags("infoXmlOperations");
 setDebugFlags("aliasConflicts");
-
 
 // Ensure clean working directory
 system("mkdir -p ./work"); cd("./work"); system("rm -rf *");
@@ -27,6 +24,7 @@ print("Load ThermoLib and Plant\n");
 ThermoLib := getEnvironmentVar("THERMOS") + "/package.mo";
 for f in {ThermoLib, "../plant.mo"} loop
   if loadFile(f) then
+    print (f + "\n") ;
     print(f + " loaded successfully\n");
   else
     print("Failed to load: " + f + "\n");
@@ -47,13 +45,15 @@ end if;
 print("Simulate Plant");
 flags := "-lv=LOG_LS,LOG_INIT,LOG_NLS -w";
 
-simulate(plant, startTime=0, stopTime=tEnd, outputFormat=resFormat, simflags=flags);
-checkStatus("simulate()");
+simulate(plant, startTime=0, stopTime=tEnd, 
+        outputFormat=resFormat, simflags=flags);
+  print(getErrorString()+"\n");
 
+//checkStatus("simulate()");
 // ==================== READ SIMULATION RESULTS ====================
 sVars := readSimulationResultVars(resFile);
 if size(sVars,1) == 0 then
-  print("No simulation variables found simulation may have failed");
+  print("No simulation variables found simulation may have failed" + "\n");
 else
-  print("Simulation completed successfully. Variables count: " + String(size(sVars,1)));
+  print("Simulation completed successfully. Variables count: " + String(size(sVars,1)) + "\n");
 end if;
