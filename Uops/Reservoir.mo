@@ -9,23 +9,17 @@ model Reservoir
 
   parameter Medium.AbsolutePressure     p               ;
   parameter Medium.Temperature          T               ;
-  parameter Medium.MassFraction         Xi[Medium.nXi]  ;
+  parameter Medium.MassFraction  Xi[Medium.nXi]         ;
 
-  Medium.BaseProperties  medium (p(start=1e5), T(start=300), X(start=Medium.reference_X));
-
-//  Medium.ThermodynamicState state (T(start=300), X(start=Medium.reference_X), p(start=1e5));
-// This is how you can have implicit start
+  Medium.BaseProperties  medium  ;
 
   equation
-//    state 		= Medium.setState_pTX( p, T, Xi ); 
-//    port.h_outflow 	= Medium.specificEnthalpy(state) ;
 
     medium.T = T ;
     medium.p = p ;
     medium.Xi = Xi ;
-
     port.h_outflow = medium.h ;
-    port.Xi_outflow 	= Xi;
-    port.p		= p ;
+    port.p = p ;
+    port.Xi_outflow = Xi;
 
 end Reservoir;

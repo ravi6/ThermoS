@@ -8,7 +8,6 @@ extends Modelica.Media.Incompressible.TableBased (
                  T_max = Modelica.Units.Conversions.from_degC(230), 
                  TinK = false,      // Table Temperatures are in C
                  T0 = 273.15, 
-                  // reducedX = true,
               tableDensity = [-40.0, 850; 0.0, 822 ; 20.0, 808 ; 90.0, 760 ],
               tableHeatCapacity = [31.3, 2000; 60, 2125; 100, 2300; 183, 2660],
               tableConductivity = [-6.8, 0.12; 49.3, 0.101; 118, 0.098; 219.5, 0.0803],
@@ -17,7 +16,9 @@ extends Modelica.Media.Incompressible.TableBased (
                                 80, 6.050e-04; 90, 5.451e-04; 100, 4.939e-04],
               tableVaporPressure = [-40,  5.81; -20,  27.15; 0,  101.3; 20,  315.7;
                                      40,  851 ;  60,  2037 ; 80, 4415; 100,  8811;
-                                     120, 16387; 140, 28701; 160, 47733; 180, 75900; 200, 116048]);
+                                     120, 16387; 140, 28701;
+                                     160, 47733; 180, 75900; 200, 116048]
+              );
 
 /* Property tables derived from 
 (1) Thermodynamic, Transport, and Chemical Properties of Reference JP-8

@@ -1,54 +1,61 @@
 within ThermoS.Uops;
 model CompressorBasic
+  "Polytropic compression model (algebraic, steady flow)"
 
-  /* 
-     Polytropic Compression unit
-     using Compressible Media
-     // Algebraic ... no derivatives :))
-*/
+  replaceable package Medium = PartialMixtureMedium;
 
-  replaceable package Medium = PartialMixtureMedium ;
+  // Ports
+  Modelica.Fluid.Interfaces.FluidPort_a inlet(redeclare package Medium = Medium);
+  Modelica.Fluid.Interfaces.FluidPort_b outlet(redeclare package Medium = Medium);
 
-  FluidPort 	inlet (redeclare package Medium = Medium)  ; 
-  FluidPort 	outlet (redeclare package Medium = Medium)  ; 
+  // Parameters
+  parameter Real n(min = 1, max = 1.5) = 1.4 "Polytropic exponent";
+  parameter Real pr(min = 0.1, max = 10, start = 2) "Pressure ratio (p_out/p_in)";
+  parameter Real effPoly(min = 0, max = 1) = 0.9 "Polytropic efficiency";
+  parameter Boolean adiabatic = true "If true, Q = 0";
+  parameter Power Ws = 1000 "Shaft power input (positive to fluid)";
+  parameter HeatFlowRate Q = 0 "Heat transfer to fluid (+ve in)";
 
-  Medium.ThermodynamicState	state_in    ; // Fluid state at inlet port
-  Medium.ThermodynamicState	state_out   ;// Fluid state at outlet port
-  Heat			        Q     	    ; // Heat input to the device
-  Power 		        Ws     	    ; // Power delivered to the fluid by the shaft 
+  // Medium states
+  Medium.ThermodynamicState state_in;
+  Medium.ThermodynamicState state_out;
 
-  Real 	effPoly(min = 0, max = 1) = 0.9;    //Polytropic Efficiency
-  Real 	effIsen(min = 0, max = 1);          //Isentropic  Efficiency
-  Real  n(min = 1, max = 1.5);              // Polytropic coeff
-  Real  pr(min=0.1, max=10, start=1);       // Pressure ratio (Outlet/Inlet)
-  Real  gamma (min=0.1, max=2, start=1.4);  // Cp/Cv at inlet conditions
+  // Flow properties
+  Medium.MassFlowRate m_flow(start = 0.1, fixed = false);
+  Medium.SpecificEnthalpy h_outflow(start = 3e5, fixed = false);
 
-  equation
-    // Mass balance 
-     inlet.m_flow + outlet.m_flow = 0  ;     // No accumulation of mass
-     inlet.Xi_outflow = outlet.Xi_outflow ;  // No change in gas comp 
+  Real gamma(start = 1.4);
 
-    // Isentropic Efficiency and Polytropic Efficiency relation
-     state_in = Medium.setState_pTX (inlet.p, inlet.T, 
-                           inStream(inlet.Xi_outflow));
-     gamma = MoistAir.isentropicExponent(state_in);
-     pr    = outlet.p / inlet.p ;
-     effPoly = (gamm - 1) * n / (gamma * (n -1)) ;
-     effIsen = ( (pr) ^ ((gamma - 1) / gamma) - 1 ) /
-               ( (pr) ^ ((gamma - 1) / (gamma * effPoly)) - 1 ) ;
+equation
+  // === Port definitions ===
+  inlet.m_flow + outlet.m_flow = 0;
+  outlet.p = pr * inlet.p;
 
-    // Outlet Temp after accounting for Isentropic efficincy
-     outlet.T = pr ^ ((gamma - 1) / gamma / effIsen) ;
-     state_out = Medium.setState_pTX (outlet.p, outlet.T, 
-                                      outlet.Xi_outflow);
- 
-   // Work done is R(T2 - T1)/ (1-n) &  R = Cp - Cv 
-     Ws  =    inlet.m_flow * ((gamma - 1)/(1 - n)) 
-                         * (Medium.specificInternal (state_out) 
-                          - Medium.specificEnthalpy (state_in)) ;
-   //  Q = dH + Ws  (flow energy balance)
-     Q  =  inlet.m_flow * (Medium.specificEnthalpy (state_out)
-                          - Medium.specificEnthalpy (state_in))
-           - Ws ;
-     
+  // === Define states ===
+  state_in  = Medium.setState_phX(inlet.p,  inStream(inlet.h_outflow),
+                                  inStream(inlet.Xi_outflow));
+  state_out = Medium.setState_phX(outlet.p, h_outflow,
+                                  inStream(inlet.Xi_outflow));
+
+  gamma = Medium.isentropicExponent(state_in);
+
+  // === Energy balance ===
+  // Q = m*(h_out - h_in) - Ws  → relates m_flow and h_outflow
+  Q = m_flow * (Medium.specificEnthalpy(state_out)
+                - Medium.specificEnthalpy(state_in)) - Ws;
+
+  // === Polytropic relation (temperature ratio) ===
+  state_out.T = state_in.T * pr^((gamma - 1)/(gamma * effPoly));
+
+  // === Port enthalpy connection ===
+  outlet.h_outflow = h_outflow;
+  inlet.Xi_outflow = outlet.Xi_outflow;
+  outlet.Xi_outflow = inStream(inlet.Xi_outflow);
+
+  // Adiabatic option enforcement
+  if adiabatic then
+    Q = 0;
+  end if;
+
 end CompressorBasic;
+

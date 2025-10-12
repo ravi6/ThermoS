@@ -8,14 +8,9 @@ model Product
   Medium.AbsolutePressure p;
   Medium.Temperature T;
   Medium.MassFraction Xi[Medium.nXi];
-
-  //Medium.ThermodynamicState state;
   Medium.BaseProperties  medium   ;
 
 equation
-  //state = Medium.setState_pTX( p, T, Xi);
-  //inlet.p = state.p;
-  //inlet.h_outflow = Medium.specificEnthalpy(state);
     medium.p = inlet.p ;
     medium.T = T ;
     medium.Xi = Xi ;

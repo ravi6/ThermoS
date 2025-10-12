@@ -5,14 +5,14 @@ model Valve                        // A control Valve
 
 // import ThermoS.Math.sMax0 ;
 
-parameter Vchar vchar = Vchar.Linear             ;  // Valve Charachteristics (Linear by default)
-parameter Fraction pratChoke  = 0.5              ;  // Maximum pressure ratio at choking point
-parameter Boolean  Compressible = true           ;  // Default to compressible flow
+parameter Vchar vchar = Vchar.Linear  ;  // Valve Charachteristics (Linear by default)
+parameter Fraction pratChoke  = 0.5   ;  // Maximum pressure ratio at choking point
+parameter Boolean  Compressible = true  ;  // Default to compressible flow
 
-Percent      po    (start=0.0)           ;               // Valve % Open  
-Fraction     charF (start=1.0)           ;               // Characteristic Multiplier
-Fraction     prat  (start=1.0)           ;
-Fraction     Y     (start=1.0)           ; // Compressibility Factor
+Percent      po    (start=0.0)  ; // Valve % Open  
+Fraction     charF (start=1.0)  ; // Characteristic Multiplier
+Fraction     prat  (start=1.0)  ; // Pressure Ratio
+Fraction     Y     (start=1.0)  ; // Compressibility Factor
 
 equation
 
