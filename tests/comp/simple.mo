@@ -13,16 +13,10 @@ CompressorBasic  comp (redeclare package Medium = MyGas,
   Real x ;
 equation
      comp.inlet.p = 1e5  ;
-     comp.inlet.h_outflow = MyGas.specificEnthalpy(
-                             MyGas.setState_pTX(1e5, 300, Air)
-                          );
+     comp.inlet.h_outflow = MyGas.specificEnthalpy( MyGas.setState_pTX(1e5, 300, Air));
     comp.inlet.Xi_outflow = Air ;
-    comp.Ws = 1000 ;
+    comp.inlet.m_flow = 1;
     der(x) = 1 ; 
-
-comp.outlet.p = 2e5;
-comp.Q = 0;                // adiabatic compression
-// comp.Ws = 1000;         // optional, remove if you fix Q=0
 
 initial algorithm
      x := 10 ;

@@ -12,6 +12,9 @@ model Feed
   Medium.BaseProperties  medium ;
 
   equation
+   
+    // Just to get Enthalpyof outflow 
+    // Feed pressure is outlet.p
     medium.p = outlet.p ;
     medium.T =  T ;
     medium.Xi = Xi ;

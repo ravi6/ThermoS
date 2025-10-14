@@ -1,38 +1,44 @@
 model plant
-  import ThermoS.Media.MyGas;
-  import ThermoS.Uops.CompressorBasic;
+/*
+  Author: Ravi Saripalli
+  	11st Oct 2025 
+    Compressor Tests 
+*/
+  import ThermoS.Types.* ;
+  import ThermoS.Media.MyGas ;
+  import ThermoS.Uops.Feed ;
+//  import ThermoS.Uops.Product ;
+  import ThermoS.Uops.Tanks.GasTank ;
+  import ThermoS.Uops.Valves.Valve ;
+  //import ThermoS.Uops.CompressorBasic ;
+  import ThermoS.Uops.Reservoir ;
 
-  constant Real Air[MyGas.nXi] = {0.7, 0.2};
-
-  CompressorBasic comp(
-    redeclare package Medium = MyGas,
-    pr = 2,
-    n  = 1.4
-  );
-
-  // Dynamic inlet pressure
-  Real p_target = 1e5;       // target inlet pressure [Pa]
-  Real tau = 0.1;             // time constant for inlet pressure dynamics
-  Real x;                     // example independent dynamic state
+  constant    Real Air[MyGas.nXi] = {0.7, 0.2} ;
+  Feed      suction (redeclare package Medium = MyGas);
+  Valve     valve (redeclare package Medium = MyGas , 
+                     cv = (1500e-3/60) / sqrt(4e5)) ;
+ // CompressorBasic  comp (redeclare package Medium = MyGas, 
+                         //         pr = 2,  n=1.4) ;
+  GasTank     tank (redeclare package Medium = MyGas, vol = 0.2 , Q_in=0); 
+  Reservoir   atm (redeclare package Medium = MyGas, p=1e5, T=300, Xi=Air);
+  constant Real alpha = 1.0e-2 ;
+  Real x (start=0, min = 0 , max = 1);
 
 equation
-  // First-order dynamic for inlet pressure
-  der(comp.inlet.p) = (p_target - comp.inlet.p)/tau;
-
-  // Feed the compressor with enthalpy and composition based on current inlet pressure
-  comp.inlet.Xi_outflow = Air;
-  comp.inlet.h_outflow = MyGas.specificEnthalpy(
-    MyGas.setState_pTX(comp.inlet.p, 300, Air)
-  );
-
-  // Example dummy ODE
-  der(x) = 1;
-
-  // Output to prevent pruning
-  x = x; // trivial, ensures at least one output
+     connect (suction.outlet, tank.inlet) ;
+//     connect (tank.outlet, comp.inlet) ;
+//     connect (comp.outlet, valve.inlet) ;
+     
+     connect (tank.outlet, valve.inlet);
+     connect (valve.outlet, atm.port) ;
+     suction.T = 300  ;
+     suction.Xi = Air ;
+     valve.po = 50 ;
+     tank.inlet.m_flow =  x ;
+     x = alpha * tank.p ;
 
 initial algorithm
-  comp.inlet.p := 1e5; // start near target
-  x := 0;
-
+    tank.T := 300 ;  // Initial Temperature
+    tank.p := 1e5 ;  // Initial Pressure
+    tank.Xi := Air ;
 end plant;

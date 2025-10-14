@@ -11,7 +11,7 @@ resFormat := "csv" ;
 resFile := "plant_res." + resFormat ;
 
 // Force C backend and useful debug
-setCommandLineOptions("--simCodeTarget=C ");
+setCommandLineOptions("--simCodeTarget=C");
 setDebugFlags("infoXmlOperations");
 setDebugFlags("aliasConflicts");
 //setDebugFlags("failtrace,backenddaeinfo,initialization");
@@ -42,7 +42,7 @@ if not res then
   print("saveTotalModel failed\n") ; 
   print(getErrorString()+"\n");
 end if;
-//dumpXMLDAE("plant_dae.xml", plant);
+dumpXMLDAE("plant_dae.xml", plant);
 // ==================== SIMULATION ====================
 print("Checking Model\n");
 checkModel(plant);
@@ -50,10 +50,12 @@ print(getErrorString()+"\n");
 instantiateModel(plant);
 print(getErrorString()+"\n");
 
-flags := "-lv=LOG_LS,LOG_INIT,LOG_NLS -w";
+flags := "-lv=LOG_DASSL, LOG_DSS, LOG_LS,LOG_INIT,LOG_NLS -w -daeMode";
 print("Simulate Plant\n");
 simulate(plant, startTime=0, stopTime=tEnd, 
         outputFormat=resFormat, simflags=flags);
+ans:=getMessagesStringInternal() ;
+print(String(ans));
 print(getErrorString()+"\n");
 
 // ==================== READ SIMULATION RESULTS ====================
