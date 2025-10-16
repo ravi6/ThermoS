@@ -26,8 +26,7 @@ model CompressorBasic
 
   parameter Real  n (min = 1, max = 1.5);              // Polytropic coeff
   parameter Real  pr (min = 0.1, max = 10, start = 1); // Pressure ratio 
-  parameter Real  mdot (min = 0.0, max = 10,
-                                     start = 0); // Pressure ratio 
+//  parameter Real  mdot (min = 0.0, max = 10, start = 0); // Pressure ratio 
 
 
   equation
@@ -35,8 +34,9 @@ model CompressorBasic
      inlet.m_flow + outlet.m_flow = 0  ;     // No accumulation of mass
      inStream(inlet.Xi_outflow) = outlet.Xi_outflow ;  // No change in gas comp 
      inStream(outlet.Xi_outflow) = inlet.Xi_outflow ;  // No change in gas comp 
-     
-     outlet.h_outflow = inlet.h_outflow ;   // no change in enthalpy across comp
+     outlet.h_outflow = Medium.specificEnthalpy(
+                            Medium.setState_pTX(outlet.p , 500, outlet.Xi_outflow)
+                        );  
      outlet.p = pr *  inlet.p ;
      gamma = 1.4 ; // Medium.isentropicExponent (state_in);
      effPoly = (1 - 1 / gamma)  / (1 - 1 / n) ;

@@ -25,11 +25,13 @@ equation
      connect (tank.outlet, valve.inlet) ;
      connect (valve.outlet, atm.port) ;
 
+    /*
      onoff.sp = 1e5 + 5e5 ; //* (1 - exp(-time/10)) ; // soft ramp up Tank Pressure setpoint
      onoff.pv = tank.p ;  // Controller Measure Value
      onoff.mv = tank.inlet.m_flow;
+    */
 
-     // supply.mdot = 1000 * 1e-3/60 ; // + 4.95 * sin(6*time) ; 
+     supply.mdot = 1000 * 1e-3/60 ; // + 4.95 * sin(6*time) ; 
      supply.T = 300 ; // for a force feed you need flow, temp and comp
      supply.Xi = fill(1.0/MyGas.nS, MyGas.nXi) ;
 
