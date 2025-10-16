@@ -14,7 +14,7 @@ resFile := "plant_res." + resFormat ;
 setCommandLineOptions("--simCodeTarget=C");
 setDebugFlags("infoXmlOperations");
 setDebugFlags("aliasConflicts");
-//setDebugFlags("failtrace,backenddaeinfo,initialization");
+setDebugFlags("failtrace,backenddaeinfo,initialization");
 print(getErrorString() + "\n");
 
 

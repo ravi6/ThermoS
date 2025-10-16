@@ -25,7 +25,7 @@ equation
      connect (tank.outlet, valve.inlet) ;
      connect (valve.outlet, atm.port) ;
 
-     pid.sp = 1e5 + 6e5 * (1 - exp(-time/10)) ; // Tank Pressure setpoint
+     pid.sp = 2e5 ; //1e5 + 6e5 * (1 - exp(-time/10)) ; // Tank Pressure setpoint
      pid.pv = tank.p ;
      pid.mv = tank.inlet.m_flow ; 
 
