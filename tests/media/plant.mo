@@ -8,8 +8,10 @@ model plant
   import ThermoS.Media.JP8;
 
 
-  Reservoir     res1	(redeclare package Medium = JP8, p = 5e5, T = 300); // Reservoir 1
-  Reservoir 	res3	(redeclare package Medium = JP8, p = 1e5, T = 300); // Reservoir 2
+  Reservoir     res1	(redeclare package Medium = JP8, p = 5e5, T = 300,
+                                              Xi=fill(1,0)); // Reservoir 1
+  Reservoir 	res3	(redeclare package Medium = JP8, p = 1e5, T = 300,
+                                           Xi=fill(1,0)); // Reservoir 2
 
   HeaterCooler htr(redeclare package Medium = JP8, cf = 1.0e-3, 
                                         A_wf = 1,  h_wf = 150, 

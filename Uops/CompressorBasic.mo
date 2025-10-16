@@ -10,7 +10,7 @@ model CompressorBasic
 
   FluidPort 	inlet (redeclare package Medium = Medium)  ; 
   FluidPort 	outlet (redeclare package Medium = Medium)  ; 
-
+/*
   Medium.ThermodynamicState	state_in    ; // Fluid state at inlet port
   Medium.ThermodynamicState	state_out   ; // Fluid state at outlet port
   Medium.ThermodynamicState	state_iso   ; // Fluid state at isentropic 
@@ -19,7 +19,7 @@ model CompressorBasic
 
   HeatFlowRate                  Q (start=0) ; // Heat input to the device
   Power 	                Ws (start=0); // Power delivered to comp.
-
+*/
   Real 	effPoly (min = 0, max = 1, start = 1) ;   //Polytropic Efficiency
   Real 	effIs (min = 0, max = 1, start = 1);      //Isentropic  Efficiency
   Real  gamma (min = 0.1, max = 2, start = 1.4);  // Cp/Cv at inlet conditions
@@ -33,10 +33,10 @@ model CompressorBasic
   equation
     // Mass balance 
      inlet.m_flow + outlet.m_flow = 0  ;     // No accumulation of mass
-     der (inlet.m_flow) = mdot ; 
      inStream(inlet.Xi_outflow) = outlet.Xi_outflow ;  // No change in gas comp 
      inStream(outlet.Xi_outflow) = inlet.Xi_outflow ;  // No change in gas comp 
-
+     
+     outlet.h_outflow = inlet.h_outflow ;   // no change in enthalpy across comp
      outlet.p = pr *  inlet.p ;
      gamma = 1.4 ; // Medium.isentropicExponent (state_in);
      effPoly = (1 - 1 / gamma)  / (1 - 1 / n) ;
