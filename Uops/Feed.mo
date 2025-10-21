@@ -6,7 +6,7 @@ model Feed
   FluidPort outlet (redeclare package Medium = Medium)  ; 
 
   // Specify that our Medium is used in outlet
-  Medium.MassFlowRate    mdot(min=0) 	; 
+  Medium.MassFlowRate    mdot(min=0, start=0.001); 
   Medium.Temperature     T              ;
   Medium.MassFraction    Xi[Medium.nXi]  ;
   Medium.BaseProperties  medium ;
