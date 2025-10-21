@@ -5,7 +5,7 @@
 */  
 // ==================== SETTINGS ====================
 echo(false);
-tEnd := 0.01;  //sim stop time
+tEnd := 200;  //sim stop time
 logFile := "log";
 resFormat := "csv" ;
 resFile := "plant_res." + resFormat ;

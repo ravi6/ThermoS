@@ -18,14 +18,14 @@ constant    Real Air[MyGas.nXi] = {0.7, 0.2} ;
 Feed        feed  (redeclare package Medium = MyGas);
 Reservoir   atm      (redeclare package Medium = MyGas, p=1e5, T=300, Xi=Air);
 Valve       valve    (redeclare package Medium = MyGas , 
-                                       cv = (1500e-3/60) / sqrt(4e5)) ;
-GasTank     tank (redeclare package Medium = MyGas, vol = 0.2 , Q_in=0); 
+                                       cv = (1500e-3/60) / sqrt(1.5e5)) ;
+GasTank     tank (redeclare package Medium = MyGas, vol = 0.02 , Q_in=0); 
 
 equation
     connect(feed.outlet, tank.inlet) ;
     connect(tank.outlet, valve.inlet) ;
     connect(valve.outlet, atm.port);
-    valve.po = 50 ;
+    valve.po = 90 ;
     feed.mdot = 1.0 ; 
     feed.Xi = Air ;
     feed.T  = 300 ;
