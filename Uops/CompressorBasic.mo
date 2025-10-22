@@ -10,65 +10,44 @@ model CompressorBasic
 
   FluidPort 	inlet (redeclare package Medium = Medium)  ; 
   FluidPort 	outlet (redeclare package Medium = Medium)  ; 
-/*
+
   Medium.ThermodynamicState	state_in    ; // Fluid state at inlet port
   Medium.ThermodynamicState	state_out   ; // Fluid state at outlet port
-  Medium.ThermodynamicState	state_iso   ; // Fluid state at isentropic 
+  Medium.ThermodynamicState	state_is    ; // Fluid state at isentropic 
   Medium.Temperature            Tin (start = 300)        ; // Compressor Inlet Temp
   Medium.Temperature            Tout (start = 300)       ; // Compressor Outlet Temp
 
-  HeatFlowRate                  Q (start=0) ; // Heat input to the device
-  Power 	                Ws (start=0); // Power delivered to comp.
-*/
-  Real 	effPoly (min = 0, max = 1, start = 1) ;   //Polytropic Efficiency
-  Real 	effIs (min = 0, max = 1, start = 1);      //Isentropic  Efficiency
-  Real  gamma (min = 0.1, max = 2, start = 1.4);  // Cp/Cv at inlet conditions
+  SpecificEntropy               s ;  // Entropy of inlet/outlet stream
+  SpecificEnthalpy              hin, hout, his;
+  Power 	                Ws ; // Power delivered to comp.
 
-  parameter Real  n (min = 1, max = 1.5);              // Polytropic coeff
-  parameter Real  pr (min = 0.1, max = 10, start = 1); // Pressure ratio 
-//  parameter Real  mdot (min = 0.0, max = 10, start = 0); // Pressure ratio 
-
+  parameter Real  eff (min = 0, max = 1, start = 1) ;   //Isentropic Efficiency
 
   equation
+
     // Mass balance 
      inlet.m_flow + outlet.m_flow = 0  ;     // No accumulation of mass
-     inStream(inlet.Xi_outflow) = outlet.Xi_outflow ;  // No change in gas comp 
-     inStream(outlet.Xi_outflow) = inlet.Xi_outflow ;  // No change in gas comp 
-     outlet.h_outflow = Medium.specificEnthalpy(
-                            Medium.setState_pTX(outlet.p , 500, outlet.Xi_outflow)
-                        );  
-     outlet.p = pr *  inlet.p ;
-     gamma = 1.4 ; // Medium.isentropicExponent (state_in);
-     effPoly = (1 - 1 / gamma)  / (1 - 1 / n) ;
-     effIs =   (pr ^ ((1 - 1 / gamma) - 1)) 
-               / (pr ^ ((1 - 1 / gamma) /  effPoly) - 1 ) ;
+     inStream(inlet.Xi_outflow) = outlet.Xi_outflow ;  
+     outlet.Xi_outflow = inlet.Xi_outflow ;  
+     hin =  (inlet.h_outflow) ;
+     hout =  (outlet.h_outflow) ;
 
-/*
-    // Inlet state
-     state_in = Medium.setState_phX (inlet.p, inStream(inlet.h_outflow),
-                           inStream(inlet.Xi_outflow));
+     // Get inlet state, entropy 
+     state_in = Medium.setState_phX (inlet.p, hin, inlet.Xi_outflow);
+     s = Medium.specificEntropy (state_in) ;
      Tin = state_in.T ;
 
     // Determine outlet state if it were isentropic (state_iso)
-     state_is = Medium.setState_psX (outlet.p, Medium.specificEntropy (state_in),
-                           inStream(outlet.Xi_outflow));
+     state_is = Medium.setState_psX (outlet.p, s, outlet.Xi_outflow);
+     his = Medium.specificEnthalpy (state_is) ;
 
-    // Exit Temperature when polyTropic compression
-     Tout = state_in.T +  (state_is.T - state_in.T) / effPoly ;
+    // Determine outlet Enthalpy and state 
+      hout = hin + (his - hin) / eff ;
+      state_out = Medium.setState_phX (outlet.p, hout,
+                          outlet.Xi_outflow);
+      Tout = state_out.T ;
 
-    // Now  we have full state condition at outlet
-     state_out = Medium.setState_pTX (outlet.p, Tout,
-                          inStream(outlet.Xi_outflow));
+   // Shaft work in adiabatic compression
+     Ws = inlet.m_flow * (hout - hin) ;
 
-   // Shaft work in polytropic compression
-     Ws = inlet.m_flow * (Medium.specificEnthalpy (state_is) -
-                          Medium.specificEnthalpy (state_in))
-                         / effPoly ;
-
-   //  Q Heat loss from the  compressor
-   //  Ws Shaft work done on the compressor
-   //  dH =  - Q +  Ws  (flow energy balance)
-    Ws - Q   =  inlet.m_flow * (actualStream (inlet.h_outflow) +
-                                actualStream (outlet.h_outflow)) ;
- */    
 end CompressorBasic;
