@@ -13,15 +13,15 @@ model plant
 
   constant    Real Air[MyGas.nXi] = {0.7, 0.2} ;
   Reservoir   suction  (redeclare package Medium = MyGas,
-                         p = 1e5, T = 300, Xi = Air);
+                               p = 1e5, T = 300, Xi = Air);
   Reservoir   atm (redeclare package Medium = MyGas,
-                         p = 1e5, T = 300, Xi = Air);
+                               p = 1e5, T = 300, Xi = Air);
   Valve       vin (redeclare package Medium = MyGas , 
-                     cv = (1500e-3/60) / sqrt(4e5)) ;
+                           cv = (1500e-3/60) / sqrt(4e5)) ;
   Valve       vout (redeclare package Medium = MyGas , 
-                     cv = (1500e-3/60) / sqrt(4e5)) ;
+                           cv = (1500e-3/60) / sqrt(4e5)) ;
   GasTank     tank (redeclare package Medium = MyGas, 
-                            vol = 0.2 , Q_in=0); 
+                                       vol = 0.2 , Q_in=0); 
   CompressorBasic  comp (redeclare package Medium = MyGas, 
                               holdup = 0.001, eff = 0.95) ;
 
@@ -34,7 +34,7 @@ equation
      vin.po = 50 ;
      vout.po = 50 ;
      comp.Ws = -100;
-    comp.inlet.m_flow = 1 ;
+     comp.outlet.p = 1.2e5 ;
 
 initial equation
     tank.T = 300 ;  // Initial Temperature

@@ -22,21 +22,22 @@ model CompressorBasic
   Power 	                Ws ;  // Shaft work  (-ve for compressor)
   Energy                        U ;   // Holdup Internal Energy
 
-  parameter Volume              holdup (start = 0.001)  ;   // Compressor holdup
-  parameter Fraction  eff (start = 1)   ;                  //Isentropic Efficiency
+  parameter Volume    holdup (start = 0.001) ;   // Compressor holdup
+  parameter Fraction  eff (start = 1) ;          //Isentropic Efficiency
 
   equation
 
     // Mass balance 
-     0  = inlet.m_flow + outlet.m_flow  ; // no mass accumulation
+     inlet.m_flow + outlet.m_flow = 0  ; // no mass accumulation
 
     // Energy balance 
-     U = holdup * Medium.density(state_out) * Medium.specificInternalEnergy(state_out) ;
+     U = holdup * Medium.density(state_out) 
+           * Medium.specificInternalEnergy(state_out) ;
      der(U) = - Ws + inlet.m_flow  * (hin - hout) ;
 
-    // Ignoring Composition change dynamics due to hold up
-     outlet.Xi_outflow = inStream(inlet.Xi_outflow) ;  // Normal flow
-     inlet.Xi_outflow = inStream(outlet.Xi_outflow) ;  // for  Reverse flow
+    // No change composition and flow is from inlet to outlet
+     inlet.Xi_outflow = inStream(inlet.Xi_outflow) ; 
+     outlet.Xi_outflow = inlet.Xi_outflow ;
 
      hin = inStream (inlet.h_outflow) ;
      hout =  outlet.h_outflow ;
@@ -55,6 +56,5 @@ model CompressorBasic
       state_out = Medium.setState_phX (outlet.p, hout,
                           outlet.Xi_outflow);
       Tout = state_out.T ;
-
 
 end CompressorBasic;

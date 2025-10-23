@@ -12,9 +12,9 @@ resFile := "plant_res." + resFormat ;
 
 // Force C backend and useful debug
 setCommandLineOptions("--simCodeTarget=C");
-//simflags := "-lv=LOG_DASSL, LOG_DSS, LOG_LS,LOG_INIT,LOG_NLS -O0 -w ";
-setDebugFlags("aliasConflicts");
-setCommandLineOptions("+d=bltdump"); print(getErrorString() + "\n");
+simflags := "-lv=LOG_DASSL, LOG_DSS, LOG_LS,LOG_INIT,LOG_NLS -O0 -w ";
+//setDebugFlags("aliasConflicts");
+//setCommandLineOptions("+d=bltdump"); print(getErrorString() + "\n");
 //setDebugFlags("infoXmlOperations");
 //setDebugFlags("failtrace,backenddaeinfo,initialization"); 
 //setCommandLineOptions("+d=dumpdaelow,bltdump"); print(getErrorString() + "\n");
