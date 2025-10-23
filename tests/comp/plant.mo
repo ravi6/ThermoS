@@ -42,5 +42,5 @@ initial equation
     tank.Xi = Air ;
     comp.state_out.T = 300 ;
     comp.state_out.p = 1.0e5 ;
-    comp.U = comp.Medium.specificInternalEnergy(comp.state_out) ;
+//    comp.U = comp.Medium.specificInternalEnergy(comp.state_out) ;
 end plant;
