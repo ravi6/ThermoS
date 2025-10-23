@@ -14,23 +14,32 @@ model CompressorBasic
   Medium.ThermodynamicState	state_in    ; // Fluid state at inlet port
   Medium.ThermodynamicState	state_out   ; // Fluid state at outlet port
   Medium.ThermodynamicState	state_is    ; // Fluid state at isentropic 
-  Medium.Temperature            Tin (start = 300)        ; // Compressor Inlet Temp
-  Medium.Temperature            Tout (start = 300)       ; // Compressor Outlet Temp
+  Medium.Temperature            Tin         ; // Compressor Inlet Temp
+  Medium.Temperature            Tout        ; // Compressor Outlet Temp
 
-  SpecificEntropy               s ;  // Entropy of inlet/outlet stream
   SpecificEnthalpy              hin, hout, his;
-  Power 	                Ws ; // Power delivered to comp.
+  SpecificEntropy               s ;   // Entropy of inlet/outlet stream
+  Power 	                Ws ;  // Shaft work  (-ve for compressor)
+  Energy                        U ;   // Holdup Internal Energy
 
-  parameter Real  eff (min = 0, max = 1, start = 1) ;   //Isentropic Efficiency
+  parameter Volume              holdup (start = 0.001)  ;   // Compressor holdup
+  parameter Fraction  eff (start = 1)   ;                  //Isentropic Efficiency
 
   equation
 
     // Mass balance 
-     inlet.m_flow + outlet.m_flow = 0  ;     // No accumulation of mass
-     inStream(inlet.Xi_outflow) = outlet.Xi_outflow ;  
-     outlet.Xi_outflow = inlet.Xi_outflow ;  
-     hin =  (inlet.h_outflow) ;
-     hout =  (outlet.h_outflow) ;
+     0  = inlet.m_flow + outlet.m_flow  ; // no mass accumulation
+
+    // Energy balance 
+     U = holdup * Medium.density(state_out) * Medium.specificInternalEnergy(state_out) ;
+     der(U) = - Ws + inlet.m_flow  * (hin - hout) ;
+
+    // Ignoring Composition change dynamics due to hold up
+     outlet.Xi_outflow = inStream(inlet.Xi_outflow) ;  // Normal flow
+     inlet.Xi_outflow = inStream(outlet.Xi_outflow) ;  // for  Reverse flow
+
+     hin = inStream (inlet.h_outflow) ;
+     hout =  outlet.h_outflow ;
 
      // Get inlet state, entropy 
      state_in = Medium.setState_phX (inlet.p, hin, inlet.Xi_outflow);
@@ -47,7 +56,5 @@ model CompressorBasic
                           outlet.Xi_outflow);
       Tout = state_out.T ;
 
-   // Shaft work in adiabatic compression
-     Ws = inlet.m_flow * (hout - hin) ;
 
 end CompressorBasic;
