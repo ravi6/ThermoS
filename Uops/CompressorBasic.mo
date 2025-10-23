@@ -40,7 +40,9 @@ model CompressorBasic
      outlet.Xi_outflow = inlet.Xi_outflow ;
 
      hin = inStream (inlet.h_outflow) ;
-     hout =  outlet.h_outflow ;
+     inlet.h_outflow = hin ;  // A dummy assignment even though never used
+     outlet.h_outflow = hout ;
+     
 
      // Get inlet state, entropy 
      state_in = Medium.setState_phX (inlet.p, hin, inlet.Xi_outflow);
