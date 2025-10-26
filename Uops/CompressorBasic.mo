@@ -18,6 +18,7 @@ model CompressorBasic
   Medium.Temperature            Tout        ; // Compressor Outlet Temp
 
   SpecificEnthalpy              hin, hout, his;
+  Density                       rho_out  ;
   SpecificEntropy               s ;   // Entropy of inlet/outlet stream
   Power 	                Ws ;  // Shaft work  (-ve for compressor)
   Energy                        U ;   // Holdup Internal Energy
@@ -30,33 +31,34 @@ model CompressorBasic
     // Mass balance 
      inlet.m_flow + outlet.m_flow = 0  ; // no mass accumulation
 
-    // Energy balance 
-     U = holdup * Medium.density(state_out) 
-           * Medium.specificInternalEnergy(state_out) ;
-     der(U) = - Ws + inlet.m_flow  * (hin - hout) ;
-
     // No change composition and flow is from inlet to outlet
      inlet.Xi_outflow = inStream(inlet.Xi_outflow) ; 
-     outlet.Xi_outflow = inlet.Xi_outflow ;
+     outlet.Xi_outflow = inStream(inlet.Xi_outflow) ;
+     inlet.h_outflow = outlet.h_outflow ; // well mixed
 
-     hin = inStream (inlet.h_outflow) ;
-     inlet.h_outflow = hin ;  // A dummy assignment even though never used
-     outlet.h_outflow = hout ;
+     hin = actualStream (inlet.h_outflow) ;
+     hout = actualStream (outlet.h_outflow) ; 
      
+    // Energy balance (avoiding state record)
+     rho_out = Medium.density_phX (outlet.p, hout, outlet.Xi_outflow) ;
+     U = holdup * rho_out *  (hout - outlet.p / rho_out) ;
+     der(U) = - Ws + inlet.m_flow  * (hin - hout) ;
 
      // Get inlet state, entropy 
-     state_in = Medium.setState_phX (inlet.p, hin, inlet.Xi_outflow);
-     s = Medium.specificEntropy (state_in) ;
-     Tin = state_in.T ;
+     Tin = Medium.temperature_phX (inlet.p, hin, inlet.Xi_outflow) ;
+     s = Medium.specificEntropy (
+              Medium.setState_pTX (inlet.p, Tin, inlet.Xi_outflow));
 
     // Determine outlet state if it were isentropic (state_iso)
-     state_is = Medium.setState_psX (outlet.p, s, outlet.Xi_outflow);
-     his = Medium.specificEnthalpy (state_is) ;
+     his = Medium.specificEnthalpy (
+                 Medium.setState_psX (outlet.p, s, outlet.Xi_outflow));
 
     // Determine outlet Enthalpy and state 
-      hout = hin + (his - hin) / eff ;
-      state_out = Medium.setState_phX (outlet.p, hout,
-                          outlet.Xi_outflow);
-      Tout = state_out.T ;
+     hout = hin + (his - hin) / eff ;
+     Tout = Medium.temperature_phX (outlet.p, hout, outlet.Xi_outflow);
 
+     state_out = Medium.setState_pTX (outlet.p, Tout,
+                         outlet.Xi_outflow);
+     state_in = Medium.setState_pTX (inlet.p, Tin, inlet.Xi_outflow);
+     state_is = Medium.setState_psX (outlet.p, s, outlet.Xi_outflow);
 end CompressorBasic;

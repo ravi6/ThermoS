@@ -22,6 +22,7 @@ equation
      connect (comp.outlet, atm.port) ;
      comp.Ws = -100;
 
-initial equation
-//    comp.U = comp.Medium.specificInternalEnergy(comp.state_out) ;
+initial algorithm
+    comp.Tout := 300 ;
+    comp.outlet.p := 3e5 ;
 end plant;
