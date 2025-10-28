@@ -9,14 +9,12 @@ set grid
 set multiplot layout 3,1
 
 set nokey
-set ylabel  "Tank T(C)"
-plot data using (column("time")):(column("tank.T")-273) w l  lw 2 title ""
-
-set ylabel "Tank P(bar)"
-plot data using (column("time")):(column("tank.p")*1e-5) w l lw 2  title ""
-
-set ylabel "Tank Out Flow (kg/s)"
-plot data using (column("time")):(-column("tank.outlet.m_flow")) w l lw 2  title ""
+set ylabel  "mflow"
+plot data using (column("time")):(column("mflow")) w l  lw 2 title ""
+set ylabel  "x"
+plot data using (column("time")):(column("x")) w l  lw 2 title ""
+set ylabel  "T"
+plot data using (column("time")):(column("T")-273) w l  lw 2 title ""
 
 unset multiplot
 

@@ -5,7 +5,6 @@ package MyGas   "Specific ideal Gas Mixture"
 import Modelica.Media.IdealGases.Common.MixtureGasNasa;
 import Modelica.Media.IdealGases.Common.SingleGasesData ;
 import Modelica.Media.IdealGases.Common.FluidData;
-
 extends MixtureGasNasa (
 	 data = {SingleGasesData.N2, // note data is of type  DataRecord[:]
 		 SingleGasesData.O2,
