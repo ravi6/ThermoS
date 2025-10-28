@@ -6,7 +6,7 @@ model plant
 // Examining convergence issues ....
 //  with internal solver in IdealGases / Mixtures
 
-  import Modelica.SIunits.*;
+//  import Modelica.SIunits.*;
 //  import ThermoS.Types.*;
   package Medium  = ThermoS.Media.MyGas;
 
@@ -15,9 +15,9 @@ model plant
   Medium.ThermodynamicState state(T(start=300),
                                   X(start=Medium.reference_X),
                                   p(start=1e5))   ;  // This is how you can have implicit start
-  Temperature T ;
-  SpecificEnthalpy h(start=1e5);
-  parameter Integer s = 1 ; // works with s=0 , but fails with s=1 
+  Medium.Temperature T ;
+  Medium.SpecificEnthalpy h(start=1e5);
+  parameter Integer s = 0 ; // works with s=0 , but fails with s=1 
 // well ... with this version both work ...v1.11.0-dev.9+g4638cca
 // import Medium = ThermoS.Media.MyGas is a nono ... you get weird behaviour. No simulation at all
 
