@@ -20,6 +20,13 @@ model Reservoir
     medium.Xi = Xi ;
     port.h_outflow = medium.h ;
     port.p = p ;
-    port.Xi_outflow = Xi;
-
+    port.Xi_outflow = Xi ;
+    port.h_outflow = medium.h ;
+   
+/*
+    port.Xi_outflow = noEvent (if (port.m_flow < 0) then Xi
+                      else inStream (port.Xi_outflow)) ;
+    port.h_outflow = noEvent (if (port.m_flow < 0) then medium.h 
+                      else inStream (port.h_outflow)) ;
+*/
 end Reservoir;

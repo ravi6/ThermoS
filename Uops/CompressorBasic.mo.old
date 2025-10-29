@@ -1,0 +1,57 @@
+within ThermoS.Uops;
+model CompressorBasic
+
+/* 
+     Polytropic Compression unit
+     using Compressible Media
+     ... differentiability issues and derving T from H issues
+*/
+
+  replaceable package Medium = PartialMixtureMedium ;
+
+  FluidPort 	inlet (redeclare package Medium = Medium)  ; 
+  FluidPort 	outlet (redeclare package Medium = Medium)  ; 
+
+  Medium.BaseProperties	        state_in    ; // Fluid state at inlet port
+  Medium.BaseProperties	        state_out   ; // Fluid state at outlet port
+  Medium.SpecificEntropy        s           ;
+  Medium.Temperature            Tin         ; // Compressor Inlet Temp
+  Medium.Temperature            Tout        ; // Compressor Outlet Temp
+
+  SpecificEnthalpy              hin, his, hout ;
+  Power 	                Ws ;  // Shaft work  (-ve for compressor)
+
+  parameter Fraction  eff (start = 1) ;          //Isentropic Efficiency
+
+  equation
+
+    // Mass balance (no holdup)
+     inlet.m_flow + outlet.m_flow = 0 ;
+
+    // We have no composition changes in the unit
+     outlet.Xi_outflow = inlet.Xi_outflow ;  
+     inStream (inlet.Xi_outflow) = outlet.Xi_outflow ;
+
+    // Energy Balance (adiabatic flow) 
+     hin = actualStream (inlet.h_outflow) ;
+     hout = actualStream (outlet.h_outflow) ; 
+     Ws = - (inlet.m_flow * hin + outlet.m_flow * hout) ;
+
+     //Get inlet state, entropy (avoid call to  setStat_phX) 
+     state_in.Xi = inlet.Xi_outflow ;
+     state_in.p = inlet.p ;
+     state_in.T = Tin ;
+     s =  Medium.specificEntropy (Medium.setState_pTX(inlet.p, Tin, state_in.X)) ;
+     hin = Medium.specificEnthalpy (Medium.setState_pTX(inlet.p, Tin, state_in.X)) ;
+
+    // Determine outlet state if it were isentropic (state_iso)
+     his = Medium.specificEnthalpy (Medium.setState_psX(outlet.p, s, state_in.X));
+
+    // Determine outlet Enthalpy and state 
+     hout = hin + (his - hin) / eff ;
+     state_out.Xi = inlet.Xi_outflow ;
+     state_out.p = outlet.p ;
+     state_out.T = Tout ;
+     hout = Medium.specificEnthalpy (Medium.setState_pTX(outlet.p, Tout, state_out.X)) ; 
+     Tout = Medium.temperature_phX (outlet.p, Tout, state_out.X) ; 
+end CompressorBasic;

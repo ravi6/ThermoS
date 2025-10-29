@@ -4,8 +4,6 @@ model CompressorBasic
 /* 
      Polytropic Compression unit
      using Compressible Media
-     This version avoids calls to setState_phX, pTX, psX
-     ... differentiability issues and derving T from H issues
 */
 
   replaceable package Medium = PartialMixtureMedium ;
@@ -13,51 +11,41 @@ model CompressorBasic
   FluidPort 	inlet (redeclare package Medium = Medium)  ; 
   FluidPort 	outlet (redeclare package Medium = Medium)  ; 
 
-  Medium.BaseProperties	        state_in    ; // Fluid state at inlet port
-  Medium.BaseProperties	        state_out   ; // Fluid state at outlet port
-  Medium.BaseProperties	        state_is    ; // Fluid state at isentropic 
-  Medium.SpecificEntropy        s           ;
   Medium.Temperature            Tin         ; // Compressor Inlet Temp
   Medium.Temperature            Tout        ; // Compressor Outlet Temp
+  Medium.MassFraction           Xi[Medium.nXi]    ; // Medium composition
 
   SpecificEnthalpy              hin, hout, his;
+  SpecificEntropy               s ;   // Entropy of inlet/outlet stream
   Power 	                Ws ;  // Shaft work  (-ve for compressor)
   
-
-//  parameter Volume    holdup (start = 0.001) ;   // Compressor holdup
   parameter Fraction  eff (start = 1) ;          //Isentropic Efficiency
 
   equation
 
-    // Mass balance (no holdup)
-     inlet.m_flow + outlet.m_flow = 0 ;
+    // Mass balance 
+     inlet.m_flow + outlet.m_flow = 0  ; // no mass accumulation
 
-    // We have no composition changes in the unit
-     outlet.Xi_outflow = inlet.Xi_outflow ;  
-     inStream (inlet.Xi_outflow) = outlet.Xi_outflow ;
+    // Energy balance 
+     Ws = - inlet.m_flow  * (hout - hin) ;
 
-    // Energy Balance 
+     inlet.Xi_outflow = outlet.Xi_outflow ;
+     outlet.Xi_outflow = inStream(inlet.Xi_outflow) ; 
+
      hin = actualStream (inlet.h_outflow) ;
-     hout = actualStream (outlet.h_outflow) ; 
-     Ws = - (inlet.m_flow * hin + outlet.m_flow * hout) ;
+     hout = actualStream (outlet.h_outflow) ;
+     inStream (inlet.h_outflow) = hin ;
+     
+     // Get inlet Entropy 
+     s = Medium.specificEntropy(
+             Medium.setState_pTX(inlet.p, Tin, Xi));
 
-     // Get inlet state, entropy (avoid call to  setStat_phX) 
-     state_in.Xi = inlet.Xi_outflow ;
-     state_in.p = inlet.p ;
-     state_in.h = hin ;
-     s = Medium.specificEntropy (state_in.state) ;
-     state_in.T = Tin ;
-
-    // Determine outlet state if it were isentropic (state_iso)
-     state_is.Xi = inlet.Xi_outflow ;
-     state_is.p  = outlet.p ;
-     state_is.h = Medium.specificEnthalpy (state_is.state) ;
-     s = Medium.specificEntropy (state_is.state) ;
+    // Determine outlet isentropic Enthalpy
+     his = Medium.specificEnthalpy_psX(outlet.p, s, Xi);
 
     // Determine outlet Enthalpy and state 
-     hout = hin + (state_is.h - hin) / eff ;
-     state_out.Xi = inlet.Xi_outflow ;
-     state_out.p = outlet.p ;
-     state_out.h = hout ; 
-     state_out.T = Tout ;
+     hout = hin + (his - hin) / eff ;
+     hin = Medium.specificEnthalpy  (Medium.setState_pTX(inlet.p, Tin, Xi));
+     hout = Medium.specificEnthalpy (Medium.setState_pTX(outlet.p, Tout, Xi));
+
 end CompressorBasic;
