@@ -7,16 +7,23 @@ set term qt 1
 set grid
 
 set multiplot layout 3,1
+set xlabel "Time (s)"
+set xtics norotate
 
 set nokey
-set ylabel  "Tank T(C)"
-plot data using (column("time")):(column("tank.T")-273) w l  lw 2 title ""
+set ylabel  "Comp Outlet and Tank Temp (C)"
+plot data using (column("time")):(column("tank.T")-273) w l  lw 2 title "Tank T",\
+ data using (column("time")):(column("comp.Tout")-273) w l  lw 2 title "Comp Tout",\
+
 
 set ylabel "Tank P(bar)"
 plot data using (column("time")):(column("tank.p")*1e-5) w l lw 2  title ""
 
+
 set ylabel "Tank Out Flow (kg/s)"
-plot data using (column("time")):(-column("tank.outlet.m_flow")) w l lw 2  title ""
+set key
+plot data using (column("time")):(-column("tank.outlet.m_flow")) w l lw 2  title "out", \
+     data using (column("time")):(column("tank.inlet.m_flow")) w l lw 2  title "in"
 
 unset multiplot
 
