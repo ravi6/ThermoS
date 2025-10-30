@@ -29,8 +29,8 @@ model CompressorBasic
     // Mass balance 
      inlet.m_flow + outlet.m_flow = 0  ;     // No accumulation of mass
 
-     inStream (inlet.Xi_outflow) = outlet.Xi_outflow ;  
-     inStream (outlet.Xi_outflow) = inlet.Xi_outflow ;  
+     outlet.Xi_outflow = inStream (inlet.Xi_outflow) ;
+     inlet.Xi_outflow = inStream (outlet.Xi_outflow) ;
 
      hin =  inStream (inlet.h_outflow) ;
      inlet.h_outflow = hin ;  // for completeness (revflow)
