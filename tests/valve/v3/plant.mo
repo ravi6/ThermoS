@@ -13,7 +13,7 @@ model plant
   constant Real AirComp[2] = {0.767,0.233};
 
   Reservoir     src	(redeclare  package Medium = Gas,
-                               p = 1.0001e5,  T = 300,  Xi = AirComp); // Reservoir 1
+                               p = 1.0e5,  T = 300,  Xi = AirComp); // Reservoir 1
 
   Reservoir     sink	(redeclare  package Medium = Gas,
                                p = 1e5,  T = 300,  Xi = AirComp); // Reservoir 1
@@ -21,10 +21,9 @@ model plant
 //  Valve v1 (redeclare each package Medium = Gas, vchar = Vchar.Linear);
 //  Valve v2 (redeclare each package Medium = Gas, vchar = Vchar.EquiPercent);
 
-  RealValve v1 (redeclare each package Medium = Gas, cv=4e-6/sqrt(0.5e5), tau=50e-3);
-  RealValve v2 (redeclare each package Medium = Gas, cv=4e-6/sqrt(0.5e5), tau=50e-3);
-
-  portMixer Node(redeclare package Medium = Gas,  vol=10e-6, N=3, Tset=400) ;
+  RealValve v1 (redeclare each package Medium = Gas, cv=4e-3/sqrt(0.5e5), tau=5000e-3);
+  RealValve v2 (redeclare each package Medium = Gas, cv=4e-3/sqrt(0.5e5), tau=5000e-3);
+  portMixer Node(redeclare package Medium = Gas,  vol=10e-6, N=3, Adiabatic=true) ;
 
 equation
 
