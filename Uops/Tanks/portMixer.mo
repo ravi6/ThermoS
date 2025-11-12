@@ -22,7 +22,7 @@ model portMixer
     Medium.AbsolutePressure	p		;
     Medium.MassFraction		Xi[Medium.nXi]	;
     Medium.BaseProperties       medium          ;
-    Heat			Q_in		;
+    HeatFlowRate		Q_in		;
 
   equation
 

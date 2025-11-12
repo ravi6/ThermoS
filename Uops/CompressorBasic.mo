@@ -42,17 +42,17 @@ model CompressorBasic
  
 
      // Get inlet state, entropy 
-     state_in = noEvent (Medium.setState_phX (inlet.p, hin, X_in));
-     s = noEvent (Medium.specificEntropy (state_in)) ;
+     state_in =  (Medium.setState_phX (inlet.p, hin, X_in));
+     s =  (Medium.specificEntropy (state_in)) ;
      Tin = state_in.T ;
 
     // Determine outlet state if it were isentropic (state_iso)
-     state_is = noEvent (Medium.setState_psX (outlet.p, s, X_out));
-     his = noEvent (Medium.specificEnthalpy (state_is)) ;
+     state_is =  (Medium.setState_psX (outlet.p, s, X_out));
+     his =  (Medium.specificEnthalpy (state_is)) ;
 
     // Determine outlet Enthalpy and state 
      hout = hin + (his - hin) / eff ;
-     state_out = noEvent (Medium.setState_phX (outlet.p, hout, X_out));
+     state_out =  (Medium.setState_phX (outlet.p, hout, X_out));
      Tout = state_out.T ;
 
    // Shaft work in adiabatic compression
