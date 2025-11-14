@@ -22,7 +22,7 @@ plot data using (column("time")):(column("tank.p")*1e-5) w l lw 2  title "Tank P
 
 set ylabel "Flow(lpm)"
 set key
-plot data using (column("time")):(-column("tank.outlet.m_flow")*60e-3) w l lw 2  title "Tankout", \
+plot data using (column("time")):(column("vout.inlet.m_flow")*60e-3) w l lw 2  title "outFlow", \
      data using (column("time")):(column("tank.inlet.m_flow")*60e-3) w l lw 2  title "Tankin", \
      data using (column("time")):(column("comp.inlet.m_flow")*60e-3) w l lw 2  title "Cmpin"
 
