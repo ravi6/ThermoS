@@ -19,15 +19,12 @@ model FlowMachine
   Medium.Temperature            Tis         ; // Isentropic Temp
   Medium.Temperature            Tout        ; // Compressor Outlet Temp
   Medium.MassFraction           X [Medium.nS] ; 
-  SpecificEntropy               s ;  // Entropy of inlet/outlet stream
   SpecificEnthalpy              hin, hout, his;
-  Power 	                Ws ; // Power delivered by Machine 
+  SpecificEntropy               s ;    // Entropy of inlet/outlet stream
+  Power 	                Ws ;   // Power delivered by Machine 
 
   parameter Boolean   isComp (start =  true) ;  // if false it is Expander 
   parameter Fraction  eff (start = 0.95) ;      //Isentropic Efficiency
-  parameter Real      prat (start = if (isComp) then 1 else 0.9,
-                           min = if (isComp) then 1 else 0.1,
-                           max = if (isComp) then 5 else 1 ) ;
 
   equation
 
@@ -42,9 +39,6 @@ model FlowMachine
      hout =  outlet.h_outflow ;
 
      X  = cat(1, inlet.Xi_outflow, {1 - sum(inlet.Xi_outflow)});
-
-     // Get outlet pressure 
-     outlet.p =  prat * inlet.p ;
 
      // Get inlet state, entropy 
      state_in = Medium.setState_phX (inlet.p, hin, X);

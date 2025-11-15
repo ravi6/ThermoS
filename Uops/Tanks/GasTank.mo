@@ -14,7 +14,6 @@ model GasTank
 
 //  Parameters
   parameter    Volume   	   vol   = 10    ;   // Tank Volume (m3)
-  parameter    EnthalpyFlowRate    Q_in  = 0     ;
 
 // State Variables
     Mass			m		; // Mass of Gas in the vessal 
@@ -23,6 +22,7 @@ model GasTank
     Medium.MassFraction		Xi[Medium.nXi]	;
     Medium.SpecificEnthalpy	h		;
     Medium.BaseProperties       medium          ; 
+    EnthalpyFlowRate            Q_loss          ; // Heatloss from tank
                                    
 
   equation
@@ -38,7 +38,7 @@ model GasTank
                   + actualStream(outlet.Xi_outflow) * outlet.m_flow ;
 
      // Enthalpy Balance
-     der(m * h)  = Q_in + inlet.m_flow * actualStream(inlet.h_outflow)
+     der(m * h)  = - Q_loss + inlet.m_flow * actualStream(inlet.h_outflow)
                      + outlet.m_flow * actualStream(outlet.h_outflow)
 		     + vol * der(p) ; 
 
