@@ -5,16 +5,15 @@
 */  
 // ==================== SETTINGS ====================
 echo(false);
-tEnd := 10;  // simulation stop time
+tEnd := 1;  // simulation stop time
 logFile := "log";
 resFormat := "csv" ;
 resFile := "plant_res." + resFormat ;
 
 // Force C backend and useful debug
 setCommandLineOptions("--simCodeTarget=C");
-setDebugFlags("infoXmlOperations");
+//setDebugFlags("infoXmlOperations");
 setDebugFlags("aliasConflicts");
-
 
 // Ensure clean working directory
 system("mkdir -p ./work"); cd("./work"); system("rm -rf *");
@@ -43,7 +42,8 @@ end if;
 dumpXMLDAE("plant_dae.xml", plant);
 // ==================== SIMULATION ====================
 print("Simulate Plant");
-flags := "-lv=LOG_LS,LOG_INIT,LOG_NLS -w";
+simflags := "-lv=LOG_DASSL,LOG_DSS,LOG_LS,LOG_INIT,LOG_NLS";
+//flags := "-lv=LOG_LS,LOG_INIT,LOG_NLS -w";
 
 simulate(plant, startTime=0, stopTime=tEnd, outputFormat=resFormat, simflags=flags);
 checkStatus("simulate()");

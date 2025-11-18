@@ -18,9 +18,9 @@ model portMixer
 
 // State Variables
     Mass			m		;	// Mass of Gas in the vessal 
-    Medium.Temperature		T		;
-    Medium.AbsolutePressure	p		;
-    Medium.MassFraction		Xi[Medium.nXi]	;
+    Medium.Temperature		T               ;
+    Medium.AbsolutePressure	p               ;
+    Medium.MassFraction		Xi[Medium.nXi]  ;
     Medium.BaseProperties       medium          ;
     HeatFlowRate		Q_in		;
 
@@ -33,10 +33,15 @@ model portMixer
     end if;
 
     medium.T = T ;
-    medium.p = p ;
     medium.Xi = Xi ;
 
      m = medium.d * vol ; 
+     p = medium.p ; // Warning never think medium.p = p is equivalent
+                    // to p = medium.p  ...
+                    // Both BasicProperties, and ThermodynamicState types
+                    // when they appear on the LHS they get assigned the RHS
+     // In here we want the portMixer volume pressure should
+     // dicatated by mass and energy balances. 
 
      // Mass and Component Balance
      der(m) = sum(port[:].m_flow)   ;  // Mass Balance

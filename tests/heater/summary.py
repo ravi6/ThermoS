@@ -26,6 +26,8 @@ def report (uop, ts):
   Q_ew = getVar (uop + ".Q_ew", ts) / 1000
   Q_wf = getVar (uop + ".Q_wf", ts) / 1000
   Cp   = getVar (uop + ".Cp", ts)
+  dp = getVar(uop + ".inlet.p", ts) - 1e5 ;
+  print ("Pressure Drop =", dp)
 
   print("=============<< Heater Summary >>=============")
   print(f"Tag:  {uop}  \t  Sample Time (s): {ts}")

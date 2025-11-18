@@ -55,6 +55,8 @@ model FlowMachine
      Tout = Medium.temperature_phX (outlet.p, hout, X) ; 
 
     // Compressor Power Relation (we change work sign so power is >0 always
-     Ws = inlet.m_flow * (hout - hin) * (if (isComp) then 1 else -1) ;
+    // The small derivative is to avoid algebraic loops
+       0 = inlet.m_flow * (hout - hin) 
+                           - Ws * (if (isComp) then 1 else -1) ;
      
 end FlowMachine;

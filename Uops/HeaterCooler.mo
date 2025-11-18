@@ -9,6 +9,7 @@ model HeaterCooler
        based on volumetric flow, or as a fixed value.
      . Accounts for  thermal inertia of the heating/cooling wall surfaces.
      . Specify either Q (heat into the device) or Outlet Temp. 
+     . No reverse flow permitted. if voilated Results will be bad
 
 */
   replaceable package Medium = PartialMixtureMedium ;
@@ -25,23 +26,27 @@ model HeaterCooler
   Medium.BaseProperties         medium              ;
   HeatFlowRate		        Q_ew	    	    ; // Heat input to the device
   HeatFlowRate			Q_wf		    ; // Heat tranfer from wall to fluid
-  Temperature			Tw		    ; // Wall temperature (K)
-  Temperature			Tf		    ; // Heater Fluid temperature (K)
+  Medium.Temperature		Tw		    ; // Wall temperature (K)
+  Medium.Temperature		Tf		    ; // Heater Fluid temperature (K)
   Energy			U		    ; // Internal energy of fluid holdup
   SpecificHeatCapacity          Cp    		    ; // Specific heat of fluid in holdup
   Volume                        holdup ;
 
   equation
-    // Mass balance 
+
+    // Holdup Conditions
        medium.p = (inlet.p + outlet.p) / 2 ;
        medium.Xi = outlet.Xi_outflow ;
+       medium.h = outlet.h_outflow ;
        medium.T = Tf ;
+
+    // Mass balance 
        holdup * der (medium.d) = inlet.m_flow + outlet.m_flow;   
 
     // Ignoring Composition change dynamics due to hold up
-     outlet.Xi_outflow = inStream(inlet.Xi_outflow) ;  // Normal flow
-     inlet.Xi_outflow = inStream(outlet.Xi_outflow) ;  // for  Reverse flow
-     inlet.h_outflow = outlet.h_outflow ;   // Well mixed condition 
+       outlet.Xi_outflow = inStream(inlet.Xi_outflow) ;  // Normal flow
+       inlet.Xi_outflow = outlet.Xi_outflow ;
+       inlet.h_outflow = outlet.h_outflow ;
 
     /* Pressure differential drives flow 
        See valve eqn. for explanation  */
@@ -49,14 +54,17 @@ model HeaterCooler
                           * homotopy( simplified = (1 - outlet.p / inlet.p), 
                                       actual     = regRoot(1 - outlet.p / inlet.p) 
                                     );
-       outlet.h_outflow = medium.h;
-
     // Energy Balance
        inlet.m_flow * actualStream(inlet.h_outflow) 
              + outlet.m_flow *  actualStream(outlet.h_outflow) + Q_wf 
         =  der(U)  ;   // fluid
         U = holdup * medium.d * medium.u ;
+
 	Q_wf = h_wf * A_wf * (Tw - Tf)  ;
         w_m * w_cp * der(Tw) = Q_ew - Q_wf ;  //  Wall
         Cp = Medium.specificHeatCapacityCp(medium.state) ;
+
+//        assert(inlet.m_flow >= 1e-6, "Reverse flow at inlet!");
+//        assert(outlet.m_flow <= 1e-6, "Reverse flow at outlet!");
+
 end HeaterCooler;
