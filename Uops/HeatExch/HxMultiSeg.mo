@@ -1,4 +1,4 @@
-within ThermoS.Uops;
+within ThermoS.Uops.HeatExch;
 /*  A generic heat exchanger 
       Exchanges heat between two fluids 
      with interconnected HxSegments

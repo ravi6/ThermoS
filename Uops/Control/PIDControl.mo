@@ -1,6 +1,7 @@
-within ThermoS.Uops;
-model Controller
- /* A PID Controller  Controller */
+within ThermoS.Uops.Control;
+
+model PIDControl
+ /* A PID Controller */
   Real 	Kc  ; // Proportional Gain 
   Real 	Ti  ; // Integral Time
   Real	Td  ; // Derivative Time
@@ -40,4 +41,4 @@ equation
 
 initial equation
   intErr = 0;
-end Controller;
+end PIDControl;

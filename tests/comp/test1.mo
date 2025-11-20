@@ -6,10 +6,9 @@ model plant
 */
   import ThermoS.Types.* ;
   import ThermoS.Media.MyGas ;
-  import ThermoS.Uops.Tanks.GasTank ;
   import ThermoS.Uops.Valves.Valve ;
-  import ThermoS.Uops.FlowMachine ;
-  import ThermoS.Uops.Reservoir ;
+  import ThermoS.Uops.Machines.FlowMachine ;
+  import ThermoS.Uops.Tanks.*;
   import Modelica.Units.SI.MassFlowRate;
 
   

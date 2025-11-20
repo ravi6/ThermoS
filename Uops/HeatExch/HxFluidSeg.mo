@@ -1,4 +1,4 @@
-within ThermoS.Uops;
+within ThermoS.Uops.HeatExch;
 model HxFluidSeg
 
   /* A generic Heat Exchanger Fluid Volume

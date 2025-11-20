@@ -1,4 +1,4 @@
-within ThermoS.Uops;
+within ThermoS.Uops.Control;
 model OnOff
  /* An On/Off Controller with dead band */
   parameter Real mvMin = 0;

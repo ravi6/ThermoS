@@ -20,7 +20,6 @@ model portMixer
     Mass			m (start=1e-6, stateSelect = StateSelect.avoid)  ;// Mass of Gas in the vessal 
     Medium.Temperature		T (start=300)   ;
     Medium.AbsolutePressure	p (start=1e5, stateSelect = StateSelect.prefer)   ;
-    Medium.MassFraction		Xi[Medium.nXi] (start=Medium.reference_X[1:Medium.nXi])  ;
     Medium.BaseProperties       medium          ;
     HeatFlowRate		Q_in		;
 
@@ -33,7 +32,6 @@ model portMixer
     end if;
 
     medium.T = T  ;
-    medium.Xi = Xi  ;
     medium.p = p   ;  
     m = medium.d * vol ; 
 
@@ -42,13 +40,14 @@ model portMixer
 
      // Component Balance
      for j in 1:Medium.nXi loop
-       der(Xi[j]*m) = sum(actualStream(port[i].Xi_outflow[j]) * port[i].m_flow
-                           for i in 1:N)  ;
+       der(m * medium.Xi[j]) = 
+              sumi (actualStream(port[i].Xi_outflow[j]) * port[i].m_flow
+                                   for i in 1:N)  ;
      end for;
 
      // Enthalpy Balance
-     der(m*medium.h) =  sum(port[i].m_flow * actualStream(port[i].h_outflow)
-                             for i in 1:N)
+     der(m * medium.h) =  sum (port[i].m_flow * actualStream(port[i].h_outflow)
+                                  for i in 1:N)
     	               + vol * der(p)  + Q_in; 
 
      // Assume gas in tank is well mixed (ie. its contents are at outlet condition)

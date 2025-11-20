@@ -1,4 +1,4 @@
-within ThermoS.Uops;
+within ThermoS.Uops.Machines;
 /* Version 1.2
    Last Modified 13th March 2013
    Author: Ravi Saripalli

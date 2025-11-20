@@ -6,6 +6,9 @@ model GasTank
 *  A Gas Storage Vessel with two ports
 *     Note inlet and outlet
 *      flow can eventuate in any direction or nominal names
+*     Also see how derivatives contain states related medium
+*     thus avoiding intermediate variables like, m, h, Xi
+*     that can introduce algebraic loops
 */
 
     replaceable package Medium = PartialMixtureMedium ;
@@ -13,43 +16,37 @@ model GasTank
     FluidPort outlet(redeclare package Medium = Medium) ;  
 
 //  Parameters
-  parameter    Volume   	   vol   = 10    ;   // Tank Volume (m3)
+  parameter    Volume   	   vol = 1    ;   // Tank Volume (m3)
 
 // State Variables
-    Mass			m		; // Mass of Gas in the vessal 
     Medium.Temperature		T		;
     Medium.AbsolutePressure	p		;
-    Medium.MassFraction		Xi[Medium.nXi]	;
-    Medium.SpecificEnthalpy	h		;
     Medium.BaseProperties       medium          ; 
     EnthalpyFlowRate            Q_loss          ; // Heatloss from tank
                                    
-
   equation
 
-    medium.T = T ; medium.p = p ; medium.Xi = Xi ;
-    medium.h = h ;
-     
-    m = medium.d * vol ; // Mass and Component Balance
-    der(m) = inlet.m_flow + outlet.m_flow   ;  // Mass Balance
+    // Tank p,T for ease of access
+    T = medium.T ;
+    p = medium.p ;
+ 
+    // Mass Balance
+    vol * der(medium.d) = inlet.m_flow + outlet.m_flow ;
 
     // Component Balance
-     der(m * Xi) = actualStream(inlet.Xi_outflow) * inlet.m_flow 
+     vol * der(medium.d * medium.Xi) = actualStream(inlet.Xi_outflow) * inlet.m_flow 
                   + actualStream(outlet.Xi_outflow) * outlet.m_flow ;
 
      // Enthalpy Balance
-     der(m * h)  = - Q_loss + inlet.m_flow * actualStream(inlet.h_outflow)
+     vol * der(medium.d * medium.h)  = - Q_loss + inlet.m_flow * actualStream(inlet.h_outflow)
                      + outlet.m_flow * actualStream(outlet.h_outflow)
-		     + vol * der(p) ; 
+		     + vol * der(medium.p) ; 
 
-     // Assume gas in tank is well mixed (ie. its contents are at outlet condition)
-        // state = inlet.Medium.setState_phX(p, h, Xi) ;  // gives 5 equations
-         inlet.Xi_outflow = Xi ;
-	 inlet.h_outflow  = h  ;
-	 outlet.Xi_outflow = Xi ;
-         outlet.h_outflow = h ;
+     // Assume gas in tank is well mixed 
+         inlet.Xi_outflow = outlet.Xi_outflow ;
+	 inlet.h_outflow  = outlet.h_outflow  ;
 
      // No pressure drop acroos the unit
       inlet.p = outlet.p ;
-      inlet.p = p ;
+      inlet.p = medium.p ;
 end GasTank;

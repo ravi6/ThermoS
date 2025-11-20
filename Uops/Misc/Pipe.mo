@@ -1,4 +1,4 @@
-within ThermoS.Uops;
+within ThermoS.Uops.Misc;
 model Pipe
 
   // A simple  Pipe

@@ -1,4 +1,4 @@
-within ThermoS.Uops;
+within ThermoS.Uops.Machines;
 model PumpBasic
 
   /* A simple Pump Model for incompressible fluids 

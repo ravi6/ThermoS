@@ -1,4 +1,4 @@
-within ThermoS.Uops;
+within ThermoS.Uops.Misc;
 model Feed
 
   // A material stream feeder

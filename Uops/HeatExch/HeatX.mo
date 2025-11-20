@@ -1,6 +1,6 @@
 // Version 1.3
 //  24th Mar. 2014
-within ThermoS.Uops;
+within ThermoS.Uops.HeatExch;
 model HeatX
 
   /* This heater/cooler Model 
@@ -10,7 +10,7 @@ model HeatX
      . Accounts for  thermal inertia of the heating/cooling wall surfaces.
      . Specify either Q (heat into the device) or Outlet Temp. 
      . No reverse flow permitted.
-
+     . Symbolic derivative friendly version
 */
   replaceable package Medium = PartialMixtureMedium ;
   FluidPort  inlet (redeclare package Medium = Medium, m_flow (min = 0))  ; 
@@ -34,8 +34,7 @@ model HeatX
     // Holdup Conditions
        medium.p = (inlet.p + outlet.p) / 2 ;
        medium.Xi = outlet.Xi_outflow ;
-       medium.h = outlet.h_outflow ;
-       medium.T = Tf ;
+       Tf = medium.T ;   // For ease of access to outlet temp
 
     // Mass balance 
        holdup * der (medium.d) = inlet.m_flow + outlet.m_flow;   

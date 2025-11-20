@@ -1,4 +1,4 @@
-within ThermoS.Uops;
+within ThermoS.Uops.Misc;
 model Product
   replaceable package Medium = PartialMixtureMedium;
 

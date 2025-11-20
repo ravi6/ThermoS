@@ -1,4 +1,4 @@
-within ThermoS.Uops;
+within ThermoS.Uops.Machines;
 model Turbine
 
 /* Version 1.6 

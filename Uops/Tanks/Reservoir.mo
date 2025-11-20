@@ -1,4 +1,4 @@
-within ThermoS.Uops;
+within ThermoS.Uops.Tanks;
 model Reservoir
   // A large Reservoir with constant (p, T, & Xi)
   // Permits reverse flow through its port
