@@ -22,6 +22,9 @@ model plant
   HeatX htr(redeclare package Medium = Gas, cf = 1.0e-3, 
                                         A_wf = 1,  h_wf = 150, 
                                         w_m = 1, w_cp = 420, holdup = 1e-3);
+  portMixer Node2 (redeclare package Medium = Gas,  vol=10e-3, N=3, Adiabatic=true) ;
+  Valve v3 (redeclare each package Medium = Gas, cv=4e-3/sqrt(0.5e2));
+//  Valve v4 (redeclare each package Medium = Gas, cv=4e-3/sqrt(0.5e2));
 equation
 
     connect (res1.port, v1.inlet) ;
@@ -29,13 +32,20 @@ equation
     connect (v1.outlet, Node.port[1]);
     connect (v2.outlet, Node.port[2]);
     connect (Node.port[3], htr.inlet);
-    connect (htr.outlet, res3.port) ;
 
+    connect (htr.outlet, Node2.port[1]);
+    connect (v3.inlet, Node2.port[2]);
+    connect (v3.outlet, res3.port);
+    connect (Node2.port[3], res3.port);
+    
+   
     v1.po = 50 ;
     v2.po = 80 ;
-    htr.Q_ew = 5000 ;
+    v3.po = 30 ;
+    htr.Q_ew = 500 ;
 
 initial algorithm
     htr.Tf :=300 ;
     htr.Tw :=300 ; 
+  
 end plant;

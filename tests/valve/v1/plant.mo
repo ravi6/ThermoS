@@ -8,7 +8,7 @@ model plant
   import ThermoS.Uops.Valves.*;
   import ThermoS.Types.*;
   package Gas = ThermoS.Media.MyGas(MassFlowRate(min=-10,max=20));
-  constant Real AirComp[2] = {0.767,0.233};
+  constant Gas.MassFraction AirComp[2] = {0.767,0.233};
 
   Reservoir     src[1]	(redeclare each package Medium = Gas,
                               each p = 2.05e5, each T = 300, each Xi = AirComp); // Reservoir 1

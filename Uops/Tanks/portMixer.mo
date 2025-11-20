@@ -9,7 +9,7 @@ model portMixer
     replaceable package Medium = PartialMixtureMedium ;
 
 //  Parameters
-  parameter    Volume   	   vol   	= 1     ;   // Tank Volume (m3)
+  parameter    Volume   	   vol   	= 1e-6 ;   // Tank Volume (m3)
   parameter    Boolean             Adiabatic  	= false ;   // default is Isothermal
   parameter    Medium.Temperature  Tset 	= 300   ;   //  at 300K
   parameter    Integer		   N 		= 2     ;   // Number of Ports
@@ -17,10 +17,10 @@ model portMixer
   FluidPort port[N] (redeclare each package Medium = Medium) ;
 
 // State Variables
-    Mass			m		;	// Mass of Gas in the vessal 
-    Medium.Temperature		T               ;
-    Medium.AbsolutePressure	p               ;
-    Medium.MassFraction		Xi[Medium.nXi]  ;
+    Mass			m (start=1e-6, stateSelect = StateSelect.avoid)  ;// Mass of Gas in the vessal 
+    Medium.Temperature		T (start=300)   ;
+    Medium.AbsolutePressure	p (start=1e5, stateSelect = StateSelect.prefer)   ;
+    Medium.MassFraction		Xi[Medium.nXi] (start=Medium.reference_X[1:Medium.nXi])  ;
     Medium.BaseProperties       medium          ;
     HeatFlowRate		Q_in		;
 
@@ -32,16 +32,10 @@ model portMixer
       T = Tset ;
     end if;
 
-    medium.T = T ;
-    medium.Xi = Xi ;
-
-     m = medium.d * vol ; 
-     p = medium.p ; // Warning never think medium.p = p is equivalent
-                    // to p = medium.p  ...
-                    // Both BasicProperties, and ThermodynamicState types
-                    // when they appear on the LHS they get assigned the RHS
-     // In here we want the portMixer volume pressure should
-     // dicatated by mass and energy balances. 
+    medium.T = T  ;
+    medium.Xi = Xi  ;
+    medium.p = p   ;  
+    m = medium.d * vol ; 
 
      // Mass and Component Balance
      der(m) = sum(port[:].m_flow)   ;  // Mass Balance

@@ -24,6 +24,9 @@ equation
     htr.Q_ew = 5e4 ;
 
 initial algorithm
-    htr.Tf :=300 ;
+ //   htr.Tf :=300 ;
     htr.Tw :=300 ; 
+  htr.medium.T := 300;
+  htr.medium.p := 1e5;
+  htr.medium.Xi := AirComp;
 end plant;

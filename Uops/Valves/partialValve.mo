@@ -1,4 +1,5 @@
 within ThermoS.Uops.Valves;
+
 partial model partialValve
 import Modelica.Media.IdealGases.Common.MixtureGasNasa.h_TX;
 
@@ -13,7 +14,6 @@ import Modelica.Media.IdealGases.Common.MixtureGasNasa.h_TX;
   parameter Real cv=1.0/sqrt(1e5);
   parameter Real dpTol = 100 ;  // Pressure Drop Tolerance used for state and flow transition
 
- // Medium.ThermodynamicState state (T(start=300), p(start=1e5), X(start=Medium.reference_X));
   Medium.BaseProperties med ; // (T(start=288.15, fixed=false)) ; // (preferredMediumStates=false) ;  
  
 equation
