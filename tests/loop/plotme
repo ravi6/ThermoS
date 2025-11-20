@@ -1,0 +1,33 @@
+#Plot variables with gnuplot
+data="work/plant_res.csv"
+set datafile separator ","
+xlabel = "time (s)"
+
+set term qt 1
+set grid
+
+set multiplot layout 3,1
+set xlabel "Time (s)"
+set xtics norotate
+
+set key
+set ylabel  "Temp (C)"
+plot data using (column("time")):(column("volUp.T")-273) w l  lw 2 title "volUp",\
+ data using (column("time")):(column("cmpTrim.Tout")-273) w l  lw 2 title "cmpTrim Tout"
+
+
+#set ylabel "P(bar)"
+#plot data using (column("time")):(column("volUp.p")*1e-5) w l lw 2  title "volUp"
+
+
+set ylabel "Flow (kg/s)"
+set key
+plot data using (column("time")):(-column("volUp.outlet.m_flow")*1e3*60) w l lw 2  title "volUpOut", \
+     data using (column("time")):(column("volUp.inlet.m_flow")*1e3*60) w l lw 2  title "volUpIn", \
+     data using (column("time")):(column("vDown.inlet.m_flow")*1e3*60) w l lw 2  title "vDown", \
+     data using (column("time")):(column("vBlow.inlet.m_flow")*1e3*60) w l lw 2  title "vBlow"
+
+
+unset multiplot
+
+pause(-1)
