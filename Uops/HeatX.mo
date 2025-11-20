@@ -13,8 +13,8 @@ model HeatX
 
 */
   replaceable package Medium = PartialMixtureMedium ;
-  FluidPort  inlet (redeclare package Medium = Medium, m_flow (max = 0))  ; 
-  FluidPort outlet (redeclare package Medium = Medium, m_flow (min = 0)) ; 
+  FluidPort  inlet (redeclare package Medium = Medium, m_flow (min = 0))  ; 
+  FluidPort outlet (redeclare package Medium = Medium, m_flow (max = 0)) ; 
 
   parameter Real	cf	= 1.0     ; // Pressure Loss Coeff. (m^3/Pa^0.5))     
   parameter Area	A_wf	= 1.0	  ; // Wall to fluid heat transfer area
