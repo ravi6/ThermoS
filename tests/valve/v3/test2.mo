@@ -5,7 +5,7 @@ model plant
 */
 
   import ThermoS.Types.*;
-  import ThermoS.Uops.Reservoir;
+  import ThermoS.Uops.Tanks.Reservoir;
   import ThermoS.Uops.Tanks.portMixer;
   import ThermoS.Uops.Valves.RealValve ;
   package Gas = ThermoS.Media.MyGas;
