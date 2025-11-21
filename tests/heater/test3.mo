@@ -6,6 +6,7 @@ model plant
   import ThermoS.Uops.*;
   import ThermoS.Uops.Valves.*;
   import ThermoS.Uops.Tanks.*;
+  import ThermoS.Uops.HeatExch.*;
   import ThermoS.Types.*;
   import Gas = ThermoS.Media.MyGas;
 

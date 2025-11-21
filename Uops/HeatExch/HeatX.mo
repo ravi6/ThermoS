@@ -16,7 +16,7 @@ model HeatX
   FluidPort  inlet (redeclare package Medium = Medium, m_flow (min = 0))  ; 
   FluidPort outlet (redeclare package Medium = Medium, m_flow (max = 0)) ; 
 
-  parameter Real	cf	= 1.0     ; // Pressure Loss Coeff. (m^3/Pa^0.5))     
+  parameter Real	cf	= 1.0     ; // Pressure Loss Coeff. (m^3/Pa^0.5)) 
   parameter Area	A_wf	= 1.0	  ; // Wall to fluid heat transfer area
   parameter CoefficientOfHeatTransfer	h_wf	= 150	; // Wall to fluid heat transfer coeff. 
   parameter Mass		        w_m	= 1.0	; // Mass of heat transfer walls
@@ -34,7 +34,7 @@ model HeatX
     // Holdup Conditions
        medium.p = (inlet.p + outlet.p) / 2 ;
        medium.Xi = outlet.Xi_outflow ;
-       Tf = medium.T ;   // For ease of access to outlet temp
+       medium.T = Tf ;   // For ease of access to outlet temp
 
     // Mass balance 
        holdup * der (medium.d) = inlet.m_flow + outlet.m_flow;   

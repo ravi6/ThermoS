@@ -5,6 +5,8 @@ model plant
 */
   import ThermoS.Uops.*;
   import ThermoS.Types.*;
+  import ThermoS.Uops.HeatExch.*;
+  import ThermoS.Uops.Tanks.*;
   import Gas = ThermoS.Media.MyGas;
 
   constant Real AirComp[2] = {0.767,0.233}; // Note: reduced Xi is true
@@ -14,7 +16,7 @@ model plant
   Reservoir 	res3	(redeclare package Medium = Gas, 
                          p = 1e5, T = 300, Xi = AirComp); // Reservoir 2
 
-  HeaterCooler htr(redeclare package Medium = Gas, cf = 1.0e-3, 
+  HeatX htr(redeclare package Medium = Gas, cf = 1.0e-3, 
                                         A_wf = 1,  h_wf = 150, 
                                         w_m = 1, w_cp = 420, holdup = 50);
 equation
@@ -24,9 +26,9 @@ equation
     htr.Q_ew = 5e4 ;
 
 initial algorithm
- //   htr.Tf :=300 ;
-    htr.Tw :=300 ; 
+//    htr.Tf :=300 ;
+  htr.Tw :=300 ; 
   htr.medium.T := 300;
   htr.medium.p := 1e5;
-  htr.medium.Xi := AirComp;
+//  htr.medium.Xi := AirComp;
 end plant;

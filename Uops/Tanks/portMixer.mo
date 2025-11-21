@@ -16,45 +16,44 @@ model portMixer
 
   FluidPort port[N] (redeclare each package Medium = Medium) ;
 
-// State Variables
-    Mass			m (start=1e-6, stateSelect = StateSelect.avoid)  ;// Mass of Gas in the vessal 
-    Medium.Temperature		T (start=300)   ;
-    Medium.AbsolutePressure	p (start=1e5, stateSelect = StateSelect.prefer)   ;
-    Medium.BaseProperties       medium          ;
-    HeatFlowRate		Q_in		;
+    Medium.Temperature		T      ;
+    Medium.AbsolutePressure	p      ;
+    Medium.BaseProperties       medium ;
+    HeatFlowRate		Q_in   ;
 
   equation
 
     if (Adiabatic) then
       Q_in = 0 ;
     else
-      T = Tset ;
+      medium.T = Tset ;
     end if;
 
-    medium.T = T  ;
-    medium.p = p   ;  
-    m = medium.d * vol ; 
 
      // Mass and Component Balance
-     der(m) = sum(port[:].m_flow)   ;  // Mass Balance
+     vol * der(medium.d) = sum (port[:].m_flow) ;  // Mass Balance
 
      // Component Balance
      for j in 1:Medium.nXi loop
-       der(m * medium.Xi[j]) = 
-              sumi (actualStream(port[i].Xi_outflow[j]) * port[i].m_flow
-                                   for i in 1:N)  ;
+       vol * der(medium.d * medium.Xi[j]) = 
+              sum (actualStream(port[i].Xi_outflow[j]) * port[i].m_flow
+                                   for i in 1:N) ;
      end for;
 
      // Enthalpy Balance
-     der(m * medium.h) =  sum (port[i].m_flow * actualStream(port[i].h_outflow)
+     vol * der(medium.d * medium.h) =  
+               sum (port[i].m_flow * actualStream(port[i].h_outflow)
                                   for i in 1:N)
-    	               + vol * der(p)  + Q_in; 
+    	               + vol * der(medium.p)  + Q_in; 
 
-     // Assume gas in tank is well mixed (ie. its contents are at outlet condition)
+     // Assume gas in tank is well mixed 
       for i in 1:N loop
         port[i].Xi_outflow = medium.Xi ; 
 	port[i].h_outflow  = medium.h  ;
-        port[i].p = p ;
+        port[i].p = medium.p ;
       end for;
+
+      T = medium.T ;
+      p = medium.p ;  
 
 end portMixer;
