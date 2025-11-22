@@ -19,11 +19,11 @@ model plant
 
   Valve v1 (redeclare each package Medium = Gas, cv=4e-3/sqrt(0.5e2));
   Valve v2 (redeclare each package Medium = Gas, cv=4e-3/sqrt(0.5e2));
-  portMixer Node(redeclare package Medium = Gas,  vol=10e-3, N=3, Adiabatic=true) ;
+  portMixer Node(redeclare package Medium = Gas,  vol=1e-3, N=3, Adiabatic=true) ;
   HeatX htr(redeclare package Medium = Gas, cf = 1.0e-3, 
                                         A_wf = 1,  h_wf = 150, 
                                         w_m = 1, w_cp = 420, holdup = 1e-3);
-  portMixer Node2 (redeclare package Medium = Gas,  vol=10e-3, N=3, Adiabatic=true) ;
+  portMixer Node2 (redeclare package Medium = Gas,  vol=1e-3, N=3, Adiabatic=true) ;
   Valve v3 (redeclare each package Medium = Gas, cv=4e-3/sqrt(0.5e2));
 //  Valve v4 (redeclare each package Medium = Gas, cv=4e-3/sqrt(0.5e2));
 equation

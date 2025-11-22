@@ -16,7 +16,7 @@ model GasTank
     FluidPort outlet(redeclare package Medium = Medium) ;  
 
 //  Parameters
-  parameter    Volume   	   vol = 1    ;   // Tank Volume (m3)
+  parameter    Volume   	vol = 1    ;   // Tank Volume (m3)
 
 // State Variables
     Medium.Temperature		T		;
@@ -27,8 +27,9 @@ model GasTank
   equation
 
     // Tank p,T for ease of access
-    T = medium.T ;
-    p = medium.p ;
+    medium.T = T ;
+    medium.p = p ;
+    medium.Xi = outlet.Xi_outflow ;
  
     // Mass Balance
     vol * der(medium.d) = inlet.m_flow + outlet.m_flow ;
@@ -45,6 +46,7 @@ model GasTank
      // Assume gas in tank is well mixed 
          inlet.Xi_outflow = outlet.Xi_outflow ;
 	 inlet.h_outflow  = outlet.h_outflow  ;
+         outlet.h_outflow = medium.h ;
 
      // No pressure drop acroos the unit
       inlet.p = outlet.p ;

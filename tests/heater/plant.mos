@@ -5,18 +5,18 @@
 */  
 // ==================== SETTINGS ====================
 echo(false);
-tEnd := 0.1;  //sim stop time
+tEnd := 10;  //sim stop time
 logFile := "log";
 resFormat := "csv" ;
 resFile := "plant_res." + resFormat ;
 
 // Force C backend and useful debug
 setCommandLineOptions("--simCodeTarget=C");
-simflags := "-lv=LOG_DASSL,LOG_DSS,LOG_LS,LOG_INIT,LOG_NLS";
+//simflags := "-lv=LOG_DASSL,LOG_DSS,LOG_LS,LOG_INIT,LOG_NLS";
 //setDebugFlags("aliasConflicts");
 //setCommandLineOptions("+d=bltdump"); print(getErrorString() + "\n");
 //setDebugFlags("infoXmlOperations");
-setDebugFlags("failtrace,backenddaeinfo,initialization"); 
+//setDebugFlags("failtrace,backenddaeinfo,initialization"); 
 //setCommandLineOptions("+d=dumpdaelow,bltdump"); print(getErrorString() + "\n");
 
 // Ensure clean working directory

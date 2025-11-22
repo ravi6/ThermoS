@@ -11,14 +11,14 @@ model plant
 
   constant Real AirComp[2] = {0.767,0.233}; // Note: reduced Xi is true
 
-  Reservoir     res1	(redeclare package Medium = Gas, 
-                         p = 5e5, T = 300, Xi = AirComp); // Reservoir 1
-  Reservoir 	res3	(redeclare package Medium = Gas, 
+  Reservoir     res1 (redeclare package Medium = Gas, 
+                         p = 1.5e5, T = 300, Xi = AirComp); // Reservoir 1
+  Reservoir 	res3 (redeclare package Medium = Gas, 
                          p = 1e5, T = 300, Xi = AirComp); // Reservoir 2
 
-  HeatX htr(redeclare package Medium = Gas, cf = 1.0e-3, 
-                                        A_wf = 1,  h_wf = 150, 
-                                        w_m = 1, w_cp = 420, holdup = 50);
+  HeatX htr (redeclare package Medium = Gas, cf = 1.0e-3, 
+                                A_wf = 1,  h_wf = 150, 
+                                w_m = 1, w_cp = 420, holdup = 50);
 equation
 
     connect (res1.port, htr.inlet) ;
@@ -26,9 +26,9 @@ equation
     htr.Q_ew = 5e4 ;
 
 initial algorithm
-//    htr.Tf :=300 ;
+  htr.Tf :=300 ;
   htr.Tw :=300 ; 
-  htr.medium.T := 300;
-  htr.medium.p := 1e5;
+//  htr.medium.T := 300;
+//  htr.medium.p := 1e5;
 //  htr.medium.Xi := AirComp;
 end plant;

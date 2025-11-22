@@ -27,14 +27,16 @@ model HeatX
   HeatFlowRate			Q_wf		    ; // Heat tranfer from wall to fluid
   Medium.Temperature		Tw		    ; // Wall temperature (K)
   Medium.Temperature		Tf		    ; // Heater Fluid temperature (K)
-  Volume                        holdup ;
+
+  parameter Volume   holdup = 0.1  ;
 
   equation
 
     // Holdup Conditions
-       medium.p = (inlet.p + outlet.p) / 2 ;
+       medium.p =  outlet.p ;
        medium.Xi = outlet.Xi_outflow ;
        medium.T = Tf ;   // For ease of access to outlet temp
+       outlet.h_outflow = medium.h ;
 
     // Mass balance 
        holdup * der (medium.d) = inlet.m_flow + outlet.m_flow;   
@@ -52,9 +54,9 @@ model HeatX
                                       actual     = regRoot(1 - outlet.p / inlet.p) 
                                     );
     // Energy Balance
-       holdup * der(medium.d * medium.h)   
-           = inlet.m_flow * actualStream (inlet.h_outflow) 
-             + outlet.m_flow * actualStream (outlet.h_outflow) 
+       holdup * der(medium.d * outlet.h_outflow)   
+           = inlet.m_flow * inlet.h_outflow 
+             + outlet.m_flow * outlet.h_outflow 
              + holdup * der (medium.p) + Q_wf ;
 
 	Q_wf = h_wf * A_wf * (Tw - Tf)  ;
