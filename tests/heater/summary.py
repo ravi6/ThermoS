@@ -25,7 +25,7 @@ def report (uop, ts):
   Tw = getVar (uop + ".Tw", ts) - 273
   Q_ew = getVar (uop + ".Q_ew", ts) / 1000
   Q_wf = getVar (uop + ".Q_wf", ts) / 1000
-  Cp   = getVar (uop + ".Cp", ts)
+ # Cp   = getVar (uop + ".Cp", ts)
   dp = getVar(uop + ".inlet.p", ts) - 1e5 ;
   print ("Pressure Drop =", dp)
 
@@ -38,7 +38,7 @@ def report (uop, ts):
   print(f"Wall Temp (C) = {Tw:.1f}")
   print(f"Q_ew (kW) = {Q_ew:.1f}")
   print(f"Q_wf (kW) = {Q_wf:.1f}")
-  print(f"Cp (J/kgC) = {Cp:.0f}")
+ # print(f"Cp (J/kgC) = {Cp:.0f}")
   print("==========================================")
 
 if len(sys.argv) < 2:

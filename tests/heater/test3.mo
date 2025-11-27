@@ -22,7 +22,7 @@ model plant
   portMixer Node(redeclare package Medium = Gas,  vol=1e-3, N=3, Adiabatic=true) ;
   HeatX htr(redeclare package Medium = Gas, cf = 1.0e-3, 
                                         A_wf = 1,  h_wf = 150, 
-                                        w_m = 1, w_cp = 420, holdup = 1e-3);
+                                        w_m = 1, w_cp = 420, holdup = 1e-1);
   portMixer Node2 (redeclare package Medium = Gas,  vol=1e-3, N=3, Adiabatic=true) ;
   Valve v3 (redeclare each package Medium = Gas, cv=4e-3/sqrt(0.5e2));
 //  Valve v4 (redeclare each package Medium = Gas, cv=4e-3/sqrt(0.5e2));
@@ -43,7 +43,7 @@ equation
     v1.po = 50 ;
     v2.po = 80 ;
     v3.po = 30 ;
-    htr.Q_ew = 500 ;
+    htr.Q_ew = 50000 ;
 
 initial algorithm
     htr.Tf :=300 ;

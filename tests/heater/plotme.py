@@ -21,6 +21,7 @@ ax.set_ylabel('Flow (lpm)')
 ax.plot(df["time"], df["Node2.port[1].m_flow"] * 1000*60, label='Node2A', color='blue', linestyle='-')
 ax.plot(df["time"], df["Node2.port[2].m_flow"] * 1000*60, label='Node2B', color='green', linestyle='-')
 ax.plot(df["time"], df["Node2.port[3].m_flow"] * 1000*60, label='Node2C', color='red', linestyle='-')
+ax.legend()
 
 ax = axs[2]
 ax.set_ylabel('Flow (lpm)')

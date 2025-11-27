@@ -12,8 +12,8 @@ set xtics norotate
 
 set key
 set ylabel  "Temp (C)"
-plot data using (column("time")):(column("volUp.T")-273) w l  lw 2 title "volUp",\
- data using (column("time")):(column("cmpTrim.Tout")-273) w l  lw 2 title "cmpTrim Tout"
+plot data using (column("time")):(column("volUp.T")-273) w l  lw 2 title "volUp"
+# data using (column("time")):(column("cmpTrim.Tout")-273) w l  lw 2 title "cmpTrim Tout"
 
 
 #set ylabel "P(bar)"

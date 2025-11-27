@@ -21,6 +21,8 @@ model plant
   GasTank     tank (redeclare package Medium = MyGas, vol = 0.2); 
   FlowMachine comp (redeclare package Medium = MyGas, isComp = true, eff = 1) ;
   constant    MassFlowRate  maxFlow = 200 * 1e-3 / 60 ;
+  constant    Real          prMax = 1.7 ;
+  MassFlowRate mflow (start=0.0001) ;
 
 equation
      connect (atm.port, comp.inlet) ;
@@ -30,9 +32,11 @@ equation
      connect (vout.outlet, atm.port) ;
      vin.po = 100 ;
      vout.po = 100 ;
+
      // Compressor Curve (just linear for now
-     comp.outlet.p = ( 1.9 - (comp.inlet.m_flow / maxFlow) ) * comp.inlet.p ; 
-     comp.Ws = 200 ;
+     mflow = smooth (0, if comp.inlet.m_flow > comp.inlet.m_flow then comp.inlet.m_flow else 0) ; 
+     comp.outlet.p = ( prMax - (prMax - 1) * (mflow / maxFlow) ) * comp.inlet.p  ; 
+     comp.Ws = 200 * (1 - exp(- time)) ;
      // Assuming 2m2 surface area, 15 outside heattransfer coeff
      tank.Q_loss = 15 * 2 * (tank.T - (15 + 273)) ;
 
@@ -40,4 +44,7 @@ initial algorithm
     tank.T := 300 ;  // Initial Temperature
     tank.p := 1.0e5  ;  // Initial Pressure
     tank.Xi := Air ;
+    comp.medium.T := 300 ;
+    comp.medium.p := prMax * 1e5 ;
+    comp.medium.Xi := Air ;
 end plant;

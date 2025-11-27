@@ -14,7 +14,7 @@ import Modelica.Media.IdealGases.Common.MixtureGasNasa.h_TX;
   parameter Real cv=1.0/sqrt(1e5);
   parameter Real dpTol = 100 ;  // Pressure Drop Tolerance used for state and flow transition
 
-  Medium.BaseProperties med ; // (T(start=288.15, fixed=false)) ; // (preferredMediumStates=false) ;  
+  Medium.BaseProperties med (preferredMediumStates=true) ;  
  
 equation
 

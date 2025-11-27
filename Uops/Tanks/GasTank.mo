@@ -21,8 +21,10 @@ model GasTank
 // State Variables
     Medium.Temperature		T		;
     Medium.AbsolutePressure	p		;
-    Medium.BaseProperties       medium          ; 
+    Medium.MassFraction         Xi[Medium.nXi]  ;
     EnthalpyFlowRate            Q_loss          ; // Heatloss from tank
+
+    Medium.BaseProperties       medium (preferredMediumStates = true) ;
                                    
   equation
 
@@ -30,6 +32,7 @@ model GasTank
     medium.T = T ;
     medium.p = p ;
     medium.Xi = outlet.Xi_outflow ;
+    Xi = outlet.Xi_outflow ;
  
     // Mass Balance
     vol * der(medium.d) = inlet.m_flow + outlet.m_flow ;

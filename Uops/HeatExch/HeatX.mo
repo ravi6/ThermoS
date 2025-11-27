@@ -22,7 +22,7 @@ model HeatX
   parameter Mass		        w_m	= 1.0	; // Mass of heat transfer walls
   parameter SpecificHeatCapacity        w_cp    = 420	; // Specific heat of wall material
 
-  Medium.BaseProperties         medium              ;
+  Medium.BaseProperties         medium (preferredMediumStates = true) ;
   HeatFlowRate		        Q_ew	    	    ; // Heat input to the device
   HeatFlowRate			Q_wf		    ; // Heat tranfer from wall to fluid
   Medium.Temperature		Tw		    ; // Wall temperature (K)
@@ -33,7 +33,6 @@ model HeatX
   equation
 
     // Holdup Conditions
-       medium.p =  outlet.p ;
        medium.Xi = outlet.Xi_outflow ;
        medium.T = Tf ;   // For ease of access to outlet temp
        outlet.h_outflow = medium.h ;
@@ -48,10 +47,19 @@ model HeatX
        inlet.h_outflow = outlet.h_outflow ;
 
     /* Pressure differential drives flow 
-       See valve eqn. for explanation  */
+       See valve eqn. for explanation 
+       For now we assume same resistance at inlet and outlet
+    */
+       
+    
        inlet.m_flow =  cf * sqrt(medium.d * inlet.p)
-                          * homotopy( simplified = (1 - outlet.p / inlet.p), 
-                                      actual     = regRoot(1 - outlet.p / inlet.p) 
+                          * homotopy( simplified = (1 - medium.p / inlet.p), 
+                                      actual     = regRoot(1 - medium.p / inlet.p) 
+                                    );
+
+       outlet.m_flow =  - cf * sqrt(medium.d * medium.p)
+                          * homotopy( simplified = (1 - outlet.p / medium.p), 
+                                      actual     = regRoot(1 - outlet.p / medium.p) 
                                     );
     // Energy Balance
        holdup * der(medium.d * outlet.h_outflow)   

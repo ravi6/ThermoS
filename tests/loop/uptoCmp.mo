@@ -36,7 +36,7 @@ model plant
   RealValve   vBlow (redeclare package Medium = MyAir , cv = CV);
   FlowMachine  cmpTrim (redeclare package Medium = MyAir, 
                     isComp = true, eff = 0.95) ;  
-  HeaterCooler hx (redeclare package Medium = MyAir, cf = 1.0e-3, 
+  HeatX hx (redeclare package Medium = MyAir, cf = 1.0e-5, 
                        A_wf = 1,  h_wf = 150, 
                        w_m = 1, w_cp = 420, holdup = 100e-3);
   portMixer TeeBlow (redeclare package Medium = MyAir, 
@@ -70,7 +70,7 @@ equation
 
      cmpTrim.Ws = max (0, 100 * (1.7 - volUp.p/1e5)/1.7) ;
      cmpTrim.outlet.p =  (maxPr  - (maxPr - 1)*(cmpTrim.inlet.m_flow/maxFlow)) * cmpTrim.inlet.p ; 
-     hx.Q_ew = -10 ; // External to wall heat transfer
+     hx.Q_ew = 10 ; // External to wall heat transfer
      volUp.Q_loss = 30 ;
      //volUp.output.m_flow = xxx   ;  not allowed. Is set by default to zero:wq
 
@@ -86,11 +86,4 @@ initial algorithm
      vUp.po := 5 ;
      vDown.po := 5 ;
 
-     TeeBlow.p := 1e5 ;
-     TeeBlow.T := 300 ;
-     TeeBlow.Xi := Air ;
-
-     TeeHx.p := 1e5 ;
-     TeeHx.T := 300 ;
-     TeeHx.Xi := Air ;
 end plant;

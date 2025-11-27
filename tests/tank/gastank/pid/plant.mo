@@ -35,9 +35,4 @@ equation
 
      valve.po  = 10 * abs(sin(6*0.01*time))  ;
      
-initial algorithm
-    tank.T := 300 ;  // Initial Temperature
-    tank.p := 1e5 ;  // Initial Pressure
-    tank.medium.Xi := Air ;
-
 end plant;

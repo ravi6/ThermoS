@@ -1,1 +1,1 @@
-test2.mo
+test1.mo

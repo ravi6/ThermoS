@@ -71,12 +71,14 @@ equation
      connect (vDown.outlet, TeeComp.port[1]) ;
      connect (TeeComp.port[2], atm.port) ;
 
-     vBlow.spo = 90 ;
+     vBlow.spo = 10 ;
      vUp.spo = 90 ;
      vDown.spo = 90 ;
 
-     cmpTrim.Ws = max (0, 100 * (1.7 - volUp.p/1e5)/1.7) ;
-     cmpTrim.outlet.p =  (maxPr  - (maxPr - 1)*(cmpTrim.inlet.m_flow/maxFlow)) * cmpTrim.inlet.p ; 
+    cmpTrim.Ws = max (0, 100 * (1.3 - volUp.p/1e5)/1.3) ;
+     cmpTrim.outlet.p = cmpTrim.inlet.p * 1.3 ;
+
+//     cmpTrim.outlet.p =  (maxPr  - (maxPr - 1)*(cmpTrim.inlet.m_flow/maxFlow)) * cmpTrim.inlet.p ; 
      hx.Q_ew = -10 ; // External to wall heat transfer
      volUp.Q_loss = 30 ;
 
@@ -92,15 +94,4 @@ initial algorithm
      vUp.po := 5 ;
      vDown.po := 5 ;
 
-     TeeBlow.p := 1e5 ;
-     TeeBlow.T := 300 ;
-     TeeBlow.Xi := Air ;
-
-     TeeHx.p := 1e5 ;
-     TeeHx.T := 300 ;
-     TeeHx.Xi := Air ;
-
-     TeeComp.p := 1e5 ;
-     TeeComp.T := 300 ;
-     TeeComp.Xi := Air ;
 end plant;

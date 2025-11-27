@@ -1,0 +1,2197 @@
+/
+OpenModelica 1.25.4
+Load ThermoLib and Plant
+/home/ThermoS/package.mo loaded successfully
+../plant.mo loaded successfully
+Save Flattened Model (total.mo)
+true
+Checking Model
+
+"Check of plant completed successfully.
+Class plant has 177 equation(s) and 177 variable(s).
+94 of these are trivial equation(s)."
+Simulate Plant
+
+record SimulationResult
+    resultFile = "",
+    simulationOptions = "startTime = 0.0, stopTime = 200.0, numberOfIntervals = 500, tolerance = 1e-6, method = 'dassl', fileNamePrefix = 'plant', options = '', outputFormat = 'csv', variableFilter = '.*', cflags = '', simflags = '-lv=LOG_DASSL,LOG_DSS,LOG_LS,LOG_INIT,LOG_NLS'",
+    messages = "Simulation execution failed for model: plant
+LOG_LS            | info    | initialize linear system solvers
+|                 | |       | | 2 linear systems
+LOG_NLS           | info    | initialize non-linear system solvers
+|                 | |       | | 10 non-linear systems
+LOG_INIT          | info    | ### START INITIALIZATION ###
+LOG_INIT          | info    | updating min-values
+LOG_INIT          | info    | updating max-values
+LOG_INIT          | info    | updating nominal-values
+LOG_INIT          | info    | updating primary start-values
+LOG_NLS           | info    | update static data of non-linear system solvers
+LOG_INIT          | info    | initialization method: symbolic        [solves the initialization problem symbolically - default]
+LOG_INIT_HOMOTOPY | info    | Model contains homotopy operator: Use adaptive homotopy method to solve initialization problem. To disable initialization with homotopy operator use \"-noHomotopyOnFirstTry\".
+LOG_NLS           | info    | ############ Solve nonlinear system 11 at time 0 ############
+|                 | |       | | initial variable values:
+|                 | |       | | | [ 1]                     vout.med.T  =              300		 nom =           288.15
+|                 | |       | | Solution status: SOLVED
+|                 | |       | | |  number of iterations           : 1
+|                 | |       | | |  number of function evaluations : 3
+|                 | |       | | |  number of jacobian evaluations : 1
+|                 | |       | | | solution values:
+|                 | |       | | | [ 1]                     vout.med.T  =              300
+LOG_NLS           | info    | ############ Solve nonlinear system 51 at time 0 ############
+|                 | |       | | initial variable values:
+|                 | |       | | | [ 1]                  comp.medium.T  =              300		 nom =           288.15
+|                 | |       | | | [ 2]                atm.port.m_flow  =                0		 nom =                1
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_STDOUT        | warning | While solving non-linear system an assertion failed during initialization.
+|                 | |       | | The non-linear solver tries to solve the problem that could take some time.
+|                 | |       | | It could help to provide better start-values for the iteration variables.
+|                 | |       | | For more information simulate with -lv LOG_NLS_V
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10427.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -9.32449e-05 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95250
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -9.32449e-05 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95250
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10425.3 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -9.32449e-05 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95250
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10551.3 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -9.32449e-05 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95250
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10744.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -9.32449e-05 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95250
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2703.75 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.374766 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95522.3
+|                 | |       |   fb = f(u_max) = 6.7358e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12097 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2703.75 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.374766 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95522.3
+|                 | |       |   fb = f(u_max) = 6.7358e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12097 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10425.3 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -4.16667e-06 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95249.9
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10551.3 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -4.16667e-06 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95249.9
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10744.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -4.16667e-06 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95249.9
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -9.32449e-05 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95250
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -9.32449e-05 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95250
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10425.3 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -9.32449e-05 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95250
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10551.3 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -9.32449e-05 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95250
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10744.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -9.32449e-05 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95250
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -9.32449e-05 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95250
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -9.32449e-05 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95250
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10425.3 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -9.32449e-05 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95250
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10551.3 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -9.32449e-05 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95250
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10744.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -9.32449e-05 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95250
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -9.32449e-05 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95250
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -9.32449e-05 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95250
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10425.3 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -9.32449e-05 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95250
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10551.3 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -9.32449e-05 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95250
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10744.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -9.32449e-05 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95250
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -9.32449e-05 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95250
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -9.32449e-05 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95250
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10425.3 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -9.32449e-05 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95250
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10551.3 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -9.32449e-05 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95250
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10744.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -9.32449e-05 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95250
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -9.32449e-05 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95250
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -9.32449e-05 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95250
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10425.3 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -9.32449e-05 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95250
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10551.3 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -9.32449e-05 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95250
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10744.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -9.32449e-05 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95250
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.1 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_STDOUT        | warning | While solving non-linear system an assertion failed during initialization.
+|                 | |       | | The non-linear solver tries to solve the problem that could take some time.
+|                 | |       | | It could help to provide better start-values for the iteration variables.
+|                 | |       | | For more information simulate with -lv LOG_NLS_V
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10427.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.37 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.0372957 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95277
+|                 | |       |   fb = f(u_max) = 6.73556e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.5 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.37 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.0372957 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95277
+|                 | |       |   fb = f(u_max) = 6.73556e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.5 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10425.3 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.37 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.0372957 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95277
+|                 | |       |   fb = f(u_max) = 6.73556e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.5 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10551.3 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.37 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.0372957 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95277
+|                 | |       |   fb = f(u_max) = 6.73556e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.5 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10744.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.37 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.0372957 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95277
+|                 | |       |   fb = f(u_max) = 6.73556e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.5 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -3942.64 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -124.264 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 13245.9
+|                 | |       |   fb = f(u_max) = 6.65353e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10784.5 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -3942.64 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -124.264 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 13245.9
+|                 | |       |   fb = f(u_max) = 6.65353e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10784.5 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10425.3 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.02 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.00166666 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95251.1
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.2 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10551.3 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.02 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.00166666 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95251.1
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.2 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10744.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.02 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.00166666 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95251.1
+|                 | |       |   fb = f(u_max) = 6.73553e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.2 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.37 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.0372957 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95277
+|                 | |       |   fb = f(u_max) = 6.73556e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.5 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.37 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.0372957 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95277
+|                 | |       |   fb = f(u_max) = 6.73556e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.5 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10425.3 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.37 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.0372957 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95277
+|                 | |       |   fb = f(u_max) = 6.73556e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.5 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10551.3 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.37 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.0372957 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95277
+|                 | |       |   fb = f(u_max) = 6.73556e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.5 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10744.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.37 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.0372957 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95277
+|                 | |       |   fb = f(u_max) = 6.73556e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.5 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.37 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.0372957 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95277
+|                 | |       |   fb = f(u_max) = 6.73556e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.5 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.37 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.0372957 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95277
+|                 | |       |   fb = f(u_max) = 6.73556e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.5 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10425.3 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.37 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.0372957 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95277
+|                 | |       |   fb = f(u_max) = 6.73556e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.5 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10551.3 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.37 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.0372957 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95277
+|                 | |       |   fb = f(u_max) = 6.73556e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.5 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10744.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.37 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.0372957 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95277
+|                 | |       |   fb = f(u_max) = 6.73556e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.5 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.37 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.0372957 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95277
+|                 | |       |   fb = f(u_max) = 6.73556e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.5 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.37 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.0372957 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95277
+|                 | |       |   fb = f(u_max) = 6.73556e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.5 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10425.3 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.37 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.0372957 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95277
+|                 | |       |   fb = f(u_max) = 6.73556e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.5 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10551.3 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.37 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.0372957 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95277
+|                 | |       |   fb = f(u_max) = 6.73556e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.5 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10744.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.37 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.0372957 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95277
+|                 | |       |   fb = f(u_max) = 6.73556e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.5 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.37 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.0372957 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95277
+|                 | |       |   fb = f(u_max) = 6.73556e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.5 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.37 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.0372957 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95277
+|                 | |       |   fb = f(u_max) = 6.73556e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.5 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10425.3 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.37 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.0372957 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95277
+|                 | |       |   fb = f(u_max) = 6.73556e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.5 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10551.3 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.37 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.0372957 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95277
+|                 | |       |   fb = f(u_max) = 6.73556e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.5 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10744.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.37 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.0372957 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95277
+|                 | |       |   fb = f(u_max) = 6.73556e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.5 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.37 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.0372957 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95277
+|                 | |       |   fb = f(u_max) = 6.73556e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.5 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.37 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.0372957 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95277
+|                 | |       |   fb = f(u_max) = 6.73556e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.5 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10425.3 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.37 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.0372957 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95277
+|                 | |       |   fb = f(u_max) = 6.73556e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.5 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10551.3 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.37 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.0372957 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95277
+|                 | |       |   fb = f(u_max) = 6.73556e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.5 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10744.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -2700.37 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -0.0372957 should be > 0
+LOG_ASSERT        | error   | [/root/.openmodelica/libraries/Modelica 4.0.0+maint.om/Utilities/Streams.mo:120:3-148:12:writable]
+|                 | |       | The arguments u_min and u_max provided in the function call
+|                 | |       |     solveOneNonlinearEquation(f,u_min,u_max)
+|                 | |       | do not bracket the root of the single non-linear equation 0=f(u):
+|                 | |       |   u_min  = 200
+|                 | |       |   u_max  = 6000
+|                 | |       |   fa = f(u_min) = 95277
+|                 | |       |   fb = f(u_max) = 6.73556e+06
+|                 | |       | fa and fb must have opposite sign which is not the case
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -12093.5 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_ASSERT        | error   | Model error: Argument of log(T) was -10487.8 should be > 0
+LOG_NLS           | info    | | Solution status: FAILED
+|                 | |       | | |  number of iterations           : 351
+|                 | |       | | |  number of function evaluations : 2749
+|                 | |       | | |  number of jacobian evaluations : 1173
+|                 | |       | | | solution values:
+|                 | |       | | | [ 1]                  comp.medium.T  =              300
+|                 | |       | | | [ 2]                atm.port.m_flow  =                0
+LOG_NLS           | warning | nonlinear system 51 fails: at t=0
+LOG_INIT          | warning | proper start-values for some of the following iteration variables might help
+|                 | |       | | [1] Real comp.medium.T(start=300, nominal=288.15)
+|                 | |       | | [2] Real atm.port.m_flow(start=0, nominal=1)
+LOG_ASSERT        | debug   | Solving non-linear system 51 failed at time=0.
+|                 | |       | For more information please use -lv LOG_NLS.
+LOG_ASSERT        | info    | simulation terminated by an assertion at initialization
+LOG_NLS           | info    | free non-linear system solvers
+",
+    timeFrontend = 0.256445666,
+    timeBackend = 0.196581958,
+    timeSimCode = 0.02617825,
+    timeTemplates = 0.12059,
+    timeCompile = 0.730308251,
+    timeSimulation = 0.082649833,
+    timeTotal = 1.412920251
+end SimulationResult;
+{record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/ExpressionSolve.mo",
+    readonly = false,
+    lineStart = 186,
+    columnStart = 9,
+    lineEnd = 186,
+    columnEnd = 210
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Internal error Failed to solve \"300.0 = Modelica.Math.Nonlinear.solveOneNonlinearEquation(function plant.comp.Medium.T_psX.f_nonlinear(#(comp.state_out.p), #(comp.s), #(comp.medium.Xi)), 200.0, 6000.0, 1e-13)\" w.r.t. \"comp.s\"",
+    kind = .OpenModelica.Scripting.ErrorKind.translation,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 63
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"Modelica.Math.Nonlinear.solveOneNonlinearEquation(function plant.comp.Medium.T_psX.f_nonlinear(#(comp.state_out.p), #(comp.s), #(comp.medium.Xi)), 200.0, 6000.0, 1e-13) - 300.0\" w.r.t. \"comp.s\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/ExpressionSolve.mo",
+    readonly = false,
+    lineStart = 186,
+    columnStart = 9,
+    lineEnd = 186,
+    columnEnd = 210
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Internal error Failed to solve \"300.0 = Modelica.Math.Nonlinear.solveOneNonlinearEquation(function plant.comp.Medium.T_hX.f_nonlinear(#(comp.hin), #(comp.medium.Xi), #(true), #(Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K), #(0.0)), 200.0, 6000.0, 1e-13)\" w.r.t. \"comp.hin\"",
+    kind = .OpenModelica.Scripting.ErrorKind.translation,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 63
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"Modelica.Math.Nonlinear.solveOneNonlinearEquation(function plant.comp.Medium.T_hX.f_nonlinear(#(comp.hin), #(comp.medium.Xi), #(true), #(Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K), #(0.0)), 200.0, 6000.0, 1e-13) - 300.0\" w.r.t. \"comp.hin\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/ExpressionSolve.mo",
+    readonly = false,
+    lineStart = 186,
+    columnStart = 9,
+    lineEnd = 186,
+    columnEnd = 210
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Internal error Failed to solve \"300.0 = plant.comp.Medium.temperature_phX(atm.p, comp.hin, comp.medium.Xi)\" w.r.t. \"comp.hin\"",
+    kind = .OpenModelica.Scripting.ErrorKind.translation,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 63
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"plant.comp.Medium.temperature_phX(atm.p, comp.hin, comp.medium.Xi) - 300.0\" w.r.t. \"comp.hin\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/ExpressionSolve.mo",
+    readonly = false,
+    lineStart = 186,
+    columnStart = 9,
+    lineEnd = 186,
+    columnEnd = 210
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Internal error Failed to solve \"1e-4 = smooth(0, if comp.inlet.m_flow > 0.0 then comp.inlet.m_flow else 0.0)\" w.r.t. \"comp.inlet.m_flow\"",
+    kind = .OpenModelica.Scripting.ErrorKind.translation,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 63
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/ExpressionSolve.mo",
+    readonly = false,
+    lineStart = 222,
+    columnStart = 9,
+    lineEnd = 222,
+    columnEnd = 210
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Internal error Failed to solve \"comp.his = plant.comp.Medium.specificEnthalpy_pTX(comp.state_out.p, comp.Tis, comp.medium.Xi)\" w.r.t. \"comp.Tis\"",
+    kind = .OpenModelica.Scripting.ErrorKind.translation,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 63
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/ExpressionSolve.mo",
+    readonly = false,
+    lineStart = 222,
+    columnStart = 9,
+    lineEnd = 222,
+    columnEnd = 210
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Internal error Failed to solve \"vout.med.h = plant.vout.Medium.h_TX(vout.med.T, {atm.Xi[1], atm.Xi[2], vout.med.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0)\" w.r.t. \"vout.med.T\"",
+    kind = .OpenModelica.Scripting.ErrorKind.translation,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 63
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/ExpressionSolve.mo",
+    readonly = false,
+    lineStart = 222,
+    columnStart = 9,
+    lineEnd = 222,
+    columnEnd = 210
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Internal error Failed to solve \"tank.medium.h = plant.vin.Medium.h_TX(vin.med.T, {tank.medium.Xi[1], tank.medium.Xi[2], tank.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0)\" w.r.t. \"vin.med.T\"",
+    kind = .OpenModelica.Scripting.ErrorKind.translation,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 63
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"plant.vin.Medium.h_TX(vin.med.T, {tank.medium.Xi[1], tank.medium.Xi[2], tank.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0) - tank.medium.h\" w.r.t. \"vin.med.T\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/ExpressionSolve.mo",
+    readonly = false,
+    lineStart = 222,
+    columnStart = 9,
+    lineEnd = 222,
+    columnEnd = 210
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Internal error Failed to solve \"tank.medium.h = plant.vin.Medium.h_TX(vin.med.T, {tank.medium.Xi[1], tank.medium.Xi[2], vin.med.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0)\" w.r.t. \"vin.med.T\"",
+    kind = .OpenModelica.Scripting.ErrorKind.translation,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 63
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"plant.vin.Medium.h_TX(vin.med.T, {tank.medium.Xi[1], tank.medium.Xi[2], vin.med.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0) - tank.medium.h\" w.r.t. \"vin.med.T\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "",
+    readonly = false,
+    lineStart = 0,
+    columnStart = 0,
+    lineEnd = 0,
+    columnEnd = 0
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Torn system details for strict tearing set:
+ * Linear torn systems (#iteration vars, #inner vars, density): 2 systems
+   {(2,10,100.0%), (1,2,100.0%)}
+ * Non-linear torn systems (#iteration vars, #inner vars): 1 system
+   {(2,12)}",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.notification,
+    id = 263
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "",
+    readonly = false,
+    lineStart = 0,
+    columnStart = 0,
+    lineEnd = 0,
+    columnEnd = 0
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Equation system details (not torn):
+ * Constant Jacobian (size): 0 systems
+ * Linear Jacobian (size,density): 0 systems
+ * Non-linear Jacobian (size): 3 systems
+   {1, 1, 1}
+ * Without analytic Jacobian (size): 0 systems",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.notification,
+    id = 262
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "",
+    readonly = false,
+    lineStart = 0,
+    columnStart = 0,
+    lineEnd = 0,
+    columnEnd = 0
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Strong component statistics for simulation (81):
+ * Single equations (assignments): 75
+ * Array equations: 0
+ * Algorithm blocks: 0
+ * Record equations: 0
+ * When equations: 0
+ * If-equations: 0
+ * Equation systems (not torn): 3
+ * Torn equation systems: 3
+ * Mixed (continuous/discrete) equation systems: 0",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.notification,
+    id = 261
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "",
+    readonly = false,
+    lineStart = 0,
+    columnStart = 0,
+    lineEnd = 0,
+    columnEnd = 0
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Model statistics after passing the back-end for simulation:
+ * Number of independent subsystems: 6
+ * Number of states: 5 ('-d=stateselection' for list of states)
+ * Number of discrete variables: 0 ('-d=discreteinfo' for list of discrete vars)
+ * Number of discrete states: 0 ('-d=discreteinfo' for list of discrete states)
+ * Number of clocked states: 0 ('-d=discreteinfo' for list of clocked states)
+ * Top-level inputs: 0",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.notification,
+    id = 259
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/ExpressionSolve.mo",
+    readonly = false,
+    lineStart = 222,
+    columnStart = 9,
+    lineEnd = 222,
+    columnEnd = 210
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Internal error Failed to solve \"plant.comp.Medium.specificEnthalpy_pTX(comp.state_out.p, comp.Tis, comp.medium.Xi) = comp.his\" w.r.t. \"comp.Tis\"",
+    kind = .OpenModelica.Scripting.ErrorKind.translation,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 63
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/ExpressionSolve.mo",
+    readonly = false,
+    lineStart = 222,
+    columnStart = 9,
+    lineEnd = 222,
+    columnEnd = 210
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Internal error Failed to solve \"plant.vout.Medium.h_TX(vout.med.T, {atm.Xi[1], atm.Xi[2], vout.med.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0) = vout.med.h\" w.r.t. \"vout.med.T\"",
+    kind = .OpenModelica.Scripting.ErrorKind.translation,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 63
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/ExpressionSolve.mo",
+    readonly = false,
+    lineStart = 222,
+    columnStart = 9,
+    lineEnd = 222,
+    columnEnd = 210
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Internal error Failed to solve \"plant.vin.Medium.h_TX(vin.med.T, {tank.medium.Xi[1], tank.medium.Xi[2], tank.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0) = tank.medium.h\" w.r.t. \"vin.med.T\"",
+    kind = .OpenModelica.Scripting.ErrorKind.translation,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 63
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/ExpressionSolve.mo",
+    readonly = false,
+    lineStart = 186,
+    columnStart = 9,
+    lineEnd = 186,
+    columnEnd = 210
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Internal error Failed to solve \"vout.med.h = plant.vout.Medium.h_TX(vout.med.T, {atm.Xi[1], atm.Xi[2], vout.med.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0)\" w.r.t. \"vout.med.T\"",
+    kind = .OpenModelica.Scripting.ErrorKind.translation,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 63
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"plant.vout.Medium.h_TX(vout.med.T, {atm.Xi[1], atm.Xi[2], vout.med.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0) - vout.med.h\" w.r.t. \"vout.med.T\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "",
+    readonly = false,
+    lineStart = 0,
+    columnStart = 0,
+    lineEnd = 0,
+    columnEnd = 0
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Torn system details for strict tearing set:
+ * Linear torn systems (#iteration vars, #inner vars, density): 0 systems
+ * Non-linear torn systems (#iteration vars, #inner vars): 3 systems
+   {(2,10), (1,2), (2,11)}",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.notification,
+    id = 263
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "",
+    readonly = false,
+    lineStart = 0,
+    columnStart = 0,
+    lineEnd = 0,
+    columnEnd = 0
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Strong component statistics for initialization (79):
+ * Single equations (assignments): 72
+ * Array equations: 0
+ * Algorithm blocks: 1
+ * Record equations: 0
+ * When equations: 0
+ * If-equations: 0
+ * Equation systems (not torn): 3
+ * Torn equation systems: 3
+ * Mixed (continuous/discrete) equation systems: 0",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.notification,
+    id = 261
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "",
+    readonly = false,
+    lineStart = 0,
+    columnStart = 0,
+    lineEnd = 0,
+    columnEnd = 0
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Model statistics after passing the back-end for initialization:
+ * Number of independent subsystems: 7
+ * Number of states: 0 ('-d=stateselection' for list of states)
+ * Number of discrete variables: 0 ('-d=discreteinfo' for list of discrete vars)
+ * Number of discrete states: 0 ('-d=discreteinfo' for list of discrete states)
+ * Number of clocked states: 0 ('-d=discreteinfo' for list of clocked states)
+ * Top-level inputs: 0",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.notification,
+    id = 259
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "",
+    readonly = false,
+    lineStart = 0,
+    columnStart = 0,
+    lineEnd = 0,
+    columnEnd = 0
+end OpenModelica.Scripting.SourceInfo;,
+    message = "The initial conditions are over specified. The following 3 initial equations are redundant, so they are removed from the initialization system:
+         comp.medium.T = 300.0
+         comp.medium.Xi[1] = 0.7
+         comp.medium.Xi[2] = 0.2.",
+    kind = .OpenModelica.Scripting.ErrorKind.translation,
+    level = .OpenModelica.Scripting.ErrorLevel.warning,
+    id = 497
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/ExpressionSolve.mo",
+    readonly = false,
+    lineStart = 222,
+    columnStart = 9,
+    lineEnd = 222,
+    columnEnd = 210
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Internal error Failed to solve \"plant.vin.Medium.h_TX(vin.med.T, {tank.medium.Xi[1], tank.medium.Xi[2], vin.med.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0) = tank.medium.h\" w.r.t. \"vin.med.T\"",
+    kind = .OpenModelica.Scripting.ErrorKind.translation,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 63
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 240,
+    columnStart = 7,
+    lineEnd = 240,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"$DER.comp.hout - ($DER.comp.medium.T * $DER$plant$Pcomp$PMedium$Ph_TX(comp.medium.T, {comp.medium.Xi[1], comp.medium.Xi[2], comp.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 1.0, {0.0, 0.0, 0.0}, 0.0) + $DER.comp.medium.Xi[1] * $DER$plant$Pcomp$PMedium$Ph_TX(comp.medium.T, {comp.medium.Xi[1], comp.medium.Xi[2], comp.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {1.0, 0.0, 0.0}, 0.0) + $DER.comp.medium.Xi[2] * $DER$plant$Pcomp$PMedium$Ph_TX(comp.medium.T, {comp.medium.Xi[1], comp.medium.Xi[2], comp.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {0.0, 1.0, 0.0}, 0.0) + $DER.comp.medium.X[3] * $DER$plant$Pcomp$PMedium$Ph_TX(comp.medium.T, {comp.medium.Xi[1], comp.medium.Xi[2], comp.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {0.0, 0.0, 1.0}, 0.0))\" w.r.t. \"$DER.comp.medium.Xi\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 240,
+    columnStart = 7,
+    lineEnd = 240,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"$DER.tank.medium.h - ($DER.tank.T * $DER$plant$Ptank$PMedium$Ph_TX(tank.T, {tank.medium.Xi[1], tank.medium.Xi[2], tank.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 1.0, {0.0, 0.0, 0.0}, 0.0) + $DER.tank.medium.Xi[1] * $DER$plant$Ptank$PMedium$Ph_TX(tank.T, {tank.medium.Xi[1], tank.medium.Xi[2], tank.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {1.0, 0.0, 0.0}, 0.0) + $DER.tank.medium.Xi[2] * $DER$plant$Ptank$PMedium$Ph_TX(tank.T, {tank.medium.Xi[1], tank.medium.Xi[2], tank.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {0.0, 1.0, 0.0}, 0.0) + $DER.tank.medium.X[3] * $DER$plant$Ptank$PMedium$Ph_TX(tank.T, {tank.medium.Xi[1], tank.medium.Xi[2], tank.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {0.0, 0.0, 1.0}, 0.0))\" w.r.t. \"$DER.tank.medium.h\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "",
+    readonly = false,
+    lineStart = 0,
+    columnStart = 0,
+    lineEnd = 0,
+    columnEnd = 0
+end OpenModelica.Scripting.SourceInfo;,
+    message = "It was not possible to check the given initialization system for consistency symbolically, because the relevant equations are part of an algebraic loop. This is not supported yet.",
+    kind = .OpenModelica.Scripting.ErrorKind.translation,
+    level = .OpenModelica.Scripting.ErrorLevel.notification,
+    id = 6001
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"vout.med.h - plant.atm.Medium.h_TX(atm.T, {atm.Xi[1], atm.Xi[2], atm.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0)\" w.r.t. \"atm.medium.X\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"tank.medium.h - plant.vin.Medium.h_TX(vin.med.T, {tank.medium.Xi[1], tank.medium.Xi[2], vin.med.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0)\" w.r.t. \"vin.med.T\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"tank.medium.h - plant.vin.Medium.h_TX(vin.med.T, {tank.medium.Xi[1], tank.medium.Xi[2], vin.med.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0)\" w.r.t. \"tank.medium.Xi\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"tank.medium.h - plant.vin.Medium.h_TX(vin.med.T, {tank.medium.Xi[1], tank.medium.Xi[2], vin.med.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0)\" w.r.t. \"vin.med.X\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"(-$DER.vout.med.T) * $DER$plant$Pvout$PMedium$Ph_TX(vout.med.T, {atm.Xi[1], atm.Xi[2], vout.med.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 1.0, {0.0, 0.0, 0.0}, 0.0)\" w.r.t. \"vout.med.T\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"(-$DER.vout.med.T) * $DER$plant$Pvout$PMedium$Ph_TX(vout.med.T, {atm.Xi[1], atm.Xi[2], vout.med.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 1.0, {0.0, 0.0, 0.0}, 0.0)\" w.r.t. \"vout.med.X\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"$DER.tank.medium.h - ($DER.tank.T * $DER$plant$Ptank$PMedium$Ph_TX(tank.T, {tank.medium.Xi[1], tank.medium.Xi[2], tank.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 1.0, {0.0, 0.0, 0.0}, 0.0) + $DER.tank.medium.Xi[1] * $DER$plant$Ptank$PMedium$Ph_TX(tank.T, {tank.medium.Xi[1], tank.medium.Xi[2], tank.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {1.0, 0.0, 0.0}, 0.0) + $DER.tank.medium.Xi[2] * $DER$plant$Ptank$PMedium$Ph_TX(tank.T, {tank.medium.Xi[1], tank.medium.Xi[2], tank.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {0.0, 1.0, 0.0}, 0.0) + $DER.tank.medium.X[3] * $DER$plant$Ptank$PMedium$Ph_TX(tank.T, {tank.medium.Xi[1], tank.medium.Xi[2], tank.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {0.0, 0.0, 1.0}, 0.0))\" w.r.t. \"tank.T\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"$DER.tank.medium.h - ($DER.tank.T * $DER$plant$Ptank$PMedium$Ph_TX(tank.T, {tank.medium.Xi[1], tank.medium.Xi[2], tank.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 1.0, {0.0, 0.0, 0.0}, 0.0) + $DER.tank.medium.Xi[1] * $DER$plant$Ptank$PMedium$Ph_TX(tank.T, {tank.medium.Xi[1], tank.medium.Xi[2], tank.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {1.0, 0.0, 0.0}, 0.0) + $DER.tank.medium.Xi[2] * $DER$plant$Ptank$PMedium$Ph_TX(tank.T, {tank.medium.Xi[1], tank.medium.Xi[2], tank.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {0.0, 1.0, 0.0}, 0.0) + $DER.tank.medium.X[3] * $DER$plant$Ptank$PMedium$Ph_TX(tank.T, {tank.medium.Xi[1], tank.medium.Xi[2], tank.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {0.0, 0.0, 1.0}, 0.0))\" w.r.t. \"tank.medium.Xi\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"$DER.tank.medium.h - ($DER.tank.T * $DER$plant$Ptank$PMedium$Ph_TX(tank.T, {tank.medium.Xi[1], tank.medium.Xi[2], tank.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 1.0, {0.0, 0.0, 0.0}, 0.0) + $DER.tank.medium.Xi[1] * $DER$plant$Ptank$PMedium$Ph_TX(tank.T, {tank.medium.Xi[1], tank.medium.Xi[2], tank.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {1.0, 0.0, 0.0}, 0.0) + $DER.tank.medium.Xi[2] * $DER$plant$Ptank$PMedium$Ph_TX(tank.T, {tank.medium.Xi[1], tank.medium.Xi[2], tank.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {0.0, 1.0, 0.0}, 0.0) + $DER.tank.medium.X[3] * $DER$plant$Ptank$PMedium$Ph_TX(tank.T, {tank.medium.Xi[1], tank.medium.Xi[2], tank.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {0.0, 0.0, 1.0}, 0.0))\" w.r.t. \"tank.medium.X\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"$DER.comp.hout - ($DER.comp.medium.T * $DER$plant$Pcomp$PMedium$Ph_TX(comp.medium.T, {comp.medium.Xi[1], comp.medium.Xi[2], comp.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 1.0, {0.0, 0.0, 0.0}, 0.0) + $DER.comp.medium.Xi[1] * $DER$plant$Pcomp$PMedium$Ph_TX(comp.medium.T, {comp.medium.Xi[1], comp.medium.Xi[2], comp.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {1.0, 0.0, 0.0}, 0.0) + $DER.comp.medium.Xi[2] * $DER$plant$Pcomp$PMedium$Ph_TX(comp.medium.T, {comp.medium.Xi[1], comp.medium.Xi[2], comp.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {0.0, 1.0, 0.0}, 0.0) + $DER.comp.medium.X[3] * $DER$plant$Pcomp$PMedium$Ph_TX(comp.medium.T, {comp.medium.Xi[1], comp.medium.Xi[2], comp.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {0.0, 0.0, 1.0}, 0.0))\" w.r.t. \"comp.medium.T\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"$DER.comp.hout - ($DER.comp.medium.T * $DER$plant$Pcomp$PMedium$Ph_TX(comp.medium.T, {comp.medium.Xi[1], comp.medium.Xi[2], comp.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 1.0, {0.0, 0.0, 0.0}, 0.0) + $DER.comp.medium.Xi[1] * $DER$plant$Pcomp$PMedium$Ph_TX(comp.medium.T, {comp.medium.Xi[1], comp.medium.Xi[2], comp.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {1.0, 0.0, 0.0}, 0.0) + $DER.comp.medium.Xi[2] * $DER$plant$Pcomp$PMedium$Ph_TX(comp.medium.T, {comp.medium.Xi[1], comp.medium.Xi[2], comp.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {0.0, 1.0, 0.0}, 0.0) + $DER.comp.medium.X[3] * $DER$plant$Pcomp$PMedium$Ph_TX(comp.medium.T, {comp.medium.Xi[1], comp.medium.Xi[2], comp.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {0.0, 0.0, 1.0}, 0.0))\" w.r.t. \"comp.medium.Xi\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"$DER.comp.hout - ($DER.comp.medium.T * $DER$plant$Pcomp$PMedium$Ph_TX(comp.medium.T, {comp.medium.Xi[1], comp.medium.Xi[2], comp.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 1.0, {0.0, 0.0, 0.0}, 0.0) + $DER.comp.medium.Xi[1] * $DER$plant$Pcomp$PMedium$Ph_TX(comp.medium.T, {comp.medium.Xi[1], comp.medium.Xi[2], comp.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {1.0, 0.0, 0.0}, 0.0) + $DER.comp.medium.Xi[2] * $DER$plant$Pcomp$PMedium$Ph_TX(comp.medium.T, {comp.medium.Xi[1], comp.medium.Xi[2], comp.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {0.0, 1.0, 0.0}, 0.0) + $DER.comp.medium.X[3] * $DER$plant$Pcomp$PMedium$Ph_TX(comp.medium.T, {comp.medium.Xi[1], comp.medium.Xi[2], comp.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {0.0, 0.0, 1.0}, 0.0))\" w.r.t. \"comp.medium.X\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"comp.state_in.T - Modelica.Math.Nonlinear.solveOneNonlinearEquation(function plant.comp.Medium.T_hX.f_nonlinear(#(comp.hin), #(comp.medium.Xi), #(true), #(Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K), #(0.0)), 200.0, 6000.0, 1e-13)\" w.r.t. \"comp.hin\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"comp.s - plant.comp.Medium.specificEntropyOfpTX(atm.p, comp.state_in.T, {comp.medium.Xi[1], comp.medium.Xi[2], comp.state_out.X[3]})\" w.r.t. \"comp.state_in.T\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"comp.s - plant.comp.Medium.specificEntropyOfpTX(atm.p, comp.state_in.T, {comp.medium.Xi[1], comp.medium.Xi[2], comp.state_out.X[3]})\" w.r.t. \"comp.medium.Xi\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"comp.s - plant.comp.Medium.specificEntropyOfpTX(atm.p, comp.state_in.T, {comp.medium.Xi[1], comp.medium.Xi[2], comp.state_out.X[3]})\" w.r.t. \"comp.state_out.X\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"comp.state_is.T - Modelica.Math.Nonlinear.solveOneNonlinearEquation(function plant.comp.Medium.T_psX.f_nonlinear(#(comp.state_out.p), #(comp.s), #(comp.medium.Xi)), 200.0, 6000.0, 1e-13)\" w.r.t. \"comp.state_out.p\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"comp.state_is.T - Modelica.Math.Nonlinear.solveOneNonlinearEquation(function plant.comp.Medium.T_psX.f_nonlinear(#(comp.state_out.p), #(comp.s), #(comp.medium.Xi)), 200.0, 6000.0, 1e-13)\" w.r.t. \"comp.s\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"comp.state_out.T - Modelica.Math.Nonlinear.solveOneNonlinearEquation(function plant.comp.Medium.T_hX.f_nonlinear(#(comp.hout), #(comp.medium.Xi), #(true), #(Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K), #(0.0)), 200.0, 6000.0, 1e-13)\" w.r.t. \"comp.hout\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"$DER.comp.medium.T - ($DER.comp.state_out.p * $DER$plant$Pcomp$PMedium$Ptemperature_phX(comp.state_out.p, comp.hout, comp.medium.Xi, 1.0, 0.0, {0.0, 0.0}) + $DER.comp.hout * $DER$plant$Pcomp$PMedium$Ptemperature_phX(comp.state_out.p, comp.hout, comp.medium.Xi, 0.0, 1.0, {0.0, 0.0}) + $DER.comp.medium.Xi[1] * $DER$plant$Pcomp$PMedium$Ptemperature_phX(comp.state_out.p, comp.hout, comp.medium.Xi, 0.0, 0.0, {1.0, 0.0}) + $DER.comp.medium.Xi[2] * $DER$plant$Pcomp$PMedium$Ptemperature_phX(comp.state_out.p, comp.hout, comp.medium.Xi, 0.0, 0.0, {0.0, 1.0}))\" w.r.t. \"comp.state_out.p\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"$DER.comp.medium.T - ($DER.comp.state_out.p * $DER$plant$Pcomp$PMedium$Ptemperature_phX(comp.state_out.p, comp.hout, comp.medium.Xi, 1.0, 0.0, {0.0, 0.0}) + $DER.comp.hout * $DER$plant$Pcomp$PMedium$Ptemperature_phX(comp.state_out.p, comp.hout, comp.medium.Xi, 0.0, 1.0, {0.0, 0.0}) + $DER.comp.medium.Xi[1] * $DER$plant$Pcomp$PMedium$Ptemperature_phX(comp.state_out.p, comp.hout, comp.medium.Xi, 0.0, 0.0, {1.0, 0.0}) + $DER.comp.medium.Xi[2] * $DER$plant$Pcomp$PMedium$Ptemperature_phX(comp.state_out.p, comp.hout, comp.medium.Xi, 0.0, 0.0, {0.0, 1.0}))\" w.r.t. \"comp.hout\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 240,
+    columnStart = 7,
+    lineEnd = 240,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"$DER.tank.medium.h - ($DER.tank.T * $DER$plant$Ptank$PMedium$Ph_TX(tank.T, {tank.medium.Xi[1], tank.medium.Xi[2], tank.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 1.0, {0.0, 0.0, 0.0}, 0.0) + $DER.tank.medium.Xi[1] * $DER$plant$Ptank$PMedium$Ph_TX(tank.T, {tank.medium.Xi[1], tank.medium.Xi[2], tank.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {1.0, 0.0, 0.0}, 0.0) + $DER.tank.medium.Xi[2] * $DER$plant$Ptank$PMedium$Ph_TX(tank.T, {tank.medium.Xi[1], tank.medium.Xi[2], tank.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {0.0, 1.0, 0.0}, 0.0) + $DER.tank.medium.X[3] * $DER$plant$Ptank$PMedium$Ph_TX(tank.T, {tank.medium.Xi[1], tank.medium.Xi[2], tank.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {0.0, 0.0, 1.0}, 0.0))\" w.r.t. \"$DER.tank.T\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"188.9244822140674 * der(comp.medium.X[3]) + 259.8369938872708 * der(comp.medium.Xi[2]) + 296.8033869505308 * der(comp.medium.Xi[1]) - der(comp.medium.R_s)\" w.r.t. \"mflow\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"der(comp.hout) - der(comp.medium.u) - comp.medium.R_s * der(comp.medium.T) - der(comp.medium.R_s) * comp.medium.T\" w.r.t. \"mflow\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"(-der(comp.medium.Xi[1])) - der(comp.medium.X[3]) - der(comp.medium.Xi[2])\" w.r.t. \"mflow\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"(-210.0) * der(mflow) * atm.p - der(comp.state_out.p)\" w.r.t. \"mflow\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"der(comp.medium.Xi[2]) * $DER$plant$Pcomp$PMedium$Ptemperature_phX(comp.state_out.p, comp.hout, comp.medium.Xi, 0.0, 0.0, {0.0, 1.0}) + der(comp.medium.Xi[1]) * $DER$plant$Pcomp$PMedium$Ptemperature_phX(comp.state_out.p, comp.hout, comp.medium.Xi, 0.0, 0.0, {1.0, 0.0}) + der(comp.hout) * $DER$plant$Pcomp$PMedium$Ptemperature_phX(comp.state_out.p, comp.hout, comp.medium.Xi, 0.0, 1.0, {0.0, 0.0}) + der(comp.state_out.p) * $DER$plant$Pcomp$PMedium$Ptemperature_phX(comp.state_out.p, comp.hout, comp.medium.Xi, 1.0, 0.0, {0.0, 0.0}) - der(comp.medium.T)\" w.r.t. \"mflow\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"((if noEvent((-atm.port.m_flow) > 1e-7) then -der(atm.port.m_flow) else 0.0) * atm.Xi[2] + max(vout.inlet.m_flow, 1e-7) * der(tank.medium.Xi[2]) + (if noEvent(vout.inlet.m_flow > 1e-7) then der(vout.inlet.m_flow) else 0.0) * tank.medium.Xi[2]) * (max(-atm.port.m_flow, 1e-7) + max(vout.inlet.m_flow, 1e-7)) + ((-max(-atm.port.m_flow, 1e-7)) * atm.Xi[2] - max(vout.inlet.m_flow, 1e-7) * tank.medium.Xi[2]) * ((if noEvent((-atm.port.m_flow) > 1e-7) then -der(atm.port.m_flow) else 0.0) + (if noEvent(vout.inlet.m_flow > 1e-7) then der(vout.inlet.m_flow) else 0.0)) - der(comp.medium.Xi[2]) * (max(-atm.port.m_flow, 1e-7) + max(vout.inlet.m_flow, 1e-7)) ^ 2.0\" w.r.t. \"mflow\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"((if noEvent((-atm.port.m_flow) > 1e-7) then -der(atm.port.m_flow) else 0.0) * atm.Xi[1] + max(vout.inlet.m_flow, 1e-7) * der(tank.medium.Xi[1]) + (if noEvent(vout.inlet.m_flow > 1e-7) then der(vout.inlet.m_flow) else 0.0) * tank.medium.Xi[1]) * (max(-atm.port.m_flow, 1e-7) + max(vout.inlet.m_flow, 1e-7)) + ((-max(-atm.port.m_flow, 1e-7)) * atm.Xi[1] - max(vout.inlet.m_flow, 1e-7) * tank.medium.Xi[1]) * ((if noEvent((-atm.port.m_flow) > 1e-7) then -der(atm.port.m_flow) else 0.0) + (if noEvent(vout.inlet.m_flow > 1e-7) then der(vout.inlet.m_flow) else 0.0)) - der(comp.medium.Xi[1]) * (max(-atm.port.m_flow, 1e-7) + max(vout.inlet.m_flow, 1e-7)) ^ 2.0\" w.r.t. \"mflow\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"der(comp.medium.X[3]) * $DER$plant$Pcomp$PMedium$Ph_TX(comp.medium.T, {comp.medium.Xi[1], comp.medium.Xi[2], comp.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {0.0, 0.0, 1.0}, 0.0) + der(comp.medium.Xi[2]) * $DER$plant$Pcomp$PMedium$Ph_TX(comp.medium.T, {comp.medium.Xi[1], comp.medium.Xi[2], comp.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {0.0, 1.0, 0.0}, 0.0) + der(comp.medium.Xi[1]) * $DER$plant$Pcomp$PMedium$Ph_TX(comp.medium.T, {comp.medium.Xi[1], comp.medium.Xi[2], comp.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {1.0, 0.0, 0.0}, 0.0) + der(comp.medium.T) * $DER$plant$Pcomp$PMedium$Ph_TX(comp.medium.T, {comp.medium.Xi[1], comp.medium.Xi[2], comp.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 1.0, {0.0, 0.0, 0.0}, 0.0) - der(comp.hout)\" w.r.t. \"mflow\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"der(mflow) * (comp.hout - comp.hin) + mflow * (der(comp.hout) - der(comp.hin)) - comp.vol * (comp.medium.d * der(comp.medium.u) + der(comp.medium.d) * comp.medium.u) - der(comp.Ws) * (if comp.isComp then 1.0 else -1.0)\" w.r.t. \"mflow\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"((if noEvent((-atm.port.m_flow) > 1e-7) then -der(atm.port.m_flow) else 0.0) * vout.med.h + max(vout.inlet.m_flow, 1e-7) * der(tank.medium.h) + (if noEvent(vout.inlet.m_flow > 1e-7) then der(vout.inlet.m_flow) else 0.0) * tank.medium.h) * (max(-atm.port.m_flow, 1e-7) + max(vout.inlet.m_flow, 1e-7)) + ((-max(-atm.port.m_flow, 1e-7)) * vout.med.h - max(vout.inlet.m_flow, 1e-7) * tank.medium.h) * ((if noEvent((-atm.port.m_flow) > 1e-7) then -der(atm.port.m_flow) else 0.0) + (if noEvent(vout.inlet.m_flow > 1e-7) then der(vout.inlet.m_flow) else 0.0)) - der(comp.hin) * (max(-atm.port.m_flow, 1e-7) + max(vout.inlet.m_flow, 1e-7)) ^ 2.0\" w.r.t. \"mflow\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"der(atm.port.m_flow) - der(vout.inlet.m_flow) + der(comp.inlet.m_flow)\" w.r.t. \"mflow\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"(if comp.inlet.m_flow > 0.0 then der(comp.inlet.m_flow) else 0.0) - der(mflow)\" w.r.t. \"mflow\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"tank.vol * der(tank.medium.p) + smooth(0, (-vout.inlet.m_flow) * (if (-vout.inlet.m_flow) > 0.0 then vout.med.h else tank.medium.h)) + smooth(0, vin.inlet.m_flow * (if vin.inlet.m_flow > 0.0 then comp.hout else tank.medium.h)) - tank.vol * (tank.medium.d * der(tank.medium.h) + der(tank.medium.d) * tank.medium.h) - tank.Q_loss\" w.r.t. \"tank.medium.p\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"der(tank.medium.X[3]) * $DER$plant$Ptank$PMedium$Ph_TX(tank.T, {tank.medium.Xi[1], tank.medium.Xi[2], tank.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {0.0, 0.0, 1.0}, 0.0) + der(tank.medium.Xi[2]) * $DER$plant$Ptank$PMedium$Ph_TX(tank.T, {tank.medium.Xi[1], tank.medium.Xi[2], tank.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {0.0, 1.0, 0.0}, 0.0) + der(tank.medium.Xi[1]) * $DER$plant$Ptank$PMedium$Ph_TX(tank.T, {tank.medium.Xi[1], tank.medium.Xi[2], tank.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 0.0, {1.0, 0.0, 0.0}, 0.0) + der(tank.T) * $DER$plant$Ptank$PMedium$Ph_TX(tank.T, {tank.medium.Xi[1], tank.medium.Xi[2], tank.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0, 1.0, {0.0, 0.0, 0.0}, 0.0) - der(tank.medium.h)\" w.r.t. \"tank.medium.p\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"der(tank.medium.p) * tank.medium.R_s * tank.T + (-tank.medium.p) * (tank.medium.R_s * der(tank.T) + der(tank.medium.R_s) * tank.T) - der(tank.medium.d) * (tank.medium.R_s * tank.T) ^ 2.0\" w.r.t. \"tank.medium.p\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "",
+    readonly = false,
+    lineStart = 0,
+    columnStart = 0,
+    lineEnd = 0,
+    columnEnd = 0
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Some equations could not be differentiated for following variables having attribute stateSelect=StateSelect.prefer. They will be treated as if they had stateSelect=StateSelect.default
+========================================
+1: comp.medium.T
+2: comp.medium.Xi[2]
+3: comp.medium.Xi[1]
+Please use -d=bltdump for more information.
+",
+    kind = .OpenModelica.Scripting.ErrorKind.translation,
+    level = .OpenModelica.Scripting.ErrorLevel.warning,
+    id = 600
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"plant.comp.Medium.h_TX(comp.medium.T, {comp.medium.Xi[1], comp.medium.Xi[2], comp.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0) - comp.hout\" w.r.t. \"comp.medium.T\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"plant.comp.Medium.h_TX(comp.medium.T, {comp.medium.Xi[1], comp.medium.Xi[2], comp.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0) - comp.hout\" w.r.t. \"comp.medium.Xi\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/ExpressionSolve.mo",
+    readonly = false,
+    lineStart = 186,
+    columnStart = 9,
+    lineEnd = 186,
+    columnEnd = 210
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Internal error Failed to solve \"mflow = smooth(0, if comp.inlet.m_flow > 0.0 then comp.inlet.m_flow else 0.0)\" w.r.t. \"comp.inlet.m_flow\"",
+    kind = .OpenModelica.Scripting.ErrorKind.translation,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 63
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "",
+    readonly = false,
+    lineStart = 0,
+    columnStart = 0,
+    lineEnd = 0,
+    columnEnd = 0
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Model statistics after passing the front-end and creating the data structures used by the back-end:
+ * Number of equations: 177
+ * Number of variables: 177",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.notification,
+    id = 258
+end OpenModelica.Scripting.ErrorMessage;}
+
+
+
+{"time", "comp.medium.p", "tank.medium.Xi[1]", "tank.medium.Xi[2]", "tank.medium.d", "tank.medium.p", "der(comp.medium.p)", "der(tank.medium.Xi[1])", "der(tank.medium.Xi[2])", "der(tank.medium.d)", "der(tank.medium.p)", "der(atm.port.m_flow)", "der(comp.Ws)", "der(comp.hin)", "der(comp.hout)", "der(comp.inlet.m_flow)", "der(comp.medium.R_s)", "der(comp.medium.T)", "der(comp.medium.X[3])", "der(comp.medium.Xi[1])", "der(comp.medium.Xi[2])", "der(comp.medium.d)", "der(comp.medium.u)", "der(comp.state_out.p)", "der(mflow)", "der(tank.T)", "der(tank.medium.R_s)", "der(tank.medium.X[3])", "der(tank.medium.h)", "der(vout.Y)", "der(vout.inlet.m_flow)", "der(vout.med.T)", "der(vout.med.d)", "der(vout.med.state.p)", "der(vout.prat)", "atm.medium.MM", "atm.medium.R_s", "atm.medium.T_degC", "atm.medium.X[3]", "atm.medium.d", "atm.medium.p_bar", "atm.medium.u", "atm.port.m_flow", "comp.Tin", "comp.Tis", "comp.Ws", "comp.hin", "comp.his", "comp.hout", "comp.inlet.m_flow", "comp.medium.MM", "comp.medium.R_s", "comp.medium.T", "comp.medium.T_degC", "comp.medium.X[3]", "comp.medium.Xi[1]", "comp.medium.Xi[2]", "comp.medium.d", "comp.medium.p_bar", "comp.medium.u", "comp.s", "comp.state_in.T", "comp.state_is.T", "comp.state_out.T", "comp.state_out.X[3]", "comp.state_out.p", "mflow", "tank.Q_loss", "tank.T", "tank.Xi[1]", "tank.Xi[2]", "tank.medium.MM", "tank.medium.R_s", "tank.medium.T_degC", "tank.medium.X[3]", "tank.medium.h", "tank.medium.p_bar", "tank.medium.u", "tank.p", "vin.Y", "vin.charF", "vin.inlet.m_flow", "vin.med.MM", "vin.med.R_s", "vin.med.T", "vin.med.T_degC", "vin.med.X[3]", "vin.med.d", "vin.med.p_bar", "vin.med.state.p", "vin.med.u", "vin.po", "vin.prat", "vout.Y", "vout.charF", "vout.inlet.m_flow", "vout.med.MM", "vout.med.R_s", "vout.med.T", "vout.med.T_degC", "vout.med.X[3]", "vout.med.d", "vout.med.h", "vout.med.p_bar", "vout.med.state.p", "vout.med.u", "vout.po", "vout.prat", "atm.medium.h", "atm.medium.state.X[3]", "atm.port.h_outflow", "comp.Tout", "comp.inlet.Xi_outflow[1]", "comp.inlet.Xi_outflow[2]", "comp.inlet.h_outflow", "comp.medium.X[1]", "comp.medium.X[2]", "comp.medium.h", "comp.medium.state.T", "comp.medium.state.X[1]", "comp.medium.state.X[2]", "comp.medium.state.X[3]", "comp.medium.state.p", "comp.outlet.Xi_outflow[1]", "comp.outlet.Xi_outflow[2]", "comp.outlet.h_outflow", "comp.outlet.m_flow", "comp.outlet.p", "comp.state_in.X[1]", "comp.state_in.X[2]", "comp.state_in.X[3]", "comp.state_is.X[1]", "comp.state_is.X[2]", "comp.state_is.X[3]", "comp.state_is.p", "comp.state_out.X[1]", "comp.state_out.X[2]", "tank.inlet.Xi_outflow[1]", "tank.inlet.Xi_outflow[2]", "tank.inlet.h_outflow", "tank.inlet.m_flow", "tank.inlet.p", "tank.medium.T", "tank.medium.X[1]", "tank.medium.X[2]", "tank.medium.state.T", "tank.medium.state.X[1]", "tank.medium.state.X[2]", "tank.medium.state.X[3]", "tank.medium.state.p", "tank.outlet.Xi_outflow[1]", "tank.outlet.Xi_outflow[2]", "tank.outlet.h_outflow", "tank.outlet.m_flow", "tank.outlet.p", "vin.inlet.Xi_outflow[1]", "vin.inlet.Xi_outflow[2]", "vin.inlet.h_outflow", "vin.inlet.p", "vin.med.X[1]", "vin.med.X[2]", "vin.med.Xi[1]", "vin.med.Xi[2]", "vin.med.h", "vin.med.p", "vin.med.state.T", "vin.med.state.X[1]", "vin.med.state.X[2]", "vin.med.state.X[3]", "vin.outlet.Xi_outflow[1]", "vin.outlet.Xi_outflow[2]", "vin.outlet.h_outflow", "vin.outlet.m_flow", "vin.outlet.p", "vout.inlet.h_outflow", "vout.inlet.p", "vout.med.p", "vout.med.state.T", "vout.med.state.X[3]", "vout.outlet.Xi_outflow[1]", "vout.outlet.Xi_outflow[2]", "vout.outlet.h_outflow", "vout.outlet.m_flow"}
+Simulation completed successfully. Variables count: 183
+

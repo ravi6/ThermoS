@@ -11,7 +11,7 @@ model Reservoir
   parameter Medium.Temperature          T               ;
   parameter Medium.MassFraction  Xi[Medium.nXi]         ;
 
-  Medium.BaseProperties  medium  ;
+  Medium.BaseProperties  medium (preferredMediumStates=true)  ;
 
   equation
 

@@ -22,8 +22,8 @@ setDebugFlags("initialization");
 //simflags := "-lv=LOG_DASSL,LOG_DSS,LOG_LS,LOG_INIT,LOG_NLS";
 //setDebugFlags("aliasConflicts");
 //setCommandLineOptions("+d=bltdump"); print(getErrorString() + "\n");
-setDebugFlags("infoXmlOperations");
-//setDebugFlags("failtrace,backenddaeinfo,initialization"); 
+//setDebugFlags("infoXmlOperations");
+setDebugFlags("failtrace,backenddaeinfo,initialization"); 
 //setCommandLineOptions("+d=dumpdaelow,bltdump"); print(getErrorString() + "\n");
 
 // Ensure clean working directory

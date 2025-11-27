@@ -4,16 +4,17 @@ model plant
       Testing portMixer .... Works very well
 */
 
-  import ThermoS.Uops.Reservoir;
+  import ThermoS.Uops.Tanks.Reservoir;
   import ThermoS.Uops.Tanks.portMixer;
   import ThermoS.Uops.Valves.RealValve ;
   import ThermoS.Uops.Valves.Vchar ;
   import ThermoS.Types.*;
   package Gas = ThermoS.Media.MyGas;
   constant Real AirComp[2] = {0.767,0.233};
+  constant Real CV = (200e-3/60)/sqrt(100);
 
   Reservoir     src	(redeclare  package Medium = Gas,
-                               p = 1.0e5,  T = 300,  Xi = AirComp); // Reservoir 1
+                               p = 1.2e5,  T = 300,  Xi = AirComp); // Reservoir 1
 
   Reservoir     sink	(redeclare  package Medium = Gas,
                                p = 1e5,  T = 300,  Xi = AirComp); // Reservoir 1
@@ -21,20 +22,20 @@ model plant
 //  Valve v1 (redeclare each package Medium = Gas, vchar = Vchar.Linear);
 //  Valve v2 (redeclare each package Medium = Gas, vchar = Vchar.EquiPercent);
 
-  RealValve v1 (redeclare each package Medium = Gas, cv=4e-3/sqrt(0.5e5), tau=5000e-3);
-  RealValve v2 (redeclare each package Medium = Gas, cv=4e-3/sqrt(0.5e5), tau=5000e-3);
+  RealValve v1 (redeclare each package Medium = Gas, cv=CV, tau=5);
+  RealValve v2 (redeclare each package Medium = Gas, cv=CV, tau=5);
   portMixer Node(redeclare package Medium = Gas,  vol=10e-6, N=3, Adiabatic=true) ;
 
 equation
 
-       v1.spo =   0  ;
-       v2.spo =   0  ;
+       v1.spo =   10  ;
+       v2.spo =   10  ;
        connect (src.port, Node.port[1]) ;
        connect (v1.inlet, Node.port[2]) ;
        connect (v2.inlet, Node.port[3]) ;
        connect(v2.outlet, sink.port) ;
        connect(v1.outlet, sink.port);
-initial equation
-     v1.po = 40 ;
-     v2.po = 40 ;   
+initial algorithm
+     v1.po := 40 ;
+     v2.po := 40 ;   
 end plant;
