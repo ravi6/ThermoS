@@ -24,7 +24,7 @@ model GasTank
     Medium.MassFraction         Xi[Medium.nXi]  ;
     EnthalpyFlowRate            Q_loss          ; // Heatloss from tank
 
-    Medium.BaseProperties       medium (preferredMediumStates = true) ;
+    Medium.BaseProperties       medium  ;
                                    
   equation
 
@@ -42,9 +42,9 @@ model GasTank
                   + actualStream(outlet.Xi_outflow) * outlet.m_flow ;
 
      // Enthalpy Balance
-     vol * der(medium.d * medium.h)  = - Q_loss + inlet.m_flow * actualStream(inlet.h_outflow)
-                     + outlet.m_flow * actualStream(outlet.h_outflow)
-		     + vol * der(medium.p) ; 
+     vol * der(medium.d * medium.u)  = - Q_loss 
+                     + inlet.m_flow * actualStream(inlet.h_outflow)
+                     + outlet.m_flow * actualStream(outlet.h_outflow);
 
      // Assume gas in tank is well mixed 
          inlet.Xi_outflow = outlet.Xi_outflow ;

@@ -19,7 +19,7 @@ model portMixer
     Medium.Temperature		T      ;
     Medium.AbsolutePressure	p      ;
     HeatFlowRate		Q_in   ;
-    Medium.BaseProperties       medium (preferredMediumStates = true) ;
+    Medium.BaseProperties       medium ;
 
   equation
 

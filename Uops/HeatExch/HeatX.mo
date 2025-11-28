@@ -22,7 +22,7 @@ model HeatX
   parameter Mass		        w_m	= 1.0	; // Mass of heat transfer walls
   parameter SpecificHeatCapacity        w_cp    = 420	; // Specific heat of wall material
 
-  Medium.BaseProperties         medium (preferredMediumStates = true) ;
+  Medium.BaseProperties         medium  ;
   HeatFlowRate		        Q_ew	    	    ; // Heat input to the device
   HeatFlowRate			Q_wf		    ; // Heat tranfer from wall to fluid
   Medium.Temperature		Tw		    ; // Wall temperature (K)

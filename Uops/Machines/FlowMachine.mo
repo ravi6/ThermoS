@@ -15,7 +15,6 @@ model FlowMachine
   FluidPort outlet (redeclare package Medium = Medium, m_flow (max = 0)) ;
 
   Medium.ThermodynamicState	state_in    ; // Fluid state at inlet port
-  Medium.ThermodynamicState	state_out   ; // Fluid state at outlet port
   Medium.ThermodynamicState	state_is    ; // Fluid state at isentropic 
   Medium.Temperature            Tin         ; // Machine Inlet Temp
   Medium.Temperature            Tis         ; // Isentropic Temp
@@ -23,12 +22,11 @@ model FlowMachine
   SpecificEnthalpy              hin, hout, his;
   SpecificEntropy               s ;    // Entropy of inlet/outlet stream
   Power 	                Ws ;   // Power delivered by Machine 
-  Medium.BaseProperties         medium (preferredMediumStates = true) ;
+  Medium.BaseProperties         medium ; // (preferredMediumStates = true) ;
 
   parameter Boolean   isComp =  true ;  // if false it is Expander 
   parameter Fraction  eff = 0.95     ;  //Isentropic Efficiency
   parameter Volume    vol = 10e-3    ; // 10 liters of holdup
-
 
   equation
 
@@ -37,7 +35,7 @@ model FlowMachine
    hout = medium.h ;
      
   // Mass balance 
-   vol * der (medium.d) = inlet.m_flow + outlet.m_flow   ;     // No accumulation of mass
+   inlet.m_flow + outlet.m_flow =  0  ;     // No accumulation of mass
 
      hin = inStream (inlet.h_outflow) ;
      hout =  outlet.h_outflow ;
@@ -47,12 +45,10 @@ model FlowMachine
      inlet.Xi_outflow = inStream (inlet.Xi_outflow) ;
      outlet.Xi_outflow = inlet.Xi_outflow ; 
    
-     //X = cat(1, inlet.Xi_outflow, {1 - sum(inlet.Xi_outflow)}) ; 
-
      // Get inlet state, entropy 
      state_in = Medium.setState_phX (inlet.p, hin, medium.Xi);
      s = Medium.specificEntropy (state_in) ;
-     Tin = Medium.temperature_phX (inlet.p, hin, medium.Xi) ;
+     hin = Medium.specificEnthalpy_pTX (inlet.p, Tin, medium.Xi) ;
 
     // Determine outlet state if it were isentropic (state_iso)
      state_is = Medium.setState_psX (outlet.p, s, medium.Xi);
@@ -60,14 +56,9 @@ model FlowMachine
 
     // Determine outlet Enthalpy and state 
      hout = hin + (his - hin) / eff ;
-     state_out =  Medium.setState_phX (outlet.p, hout, medium.Xi);
-     Tout = Medium.temperature_phX (outlet.p, hout, medium.Xi) ; 
+     hout = Medium.specificEnthalpy_pTX (outlet.p, Tout, medium.Xi) ; 
 
-    // Compressor Power Relation (we change work sign so power is >0 always
-    // Take care of negative inflows ... 
-       vol * (medium.d * medium.u)  = 
-             smooth (0, if inlet.m_flow > 0 then inlet.m_flow else 0) 
-             * (hout - hin) 
-             - Ws * (if (isComp) then 1 else -1) ;
+     inlet.m_flow  * (hout - hin) 
+             = Ws * (if (isComp) then 1 else -1) ;
      
 end FlowMachine;
