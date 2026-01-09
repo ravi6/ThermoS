@@ -63,7 +63,7 @@ initial algorithm
     vBlow.po := 10 ;
     TeeBlow.p := 1e5 ;
     TeeBlow.T := 300 ;
-    TeeBlow.Xi := Air ;
+    TeeBlow.medium.Xi := Air ;
 
 /*
     volUp.T := 300 ;  // Initial Temperature

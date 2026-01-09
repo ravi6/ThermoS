@@ -3,6 +3,9 @@ model plant
   Author: Ravi Saripalli
   	 5th Nov. 2025 
    Test Rig Pressurization loop 
+   
+   Test compressor omitted.
+
 
    Big lesson:  An unconnected fluid port would always
                 have zero flow through it. So one cant
@@ -67,7 +70,7 @@ equation
 
      // Upstream Test chamber connections
      connect (vUp.outlet, volUp.inlet);
-     connect (volUp.outlet, atm.port);
+//     connect (volUp.outlet, atm.port);
      connect (vDown.outlet, TeeComp.port[1]) ;
      connect (TeeComp.port[2], atm.port) ;
 

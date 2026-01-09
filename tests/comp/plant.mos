@@ -12,11 +12,12 @@ resFile := "plant_res." + resFormat ;
 
 // Force C backend and useful debug
 setCommandLineOptions("--simCodeTarget=C");
-simflags := "-lv=LOG_DASSL,LOG_DSS,LOG_LS,LOG_INIT,LOG_NLS";
+setCommandLineOptions("+d=dumpdaelow"); print(getErrorString() + "\n");
+//simflags := "-lv=LOG_DASSL,LOG_DSS,LOG_LS,LOG_INIT,LOG_NLS";
 //setDebugFlags("aliasConflicts");
 //setCommandLineOptions("+d=bltdump"); print(getErrorString() + "\n");
 //setDebugFlags("infoXmlOperations");
-setDebugFlags("failtrace,backenddaeinfo,initialization"); 
+//setDebugFlags("failtrace,backenddaeinfo,initialization"); 
 //setCommandLineOptions("+d=dumpdaelow,bltdump"); print(getErrorString() + "\n");
 
 // Ensure clean working directory
@@ -47,7 +48,6 @@ end if;
 echo(true);
 print("Checking Model\n"); checkModel(plant);
 //print(getErrorString()+"\n"); instantiateModel(plant);
-
 print("Simulate Plant\n");
 simulate(plant, startTime=0, stopTime=tEnd, 
         outputFormat=resFormat, simflags=simflags);

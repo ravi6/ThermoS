@@ -3,6 +3,7 @@ model plant
   Author: Ravi Saripalli
   	11st Oct 2025 
     Compressor Tests 
+ atm -> comp -> tank -> vout -> atm
 */
   import ThermoS.Types.* ;
   import ThermoS.Media.MyGas ;
@@ -12,7 +13,7 @@ model plant
   import Modelica.Units.SI.MassFlowRate;
 
   
-  constant    Real CV = 200 * (1e-3/60) / sqrt (1000) ;
+  constant    Real CV = 200 * (1e-3/60) / sqrt (10000) ;
   constant    Real Air[MyGas.nXi] = {0.7, 0.2} ;
   Reservoir   atm (redeclare package Medium = MyGas,
                          p = 1e5, T = 300, Xi = Air);
