@@ -2,6 +2,7 @@ model plant
 /*
   Author: Ravi Saripalli
   	 9th May 2014 
+ // res1 -> htr -> res3
 */
   import ThermoS.Uops.*;
   import ThermoS.Types.*;
@@ -20,7 +21,6 @@ model plant
                                 A_wf = 1,  h_wf = 150, 
                                 w_m = 1, w_cp = 420, holdup = 50);
 equation
-
     connect (res1.port, htr.inlet) ;
     connect (res3.port, htr.outlet) ;
     htr.Q_ew = 5e4 ;

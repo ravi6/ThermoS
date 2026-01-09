@@ -2,6 +2,7 @@ model plant
 /*
   Author: Ravi Saripalli
   	 9th May 2014 
+  res1 -> v1,v2 -> node -> htr -> res3
 */
   import ThermoS.Uops.*;
   import ThermoS.Uops.Valves.*;
@@ -24,7 +25,6 @@ model plant
                                         A_wf = 1,  h_wf = 15, 
                                         w_m = 1, w_cp = 420, holdup = 10e-3);
 equation
-
     connect (res1.port, v1.inlet) ;
     connect (res1.port, v2.inlet) ;
     connect (v1.outlet, Node.port[1]);

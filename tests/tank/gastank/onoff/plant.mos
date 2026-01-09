@@ -1,30 +1,73 @@
+/*  A simple script Template to run my Plant Model
+          Author: Ravi Saripalli
+	  Date:   23th Jul. 2015
+          Modified: 24 Sep. 2024 
+*/  
+// ==================== SETTINGS ====================
+echo(false);
+tEnd := 0.10;  //sim stop time
+logFile := "log";
+resFormat := "csv" ;
+resFile := "plant_res." + resFormat ;
 
-// mos script
-cd ("./work");
+// Force C backend and useful debug
+setCommandLineOptions("--simCodeTarget=C");
+simflags := "-lv=LOG_DASSL,LOG_DSS,LOG_LS,LOG_INIT,LOG_NLS";
+//setDebugFlags("aliasConflicts");
+//setCommandLineOptions("+d=bltdump"); print(getErrorString() + "\n");
+//setDebugFlags("infoXmlOperations");
+//setDebugFlags("failtrace,backenddaeinfo,initialization"); 
+//setCommandLineOptions("+d=dumpdaelow,bltdump"); print(getErrorString() + "\n");
 
-// myScript.mos
-setCommandLineOptions("+d=initialization +d=tearing +d=omc +d=dae +d=simulation");
+// Ensure clean working directory
+system("mkdir -p ./work"); cd("./work"); system("rm -rf *");
 
-// Load standard libraries first
-loadModel(Modelica);
+// ==================== LOAD MODELS ====================
+print("Load ThermoLib and Plant\n");
 
-// Load your additional libraries
-loadFile("/home/ThermoS/package.mo");
+ThermoLib := getEnvironmentVar("THERMOS") + "/package.mo";
+for f in {ThermoLib, "../plant.mo"} loop
+  if loadFile(f) then
+    print(f + " loaded successfully\n");
+  else
+    print("Failed to load: " + f + "\n");
+    print(getErrorString() + "\n");
+    exit(1);
+  end if;
+end for;
 
-// Load your plant model
-loadFile("../plant.mo");
+// ==================== SAVE FLATTENED MODEL ====================
+print("Save Flattened Model (total.mo)\n");
+res := saveTotalModelDebug("total.mo", plant);
+if not res then
+  print("saveTotalModel failed\n") ; 
+  print(getErrorString()+"\n");
+end if;
+// ==================== SIMULATION ====================
+echo(true);
+print("Checking Model\n"); checkModel(plant);
+//print(getErrorString()+"\n"); instantiateModel(plant);
 
-// Check model instantiation
-instantiateModel(plant); // <-- This will fail loudly with all error details
-simulate(plant,
-    startTime=0.0,
-    stopTime=10.0,
-    numberOfIntervals=500,
-    tolerance=1e-6,
-    method="dassl",
-    fileNamePrefix="plant",
-    outputFormat="mat",
-    variableFilter=".*",
-    simflags="-d=initialization,-d=tearing,-d=omc,-d=codegen"
-);
+print("Simulate Plant\n");
+simulate(plant, startTime=0, stopTime=tEnd, 
+        outputFormat=resFormat, simflags=simflags);
+ans:=getMessagesStringInternal() ;
+print(String(ans));
+print(getErrorString()+"\n");
 
+// ==================== READ SIMULATION RESULTS ====================
+sVars := readSimulationResultVars(resFile);
+if size(sVars,1) == 0 then
+  print("No simulation variables found simulation may have failed" + "\n");
+else
+  print("Simulation completed successfully. Variables count: " + String(size(sVars,1)) + "\n");
+end if;
+//flags := flags + " -overrideFile ../init ";
+//OpenModelica.Scripting.setMatchingAlgorithm("omc");
+// OpenModelica.Scripting.setIndexReductionMethod("dummyDerivatives");
+//setCommandLineOptions("+d=bltdump"); // pickup initialization errrors
+//setCommandLineOptions("+d=addDerAliases");  // Don't know this
+//setCommandLineOptions("+d=noTearing");
+//setCommandLineOptions("+d=dumpdaelow,bltdump");
+// setCommandLineOptions("+d=bltdump");
+//OpenModelica.Scripting.setTearingMethod("omcTearing");

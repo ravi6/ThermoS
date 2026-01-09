@@ -2,6 +2,8 @@ model plant
 /*
   Author: Ravi Saripalli
   	 9th May 2014 
+  res1 -> v1 an v2  -> Node -> htr  -> v3 -> res3
+                                    -> res3 
 */
   import ThermoS.Uops.*;
   import ThermoS.Uops.Valves.*;
@@ -33,7 +35,6 @@ equation
     connect (v1.outlet, Node.port[1]);
     connect (v2.outlet, Node.port[2]);
     connect (Node.port[3], htr.inlet);
-
     connect (htr.outlet, Node2.port[1]);
     connect (v3.inlet, Node2.port[2]);
     connect (v3.outlet, res3.port);

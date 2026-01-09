@@ -32,7 +32,7 @@ def report (uop, ts):
   print("=============<< Heater Summary >>=============")
   print(f"Tag:  {uop}  \t  Sample Time (s): {ts}")
   print("Inlet Conditions:")
-  print(f"Flow rate (kg/s) = {inlet_m_flow:.2f}")
+  print(f"Flow rate (kg/s) = {inlet_m_flow:.8f}")
   print("Exit Conditions:")
   print(f"Fluid Temp (C) = {Tf:.1f}") 
   print(f"Wall Temp (C) = {Tw:.1f}")

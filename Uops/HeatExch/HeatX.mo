@@ -10,7 +10,7 @@ model HeatX
      . Accounts for  thermal inertia of the heating/cooling wall surfaces.
      . Specify either Q (heat into the device) or Outlet Temp. 
      . No reverse flow permitted.
-     . Symbolic derivative friendly version
+     . Static State selection version
 */
   replaceable package Medium = PartialMixtureMedium ;
   FluidPort  inlet (redeclare package Medium = Medium, m_flow (min = 0))  ; 
@@ -23,12 +23,15 @@ model HeatX
   parameter SpecificHeatCapacity        w_cp    = 420	; // Specific heat of wall material
 
   Medium.BaseProperties         medium  ;
-  HeatFlowRate		        Q_ew	    	    ; // Heat input to the device
-  HeatFlowRate			Q_wf		    ; // Heat tranfer from wall to fluid
-  Medium.Temperature		Tw		    ; // Wall temperature (K)
-  Medium.Temperature		Tf		    ; // Heater Fluid temperature (K)
+  HeatFlowRate		        Q_ew	; // Heat input to the device
+  HeatFlowRate			Q_wf	; // Heat tranfer from wall to fluid
+  Medium.Temperature		Tw	; // Wall temperature (K)
+  Medium.Temperature		Tf	; // Heater Fluid temperature (K)
 
   parameter Volume   holdup = 0.1  ;
+
+  Mass                 M               ; // Mass of holdup
+  Enthalpy             H               ; // Enthalpy of holdup
 
   equation
 
@@ -38,7 +41,8 @@ model HeatX
        outlet.h_outflow = medium.h ;
 
     // Mass balance 
-       holdup * der (medium.d) = inlet.m_flow + outlet.m_flow;   
+       M = holdup * medium.d ;
+       der (M) = inlet.m_flow + outlet.m_flow;   
 
     // Ignoring Composition change dynamics due to hold up
     // Holdup is well Mixed
@@ -62,10 +66,10 @@ model HeatX
                                       actual     = regRoot(1 - outlet.p / medium.p) 
                                     );
     // Energy Balance
-       holdup * der(medium.d * outlet.h_outflow)   
-           = inlet.m_flow * inlet.h_outflow 
-             + outlet.m_flow * outlet.h_outflow 
-             + holdup * der (medium.p) + Q_wf ;
+       H = holdup * medium.d * outlet.h_outflow ;
+       der (H) = inlet.m_flow * inlet.h_outflow 
+                  + outlet.m_flow * outlet.h_outflow 
+                  + holdup * der (medium.p) + Q_wf ;
 
 	Q_wf = h_wf * A_wf * (Tw - Tf)  ;
         w_m * w_cp * der(Tw) = Q_ew - Q_wf ;  //  Wall

@@ -14,8 +14,10 @@ model Cvolume
   parameter    Boolean   Adiabatic = false      ;   // default Isothermal
   parameter    Medium.Temperature  Tset = 300   ;   // Isothermal Temperature
 
-// State Variables
-    Mass			m		;	// Mass of Gas in the vessal 
+    Mass			M		;	// Mass of Gas in the vessal 
+    Mass			Mx[Medium.nXi]	;	// Mass of each Component
+    Enthalpy                    H               ;       // Enthalpy of contents
+
     Medium.ThermodynamicState	state		;		
     Medium.Temperature		T		;
     Medium.AbsolutePressure	p		;
@@ -34,16 +36,19 @@ model Cvolume
       state = Medium.setState_pTX(p, T, Xi) ;
       h     = Medium.specificEnthalpy(state) ;
 
-     m = Medium.density(state) * vol ; 
+     M = Medium.density(state) * vol ; 
+     Mx = M * Xi ;
 
      // Mass and Component Balance
-     der(m) = port.m_flow   ;  // Mass Balance
+     der(M) = port.m_flow   ;  // Mass Balance
 
      // Component Balance
-     der(Xi*m) = actualStream(port.Xi_outflow) * port.m_flow ;
+     
+     der(Mx) = actualStream(port.Xi_outflow) * port.m_flow ;
 
      // Enthalpy Balance
-     der(m*h) =  port.m_flow * actualStream(port.h_outflow)
+     H = m * h ;
+     der(H) =  port.m_flow * actualStream(port.h_outflow)
 		     + vol * der(p)  + Q_in; 
 
      // Assume gas in tank is well mixed (ie. its contents are at outlet condition)

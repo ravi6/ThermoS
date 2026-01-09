@@ -21,6 +21,10 @@ model portMixer
     HeatFlowRate		Q_in   ;
     Medium.BaseProperties       medium ;
 
+    Mass			M		;	// Mass of Gas in the vessal 
+    Mass			Mx[Medium.nXi]	;	// Mass of each Component
+    Enthalpy                    H               ;       // Enthalpy of contents
+
   equation
 
     if (Adiabatic) then
@@ -31,18 +35,20 @@ model portMixer
 
 
      // Mass and Component Balance
-     vol * der(medium.d) = sum (port[:].m_flow) ;  // Mass Balance
+     M = vol * medium.d ;
+     der(M) = sum (port[:].m_flow) ;  // Mass Balance
 
      // Component Balance
+     Mx = M * medium.Xi ;
      for j in 1:Medium.nXi loop
-       vol * der(medium.d * medium.Xi[j]) = 
+         der (Mx[j]) = 
               sum (actualStream(port[i].Xi_outflow[j]) * port[i].m_flow
                                    for i in 1:N) ;
      end for;
 
      // Enthalpy Balance
-     vol * der(medium.d * medium.h) =  
-               sum (port[i].m_flow * actualStream(port[i].h_outflow)
+     H = vol * medium.d * medium.h ;
+     der (H) =  sum (port[i].m_flow * actualStream(port[i].h_outflow)
                                   for i in 1:N)
     	               + vol * der(medium.p)  + Q_in; 
 

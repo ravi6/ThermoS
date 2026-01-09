@@ -5,10 +5,8 @@ model GasTank
 /*
 *  A Gas Storage Vessel with two ports
 *     Note inlet and outlet
-*      flow can eventuate in any direction or nominal names
-*     Also see how derivatives contain states related medium
-*     thus avoiding intermediate variables like, m, h, Xi
-*     that can introduce algebraic loops
+*      flow can eventuate in any direction 
+*      These model eqns. ensure static State selection
 */
 
     replaceable package Medium = PartialMixtureMedium ;
@@ -24,8 +22,11 @@ model GasTank
     Medium.MassFraction         Xi[Medium.nXi]  ;
     EnthalpyFlowRate            Q_loss          ; // Heatloss from tank
 
-    Medium.BaseProperties       medium  ;
-                                   
+    Medium.BaseProperties       medium        ;
+    Mass                 Mx[Medium.nXi]  ; // Mass of each comp.
+    Mass                 M               ; // Gas mass in tank
+    InternalEnergy       U               ; // of tank contents
+    
   equation
 
     // Tank p,T for ease of access
@@ -33,16 +34,19 @@ model GasTank
     medium.p = p ;
     medium.Xi = outlet.Xi_outflow ;
     Xi = outlet.Xi_outflow ;
- 
+  
     // Mass Balance
-    vol * der(medium.d) = inlet.m_flow + outlet.m_flow ;
+    M = medium.d * vol ;
+    der(M) = inlet.m_flow + outlet.m_flow ;
 
     // Component Balance
-     vol * der(medium.d * medium.Xi) = actualStream(inlet.Xi_outflow) * inlet.m_flow 
-                  + actualStream(outlet.Xi_outflow) * outlet.m_flow ;
+    Mx = M * medium.Xi ;
+    der (Mx) = actualStream(inlet.Xi_outflow) * inlet.m_flow 
+                + actualStream(outlet.Xi_outflow) * outlet.m_flow ;
 
      // Enthalpy Balance
-     vol * der(medium.d * medium.u)  = - Q_loss 
+     U = M * medium.u ;
+     vol * der(U)  = - Q_loss 
                      + inlet.m_flow * actualStream(inlet.h_outflow)
                      + outlet.m_flow * actualStream(outlet.h_outflow);
 
