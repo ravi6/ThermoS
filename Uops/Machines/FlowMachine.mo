@@ -32,6 +32,7 @@ model FlowMachine
 
    Tout = medium.T ;
    medium.Xi = inlet.Xi_outflow; 
+   medium.p = outlet.p ;  // This is what I missed all along
    hout = medium.h ;
      
   // Mass balance 

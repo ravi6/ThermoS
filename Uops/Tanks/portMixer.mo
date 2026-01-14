@@ -21,8 +21,8 @@ model portMixer
     HeatFlowRate		Q_in   ;
     Medium.BaseProperties       medium ;
 
+    MassFraction                Xi[Medium.nXi]  ;
     Mass			M		;	// Mass of Gas in the vessal 
-    Mass			Mx[Medium.nXi]	;	// Mass of each Component
     Enthalpy                    H               ;       // Enthalpy of contents
 
   equation
@@ -39,9 +39,8 @@ model portMixer
      der(M) = sum (port[:].m_flow) ;  // Mass Balance
 
      // Component Balance
-     Mx = M * medium.Xi ;
      for j in 1:Medium.nXi loop
-         der (Mx[j]) = 
+         der (M * Xi[j]) = 
               sum (actualStream(port[i].Xi_outflow[j]) * port[i].m_flow
                                    for i in 1:N) ;
      end for;
@@ -61,5 +60,6 @@ model portMixer
 
       T = medium.T ;
       p = medium.p ;  
+      Xi = medium.Xi ;
 
 end portMixer;

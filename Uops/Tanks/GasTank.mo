@@ -23,26 +23,25 @@ model GasTank
     EnthalpyFlowRate            Q_loss          ; // Heatloss from tank
 
     Medium.BaseProperties       medium        ;
-    Mass                 Mx[Medium.nXi]  ; // Mass of each comp.
+
     Mass                 M               ; // Gas mass in tank
     InternalEnergy       U               ; // of tank contents
     
   equation
 
     // Tank p,T for ease of access
-    medium.T = T ;
-    medium.p = p ;
-    medium.Xi = outlet.Xi_outflow ;
-    Xi = outlet.Xi_outflow ;
-  
+    T = medium.T  ;
+    p = medium.p  ;
+    Xi = medium.Xi ;
+    outlet.Xi_outflow = medium.Xi ;
+    
     // Mass Balance
     M = medium.d * vol ;
     der(M) = inlet.m_flow + outlet.m_flow ;
 
     // Component Balance
-    Mx = M * medium.Xi ;
-    der (Mx) = actualStream(inlet.Xi_outflow) * inlet.m_flow 
-                + actualStream(outlet.Xi_outflow) * outlet.m_flow ;
+    der (M * Xi) = actualStream(inlet.Xi_outflow) * inlet.m_flow 
+                      + actualStream(outlet.Xi_outflow) * outlet.m_flow ;
 
      // Enthalpy Balance
      U = M * medium.u ;

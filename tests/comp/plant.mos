@@ -12,7 +12,8 @@ resFile := "plant_res." + resFormat ;
 
 // Force C backend and useful debug
 setCommandLineOptions("--simCodeTarget=C");
-setCommandLineOptions("+d=dumpdaelow"); print(getErrorString() + "\n");
+//setDebugFlags("failtrace,backenddaeinfo,initialization, stateselection"); 
+//setCommandLineOptions("+d=dumpdaelow"); print(getErrorString() + "\n");
 //simflags := "-lv=LOG_DASSL,LOG_DSS,LOG_LS,LOG_INIT,LOG_NLS";
 //setDebugFlags("aliasConflicts");
 //setCommandLineOptions("+d=bltdump"); print(getErrorString() + "\n");

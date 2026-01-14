@@ -1,0 +1,574 @@
+/
+OpenModelica 1.25.4
+Load ThermoLib and Plant
+/home/ThermoS/package.mo loaded successfully
+../plant.mo loaded successfully
+Save Flattened Model (total.mo)
+true
+Checking Model
+
+"Check of plant completed successfully.
+Class plant has 140 equation(s) and 140 variable(s).
+76 of these are trivial equation(s)."
+Simulate Plant
+
+record SimulationResult
+    resultFile = "",
+    simulationOptions = "startTime = 0.0, stopTime = 200.0, numberOfIntervals = 500, tolerance = 1e-6, method = 'dassl', fileNamePrefix = 'plant', options = '', outputFormat = 'csv', variableFilter = '.*', cflags = '', simflags = ''",
+    messages = "Simulation execution failed for model: plant
+src->dim_size[0] != dst->dim_size[0], 2 != 3
+LOG_ASSERT        | debug   | Failed to copy array. Dimension sizes are not equal and destination array is not flexible.
+LOG_ASSERT        | info    | simulation terminated by an assertion at initialization
+",
+    timeFrontend = 0.213655917,
+    timeBackend = 0.035115625000000004,
+    timeSimCode = 0.008274667000000001,
+    timeTemplates = 0.019622167000000003,
+    timeCompile = 0.575053042,
+    timeSimulation = 0.00938975,
+    timeTotal = 0.861293625
+end SimulationResult;
+{record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/ExpressionSolve.mo",
+    readonly = false,
+    lineStart = 186,
+    columnStart = 9,
+    lineEnd = 186,
+    columnEnd = 210
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Internal error Failed to solve \"300.0 = Modelica.Math.Nonlinear.solveOneNonlinearEquation(function plant.comp.Medium.T_psX.f_nonlinear(#(tank.p), #(comp.s), #({comp.state_is.X[1], comp.state_is.X[2]})), 200.0, 6000.0, 1e-13)\" w.r.t. \"comp.s\"",
+    kind = .OpenModelica.Scripting.ErrorKind.translation,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 63
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"Modelica.Math.Nonlinear.solveOneNonlinearEquation(function plant.comp.Medium.T_psX.f_nonlinear(#(tank.p), #(comp.s), #({comp.state_is.X[1], comp.state_is.X[2]})), 200.0, 6000.0, 1e-13) - 300.0\" w.r.t. \"comp.s\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/ExpressionSolve.mo",
+    readonly = false,
+    lineStart = 186,
+    columnStart = 9,
+    lineEnd = 186,
+    columnEnd = 210
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Internal error Failed to solve \"300.0 = Modelica.Math.Nonlinear.solveOneNonlinearEquation(function plant.comp.Medium.T_hX.f_nonlinear(#(comp.hin), #({comp.state_is.X[1], comp.state_is.X[2]}), #(true), #(Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K), #(0.0)), 200.0, 6000.0, 1e-13)\" w.r.t. \"comp.hin\"",
+    kind = .OpenModelica.Scripting.ErrorKind.translation,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 63
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"Modelica.Math.Nonlinear.solveOneNonlinearEquation(function plant.comp.Medium.T_hX.f_nonlinear(#(comp.hin), #({comp.state_is.X[1], comp.state_is.X[2]}), #(true), #(Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K), #(0.0)), 200.0, 6000.0, 1e-13) - 300.0\" w.r.t. \"comp.hin\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/ExpressionSolve.mo",
+    readonly = false,
+    lineStart = 222,
+    columnStart = 9,
+    lineEnd = 222,
+    columnEnd = 210
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Internal error Failed to solve \"comp.hin = plant.comp.Medium.specificEnthalpy_pTX(atm.p, comp.Tin, {comp.state_is.X[1], comp.state_is.X[2]})\" w.r.t. \"comp.Tin\"",
+    kind = .OpenModelica.Scripting.ErrorKind.translation,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 63
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"plant.comp.Medium.h_TX(comp.Tin, {comp.state_is.X[1], comp.state_is.X[2], 1.0 - (comp.state_is.X[1] + comp.state_is.X[2])}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0) - comp.hin\" w.r.t. \"comp.Tin\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/ExpressionSolve.mo",
+    readonly = false,
+    lineStart = 222,
+    columnStart = 9,
+    lineEnd = 222,
+    columnEnd = 210
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Internal error Failed to solve \"comp.his = plant.comp.Medium.specificEnthalpy_pTX(tank.p, comp.Tis, {comp.state_is.X[1], comp.state_is.X[2]})\" w.r.t. \"comp.Tis\"",
+    kind = .OpenModelica.Scripting.ErrorKind.translation,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 63
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"plant.comp.Medium.h_TX(comp.Tis, {comp.state_is.X[1], comp.state_is.X[2], 1.0 - (comp.state_is.X[1] + comp.state_is.X[2])}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0) - comp.his\" w.r.t. \"comp.Tis\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/ExpressionSolve.mo",
+    readonly = false,
+    lineStart = 222,
+    columnStart = 9,
+    lineEnd = 222,
+    columnEnd = 210
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Internal error Failed to solve \"vout.med.h = plant.vout.Medium.h_TX(vout.med.T, {atm.Xi[1], atm.Xi[2], vout.med.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0)\" w.r.t. \"vout.med.T\"",
+    kind = .OpenModelica.Scripting.ErrorKind.translation,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 63
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"plant.vout.Medium.h_TX(vout.med.T, {atm.Xi[1], atm.Xi[2], vout.med.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0) - vout.med.h\" w.r.t. \"vout.med.T\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "",
+    readonly = false,
+    lineStart = 0,
+    columnStart = 0,
+    lineEnd = 0,
+    columnEnd = 0
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Torn system details for strict tearing set:
+ * Linear torn systems (#iteration vars, #inner vars, density): 0 systems
+ * Non-linear torn systems (#iteration vars, #inner vars): 2 systems
+   {(2,7), (1,1)}",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.notification,
+    id = 263
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "",
+    readonly = false,
+    lineStart = 0,
+    columnStart = 0,
+    lineEnd = 0,
+    columnEnd = 0
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Equation system details (not torn):
+ * Constant Jacobian (size): 0 systems
+ * Linear Jacobian (size,density): 0 systems
+ * Non-linear Jacobian (size): 3 systems
+   {1, 1, 1}
+ * Without analytic Jacobian (size): 0 systems",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.notification,
+    id = 262
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "",
+    readonly = false,
+    lineStart = 0,
+    columnStart = 0,
+    lineEnd = 0,
+    columnEnd = 0
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Strong component statistics for simulation (41):
+ * Single equations (assignments): 36
+ * Array equations: 0
+ * Algorithm blocks: 0
+ * Record equations: 0
+ * When equations: 0
+ * If-equations: 0
+ * Equation systems (not torn): 3
+ * Torn equation systems: 2
+ * Mixed (continuous/discrete) equation systems: 0",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.notification,
+    id = 261
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "",
+    readonly = false,
+    lineStart = 0,
+    columnStart = 0,
+    lineEnd = 0,
+    columnEnd = 0
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Model statistics after passing the back-end for simulation:
+ * Number of independent subsystems: 3
+ * Number of states: 4 ('-d=stateselection' for list of states)
+ * Number of discrete variables: 0 ('-d=discreteinfo' for list of discrete vars)
+ * Number of discrete states: 0 ('-d=discreteinfo' for list of discrete states)
+ * Number of clocked states: 0 ('-d=discreteinfo' for list of clocked states)
+ * Top-level inputs: 0",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.notification,
+    id = 259
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 240,
+    columnStart = 7,
+    lineEnd = 240,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"comp.hout - plant.comp.Medium.h_TX(comp.Tout, {comp.state_is.X[1], comp.state_is.X[2], comp.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0)\" w.r.t. \"comp.state_is.X\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 240,
+    columnStart = 7,
+    lineEnd = 240,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"tank.outlet.h_outflow - plant.tank.Medium.h_TX(tank.T, {tank.Xi[1], tank.Xi[2], tank.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0)\" w.r.t. \"tank.T\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"comp.hout - plant.comp.Medium.specificEnthalpy_pTX(tank.p, comp.Tout, {comp.state_is.X[1], comp.state_is.X[2]})\" w.r.t. \"comp.Tout\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"comp.hout - plant.comp.Medium.specificEnthalpy_pTX(tank.p, comp.Tout, {comp.state_is.X[1], comp.state_is.X[2]})\" w.r.t. \"comp.state_is.X\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"comp.hout - plant.comp.Medium.h_TX(comp.Tout, {comp.state_is.X[1], comp.state_is.X[2], comp.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0)\" w.r.t. \"comp.Tout\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"comp.hout - plant.comp.Medium.h_TX(comp.Tout, {comp.state_is.X[1], comp.state_is.X[2], comp.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0)\" w.r.t. \"comp.state_is.X\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"comp.hout - plant.comp.Medium.h_TX(comp.Tout, {comp.state_is.X[1], comp.state_is.X[2], comp.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0)\" w.r.t. \"comp.medium.X\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"tank.outlet.h_outflow - plant.tank.Medium.h_TX(tank.T, {tank.Xi[1], tank.Xi[2], tank.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0)\" w.r.t. \"tank.T\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/ExpressionSolve.mo",
+    readonly = false,
+    lineStart = 222,
+    columnStart = 9,
+    lineEnd = 222,
+    columnEnd = 210
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Internal error Failed to solve \"plant.comp.Medium.specificEnthalpy_pTX(atm.p, comp.Tin, {comp.state_is.X[1], comp.state_is.X[2]}) = comp.hin\" w.r.t. \"comp.Tin\"",
+    kind = .OpenModelica.Scripting.ErrorKind.translation,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 63
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"plant.comp.Medium.specificEnthalpy_pTX(atm.p, comp.Tin, {comp.state_is.X[1], comp.state_is.X[2]}) - comp.hin\" w.r.t. \"comp.Tin\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/ExpressionSolve.mo",
+    readonly = false,
+    lineStart = 222,
+    columnStart = 9,
+    lineEnd = 222,
+    columnEnd = 210
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Internal error Failed to solve \"plant.comp.Medium.specificEnthalpy_pTX(tank.p, comp.Tis, {comp.state_is.X[1], comp.state_is.X[2]}) = comp.his\" w.r.t. \"comp.Tis\"",
+    kind = .OpenModelica.Scripting.ErrorKind.translation,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 63
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"plant.comp.Medium.specificEnthalpy_pTX(tank.p, comp.Tis, {comp.state_is.X[1], comp.state_is.X[2]}) - comp.his\" w.r.t. \"comp.Tis\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/ExpressionSolve.mo",
+    readonly = false,
+    lineStart = 222,
+    columnStart = 9,
+    lineEnd = 222,
+    columnEnd = 210
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Internal error Failed to solve \"plant.vout.Medium.h_TX(vout.med.T, {atm.Xi[1], atm.Xi[2], vout.med.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0) = vout.med.h\" w.r.t. \"vout.med.T\"",
+    kind = .OpenModelica.Scripting.ErrorKind.translation,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 63
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/ExpressionSolve.mo",
+    readonly = false,
+    lineStart = 186,
+    columnStart = 9,
+    lineEnd = 186,
+    columnEnd = 210
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Internal error Failed to solve \"vout.med.h = plant.vout.Medium.h_TX(vout.med.T, {atm.Xi[1], atm.Xi[2], vout.med.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0)\" w.r.t. \"vout.med.T\"",
+    kind = .OpenModelica.Scripting.ErrorKind.translation,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 63
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "",
+    readonly = false,
+    lineStart = 0,
+    columnStart = 0,
+    lineEnd = 0,
+    columnEnd = 0
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Torn system details for strict tearing set:
+ * Linear torn systems (#iteration vars, #inner vars, density): 0 systems
+ * Non-linear torn systems (#iteration vars, #inner vars): 1 system
+   {(2,6)}",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.notification,
+    id = 263
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "",
+    readonly = false,
+    lineStart = 0,
+    columnStart = 0,
+    lineEnd = 0,
+    columnEnd = 0
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Strong component statistics for initialization (56):
+ * Single equations (assignments): 52
+ * Array equations: 0
+ * Algorithm blocks: 0
+ * Record equations: 0
+ * When equations: 0
+ * If-equations: 0
+ * Equation systems (not torn): 3
+ * Torn equation systems: 1
+ * Mixed (continuous/discrete) equation systems: 0",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.notification,
+    id = 261
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "",
+    readonly = false,
+    lineStart = 0,
+    columnStart = 0,
+    lineEnd = 0,
+    columnEnd = 0
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Model statistics after passing the back-end for initialization:
+ * Number of independent subsystems: 6
+ * Number of states: 0 ('-d=stateselection' for list of states)
+ * Number of discrete variables: 0 ('-d=discreteinfo' for list of discrete vars)
+ * Number of discrete states: 0 ('-d=discreteinfo' for list of discrete states)
+ * Number of clocked states: 0 ('-d=discreteinfo' for list of clocked states)
+ * Top-level inputs: 0",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.notification,
+    id = 259
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 240,
+    columnStart = 7,
+    lineEnd = 240,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"comp.hout - plant.comp.Medium.specificEnthalpy_pTX(tank.p, comp.Tout, {comp.state_is.X[1], comp.state_is.X[2]})\" w.r.t. \"comp.Tout\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"plant.comp.Medium.specificEnthalpy_pTX(tank.p, comp.Tout, {comp.state_is.X[1], comp.state_is.X[2]}) - comp.hout\" w.r.t. \"comp.Tout\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"plant.comp.Medium.h_TX(comp.Tout, {comp.state_is.X[1], comp.state_is.X[2], comp.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0) - comp.hout\" w.r.t. \"comp.Tout\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"plant.tank.Medium.h_TX(tank.T, {tank.Xi[1], tank.Xi[2], tank.medium.X[3]}, true, Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K, 0.0) - tank.outlet.h_outflow\" w.r.t. \"tank.T\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/ExpressionSolve.mo",
+    readonly = false,
+    lineStart = 186,
+    columnStart = 9,
+    lineEnd = 186,
+    columnEnd = 210
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Internal error Failed to solve \"der(tank.M) = comp.inlet.m_flow - vout.inlet.m_flow\" w.r.t. \"tank.M\"",
+    kind = .OpenModelica.Scripting.ErrorKind.translation,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 63
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "/var/lib/jenkins/ws/LINUX_BUILDS/tmp.build/openmodelica-1.25.4/OMCompiler/Compiler/BackEnd/Differentiate.mo",
+    readonly = false,
+    lineStart = 203,
+    columnStart = 7,
+    lineEnd = 203,
+    columnEnd = 147
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Derivative of expression \"der(tank.M) - (comp.inlet.m_flow - vout.inlet.m_flow)\" w.r.t. \"tank.M\" is non-existent.",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.error,
+    id = 36
+end OpenModelica.Scripting.ErrorMessage;, record OpenModelica.Scripting.ErrorMessage
+    info = record OpenModelica.Scripting.SourceInfo
+    filename = "",
+    readonly = false,
+    lineStart = 0,
+    columnStart = 0,
+    lineEnd = 0,
+    columnEnd = 0
+end OpenModelica.Scripting.SourceInfo;,
+    message = "Model statistics after passing the front-end and creating the data structures used by the back-end:
+ * Number of equations: 140
+ * Number of variables: 140",
+    kind = .OpenModelica.Scripting.ErrorKind.symbolic,
+    level = .OpenModelica.Scripting.ErrorLevel.notification,
+    id = 258
+end OpenModelica.Scripting.ErrorMessage;}
+
+
+
+{"time", "tank.M", "tank.U", "tank.Xi[1]", "tank.Xi[2]", "der(tank.M)", "der(tank.U)", "der(tank.Xi[1])", "der(tank.Xi[2])", "atm.medium.MM", "atm.medium.R_s", "atm.medium.T_degC", "atm.medium.X[3]", "atm.medium.d", "atm.medium.p_bar", "atm.medium.u", "atm.port.m_flow", "comp.Tin", "comp.Tis", "comp.Tout", "comp.Ws", "comp.hin", "comp.his", "comp.hout", "comp.inlet.m_flow", "comp.medium.MM", "comp.medium.R_s", "comp.medium.T_degC", "comp.medium.X[3]", "comp.medium.d", "comp.medium.p_bar", "comp.medium.u", "comp.s", "comp.state_in.T", "comp.state_is.T", "comp.state_is.X[1]", "comp.state_is.X[2]", "comp.state_is.X[3]", "tank.Q_loss", "tank.T", "tank.medium.MM", "tank.medium.R_s", "tank.medium.T_degC", "tank.medium.X[3]", "tank.medium.d", "tank.medium.p_bar", "tank.medium.u", "tank.outlet.h_outflow", "tank.p", "vout.Y", "vout.charF", "vout.inlet.m_flow", "vout.med.MM", "vout.med.R_s", "vout.med.T", "vout.med.T_degC", "vout.med.X[3]", "vout.med.d", "vout.med.h", "vout.med.p_bar", "vout.med.state.p", "vout.med.u", "vout.po", "vout.prat", "atm.medium.h", "atm.medium.state.X[3]", "atm.port.h_outflow", "comp.inlet.Xi_outflow[1]", "comp.inlet.Xi_outflow[2]", "comp.inlet.h_outflow", "comp.medium.T", "comp.medium.X[1]", "comp.medium.X[2]", "comp.medium.Xi[1]", "comp.medium.Xi[2]", "comp.medium.h", "comp.medium.p", "comp.medium.state.T", "comp.medium.state.X[1]", "comp.medium.state.X[2]", "comp.medium.state.X[3]", "comp.medium.state.p", "comp.outlet.Xi_outflow[1]", "comp.outlet.Xi_outflow[2]", "comp.outlet.h_outflow", "comp.outlet.m_flow", "comp.outlet.p", "comp.state_in.X[1]", "comp.state_in.X[2]", "comp.state_in.X[3]", "comp.state_is.p", "tank.inlet.Xi_outflow[1]", "tank.inlet.Xi_outflow[2]", "tank.inlet.h_outflow", "tank.inlet.m_flow", "tank.inlet.p", "tank.medium.T", "tank.medium.X[1]", "tank.medium.X[2]", "tank.medium.Xi[1]", "tank.medium.Xi[2]", "tank.medium.h", "tank.medium.p", "tank.medium.state.T", "tank.medium.state.X[1]", "tank.medium.state.X[2]", "tank.medium.state.X[3]", "tank.medium.state.p", "tank.outlet.Xi_outflow[1]", "tank.outlet.Xi_outflow[2]", "tank.outlet.m_flow", "tank.outlet.p", "vout.inlet.h_outflow", "vout.inlet.p", "vout.med.p", "vout.med.state.T", "vout.med.state.X[3]", "vout.outlet.Xi_outflow[1]", "vout.outlet.Xi_outflow[2]", "vout.outlet.h_outflow", "vout.outlet.m_flow"}
+Simulation completed successfully. Variables count: 121
+

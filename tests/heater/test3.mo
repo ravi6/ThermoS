@@ -46,8 +46,9 @@ equation
     v3.po = 30 ;
     htr.Q_ew = 50000 ;
 
-initial algorithm
-    htr.Tf :=300 ;
-    htr.Tw :=300 ; 
+initial equation
+    htr.Tf =300 ;
+    htr.Tw =300 ; 
+    htr.medium.p = 1e5 ;
   
 end plant;

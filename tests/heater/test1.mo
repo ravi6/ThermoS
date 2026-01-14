@@ -25,10 +25,8 @@ equation
     connect (res3.port, htr.outlet) ;
     htr.Q_ew = 5e4 ;
 
-initial algorithm
-  htr.Tf :=300 ;
-  htr.Tw :=300 ; 
-//  htr.medium.T := 300;
-//  htr.medium.p := 1e5;
-//  htr.medium.Xi := AirComp;
+initial equation
+  htr.Tf =300 ;
+  htr.Tw =300 ; 
+  htr.medium.p = 1e5;
 end plant;

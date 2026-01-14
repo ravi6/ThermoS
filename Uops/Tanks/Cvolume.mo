@@ -15,7 +15,6 @@ model Cvolume
   parameter    Medium.Temperature  Tset = 300   ;   // Isothermal Temperature
 
     Mass			M		;	// Mass of Gas in the vessal 
-    Mass			Mx[Medium.nXi]	;	// Mass of each Component
     Enthalpy                    H               ;       // Enthalpy of contents
 
     Medium.ThermodynamicState	state		;		
@@ -37,14 +36,13 @@ model Cvolume
       h     = Medium.specificEnthalpy(state) ;
 
      M = Medium.density(state) * vol ; 
-     Mx = M * Xi ;
 
      // Mass and Component Balance
      der(M) = port.m_flow   ;  // Mass Balance
 
      // Component Balance
      
-     der(Mx) = actualStream(port.Xi_outflow) * port.m_flow ;
+     der(M * Xi) = actualStream(port.Xi_outflow) * port.m_flow ;
 
      // Enthalpy Balance
      H = m * h ;
