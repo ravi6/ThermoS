@@ -12,7 +12,7 @@ extends MixtureGasNasa (
 	 fluidConstants = {FluidData.N2,
 			   FluidData.O2}, 
 	 substanceNames = {"Nitrogen", "Oxygen"},
-         reducedX = true, 
+    //     reducedX = true, 
          reference_X = {0.768, 0.232},
 
 // Modifying start values and Ranges 
