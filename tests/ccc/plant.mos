@@ -12,25 +12,14 @@ resFile := "plant_res." + resFormat ;
 
 // Force C backend and useful debug
 setCommandLineOptions("--simCodeTarget=C");
-//setDebugFlags("failtrace,backenddaeinfo,initialization, stateselection"); 
-//setCommandLineOptions("+d=dumpdaelow"); print(getErrorString() + "\n");
-//simflags := "-lv=LOG_DASSL,LOG_DSS,LOG_LS,LOG_INIT,LOG_NLS";
-//setDebugFlags("aliasConflicts");
-//setCommandLineOptions("+d=bltdump"); print(getErrorString() + "\n");
-//setDebugFlags("infoXmlOperations");
-//setDebugFlags("failtrace,backenddaeinfo,initialization"); 
-//setCommandLineOptions("+d=dumpdaelow,bltdump"); print(getErrorString() + "\n");
-
 // Ensure clean working directory
 system("mkdir -p ./work"); cd("./work"); system("rm -rf *");
 
 // ==================== LOAD MODELS ====================
-print("Load ThermoLib and Plant\n");
+print("Load Local Library and Plant\n");
 
-ThermoLib := getEnvironmentVar("THERMOS") + "/package.mo";
-for f in {ThermoLib, "../Tank.mo", "../Valve.mo", 
-                     "../Reservoir.mo", "../plant.mo",
-                     "../FlowMachine.mo", "../Air.mo"} loop
+Lib := getEnvironmentVar("RIG") + "/package.mo";
+for f in {Lib, "../plant.mo"} loop
   if loadFile(f) then
     print(f + " loaded successfully\n");
   else
@@ -74,3 +63,12 @@ end if;
 //setCommandLineOptions("+d=dumpdaelow,bltdump");
 // setCommandLineOptions("+d=bltdump");
 //OpenModelica.Scripting.setTearingMethod("omcTearing");
+//setDebugFlags("failtrace,backenddaeinfo,initialization, stateselection"); 
+//setCommandLineOptions("+d=dumpdaelow"); print(getErrorString() + "\n");
+//simflags := "-lv=LOG_DASSL,LOG_DSS,LOG_LS,LOG_INIT,LOG_NLS";
+//setDebugFlags("aliasConflicts");
+//setCommandLineOptions("+d=bltdump"); print(getErrorString() + "\n");
+//setDebugFlags("infoXmlOperations");
+//setDebugFlags("failtrace,backenddaeinfo,initialization"); 
+//setCommandLineOptions("+d=dumpdaelow,bltdump"); print(getErrorString() + "\n");
+
