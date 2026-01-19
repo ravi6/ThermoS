@@ -14,41 +14,29 @@ model Comp
   FluidPort outlet (redeclare package Medium = Medium, m_flow (max = 0)) ;
 
   Medium.ThermodynamicState	state_in    ; // Fluid state at inlet port
-  Medium.ThermodynamicState	state_is    ; // Fluid state at isentropic 
   Medium.ThermodynamicState	state_out   ; // Fluid state at isentropic 
   Medium.Temperature            Tin         ; // Machine Inlet Temp
-  Medium.Temperature            Tis         ; // Isentropic Temp
   Medium.Temperature            Tout        ; // Compressor Outlet Temp
   SpecificEnthalpy              hin, hout, his;
-  SpecificEntropy               s  ;   // Entropy of inlet/outlet stream
   Power 	                Ws ;   // Power delivered by Machine 
   Real                          pr ;   // Pressure Ratio (output)
 
-   // Hold up properties in Compressor
-    Medium.BaseProperties       medium ;
-    Enthalpy                    H      ; 
-
-  parameter Volume    vol = 1e-4  ;     // holdup
   parameter Fraction  eff = 0.95     ;  //Isentropic Efficiency
   
   equation
 
-   // Control volume state is outlet state
-      medium.Xi = Medium.reference_X[1:Medium.nXi] ;
-      medium.T = Tout ;  
-      medium.p = outlet.p ;
       pr = outlet.p / inlet.p  ; 
 
   // Mass balance 
       inlet.m_flow + outlet.m_flow = 0   ;     // No accumulation of mass
 
    //  Energy balance
-      H = vol * medium.d  * medium.h ;
-      der(H)  = inlet.m_flow * (hin -  hout) + Ws/eff  + vol * der (medium.p) ;
+       hout = hin + (his - hin) / eff ;
+       Ws = inlet.m_flow * (hout - hin) ; 
 
    //  Well mixed and no change in composition
-       inlet.Xi_outflow = medium.Xi ;
-       outlet.Xi_outflow = medium.Xi ;
+       outlet.Xi_outflow = Medium.reference_X ;
+       inlet.Xi_outflow = outlet.Xi_outflow ;
        outlet.h_outflow = hout ;
        inlet.h_outflow = hout ; 
 
@@ -56,17 +44,14 @@ model Comp
        hin = inStream (inlet.h_outflow) ;
    
    // Get inlet state, entropy 
-       state_in = Medium.setState_phX (inlet.p, hin, medium.Xi);
-       s = Medium.specificEntropy (state_in) ;
+       state_in = Medium.setState_phX (inlet.p, hin, inlet.Xi_outflow);
        Tin = state_in.T ;
 
     // Determine outlet state if it were isentropic (state_iso)
-       state_is = Medium.setState_psX (outlet.p, s, medium.Xi);
-       Tis = state_is.T  ;
-       his = Medium.specificEnthalpy (state_is) ; 
+       his = Medium.isentropicEnthalpy(outlet.p, state_in);
 
     // Determine outlet Enthalpy and state 
-       state_out = Medium.setState_phX (outlet.p, hout, medium.Xi);
+       state_out = Medium.setState_phX (outlet.p, hout, outlet.Xi_outflow);
        Tout = state_out.T ;
 
 end Comp;

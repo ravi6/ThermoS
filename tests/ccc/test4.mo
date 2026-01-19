@@ -69,7 +69,6 @@ equation
      vUp.po = 90 ;
      vDown.po = 90 ;
 
-    cmpTrim.Ws = 100 ;  //max (0, 100 * (1.3 - volUp.p/1e5)/1.3) ;
     cmpTrim.pr = 1.1 ;
 //     cmpTrim.outlet.p =  (maxPr  - (maxPr - 1)*(cmpTrim.inlet.m_flow/maxFlow)) * cmpTrim.inlet.p ; 
 
@@ -84,6 +83,4 @@ initial algorithm
     hx.Tw := 300 ;  // Heater wall Temp
     hx.p  := 1e5 ; 
 
-    cmpTrim.medium.T := 300 ;   // Compressor Holdup T
-    cmpTrim.medium.p := 1e5 ;   // Compressor holdup p
 end plant;

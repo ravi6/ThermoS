@@ -30,7 +30,6 @@ equation
    // Assuming 2m2 surface area, 15 outside heattransfer coeff
      tank.Q_loss = 0 ; //15 * 2 * (tank.T - (15 + 273)) ;
      htr.Q_ew = 500 ;
-     comp.Ws = 100;
      comp.pr = 1.1 ;
    
 
@@ -40,6 +39,4 @@ initial algorithm
     htr.Tf := 300 ;
     htr.Tw := 300 ; 
     htr.p := 1e5 ;
-    comp.medium.p := 1e5 ;
-    comp.medium.T := 300 ;
 end plant;

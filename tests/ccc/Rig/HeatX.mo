@@ -28,7 +28,7 @@ model HeatX
 
 
   Mass                 M       ; // Mass of holdup
-  Enthalpy             H       ; // Enthalpy of holdup
+  InternalEnergy       U       ; // Internal Energy of holdup
 
   equation
 
@@ -41,10 +41,10 @@ model HeatX
 	Q_wf = h_wf * A_wf * (Tw - Tf)  ;  // Wall to Fluid Heat transfer 
         w_m * w_cp * der(Tw) = Q_ew - Q_wf ;  //  Thermal Inertia of Wall
     
-        H = M * medium.h ;
-        der (H) =  inlet.m_flow * actualStream (inlet.h_outflow)
+        U = M * medium.u ;
+        der (U) =  inlet.m_flow * actualStream (inlet.h_outflow)
                    + outlet.m_flow * actualStream (outlet.h_outflow)
-                   + Q_wf  + holdup * der (p) ;
+                   + Q_wf  ;
 
      // State of Holdup
         medium.Xi = Medium.reference_X [1:Medium.nXi] ;

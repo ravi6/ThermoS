@@ -20,7 +20,7 @@ model Tee
     Medium.BaseProperties       medium ;
 
     Mass			M (start=1e-4)	;	// Mass of Gas in the vessal 
-    Enthalpy                    H               ;       // Enthalpy of contents
+    InternalEnergy              U               ;       // Enthalpy of contents
 
   equation
 
@@ -36,10 +36,10 @@ model Tee
      der(M) = sum (port[:].m_flow) ;  // Mass Balance
 
      // Enthalpy Balance
-     H = M * medium.h ;
-     der (H) =  sum (port[i].m_flow * actualStream(port[i].h_outflow)
+     U = M * medium.u ;
+     der (U) =  sum (port[i].m_flow * actualStream(port[i].h_outflow)
                                   for i in 1:N)
-    	               + vol * der(medium.p)  + Q_in; 
+    	                 + Q_in; 
 
      // Tee Junction well mixed
       for i in 1:N loop
