@@ -12,7 +12,8 @@ resFile := "plant_res." + resFormat ;
 
 // Force C backend and useful debug
 setCommandLineOptions("--simCodeTarget=C");
-setDebugFlags("failtrace,backenddaeinfo,initialization"); 
+//setDebugFlags("failtrace,backenddaeinfo,initialization"); 
+setDebugFlags("failtrace"); 
 // Ensure clean working directory
 system("mkdir -p ./work"); cd("./work"); system("rm -rf *");
 

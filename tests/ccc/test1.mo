@@ -15,6 +15,7 @@ model plant
   Tank       tank (redeclare package Medium = Air, vol = 2, cf = 1e-4); 
   HeatX      htr (redeclare package Medium = Air, A_wf = 1,  h_wf = 150, 
                              cf = 1e-4, holdup = 5, w_m = 1, w_cp = 420);
+
 //  Valve      vout (redeclare package Medium = Air, cv = CV);
 //  Comp       comp (redeclare package Medium = Air, eff = 1) ;
 
@@ -27,9 +28,24 @@ equation
      htr.Q_ew = 500 ;
 
 initial algorithm
+   
     tank.T := 300 ;  // Initial Temperature
     tank.p := 1e5  ;  // Initial Pressure
-    htr.Tf := 300 ;
+/*
+    tank.medium.T := tank.T ;
+    tank.medium.p := tank.p ;
+    tank.medium.Xi := Air.reference_X; 
+    tank.M := tank.vol * tank.medium.d ;
+    tank.U := tank.M * tank.medium.u ;
+*/
+    htr.Tf := 1300 ;
     htr.Tw := 300 ; 
     htr.p := 1e5 ;
+/*
+    htr.medium.T := htr.Tf ;
+    htr.medium.p := htr.p ;
+    htr.medium.Xi := Air.reference_X; 
+    htr.M := htr.holdup * htr.medium.d ;
+    htr.H := htr.M * htr.medium.h ;
+*/
 end plant;

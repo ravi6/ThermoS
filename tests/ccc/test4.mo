@@ -32,7 +32,7 @@ uptoCMp  + TeeCmp to atm
   Valve   vUp   (redeclare package Medium = Air , cv = CV);
   Valve   vDown   (redeclare package Medium = Air , cv = CV);
   Valve   vBlow (redeclare package Medium = Air , cv = CV);
-  Comp    cmpTrim (redeclare package Medium = Air, eff = 0.95, pr=1.2) ;  
+  Comp    cmpTrim (redeclare package Medium = Air, eff = 0.95) ;  
   HeatX  hx (redeclare package Medium = Air, cf = 1.0e-3, 
                        A_wf = 1,  h_wf = 150, 
                        w_m = 1, w_cp = 420, holdup = 100e-3);
@@ -62,13 +62,15 @@ equation
      connect (volUp.outlet, atm.port);
      connect (vDown.outlet, TeeComp.port[1]) ;
      connect (TeeComp.port[2], atm.port) ;
+//     connect (TeeComp.port[3], atm.port) ;
 
      vin.po = 90 ;
      vBlow.po = 10 ;
      vUp.po = 90 ;
      vDown.po = 90 ;
 
-//    cmpTrim.Ws = 100 ;  //max (0, 100 * (1.3 - volUp.p/1e5)/1.3) ;
+    cmpTrim.Ws = 100 ;  //max (0, 100 * (1.3 - volUp.p/1e5)/1.3) ;
+    cmpTrim.pr = 1.1 ;
 //     cmpTrim.outlet.p =  (maxPr  - (maxPr - 1)*(cmpTrim.inlet.m_flow/maxFlow)) * cmpTrim.inlet.p ; 
 
      hx.Q_ew = 10 ; // External to wall heat transfer
@@ -80,5 +82,8 @@ initial algorithm
 
     hx.Tf := 300 ;  // Heater fluid Temp
     hx.Tw := 300 ;  // Heater wall Temp
-    
+    hx.p  := 1e5 ; 
+
+    cmpTrim.medium.T := 300 ;   // Compressor Holdup T
+    cmpTrim.medium.p := 1e5 ;   // Compressor holdup p
 end plant;

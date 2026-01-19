@@ -5,15 +5,13 @@
 */  
 // ==================== SETTINGS ====================
 echo(false);
-tEnd := 200;  //sim stop time
+tEnd := 0.10;  //sim stop time
 logFile := "log";
 resFormat := "csv" ;
 resFile := "plant_res." + resFormat ;
 
 // Force C backend and useful debug
 setCommandLineOptions("--simCodeTarget=C");
-//setDebugFlags("failtrace,backenddaeinfo,initialization, stateselection"); 
-//setCommandLineOptions("+d=dumpdaelow"); print(getErrorString() + "\n");
 //simflags := "-lv=LOG_DASSL,LOG_DSS,LOG_LS,LOG_INIT,LOG_NLS";
 //setDebugFlags("aliasConflicts");
 //setCommandLineOptions("+d=bltdump"); print(getErrorString() + "\n");
@@ -28,9 +26,7 @@ system("mkdir -p ./work"); cd("./work"); system("rm -rf *");
 print("Load ThermoLib and Plant\n");
 
 ThermoLib := getEnvironmentVar("THERMOS") + "/package.mo";
-for f in {ThermoLib, "../Tank.mo", "../Valve.mo", 
-                     "../Reservoir.mo", "../plant.mo",
-                     "../FlowMachine.mo", "../Air.mo"} loop
+for f in {ThermoLib, "../plant.mo"} loop
   if loadFile(f) then
     print(f + " loaded successfully\n");
   else
@@ -51,6 +47,7 @@ end if;
 echo(true);
 print("Checking Model\n"); checkModel(plant);
 //print(getErrorString()+"\n"); instantiateModel(plant);
+
 print("Simulate Plant\n");
 simulate(plant, startTime=0, stopTime=tEnd, 
         outputFormat=resFormat, simflags=simflags);
