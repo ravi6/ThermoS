@@ -12,13 +12,14 @@ resFile := "plant_res." + resFormat ;
 
 // Force C backend and useful debug
 setCommandLineOptions("--simCodeTarget=C");
+setDebugFlags("failtrace,backenddaeinfo,initialization"); 
 // Ensure clean working directory
 system("mkdir -p ./work"); cd("./work"); system("rm -rf *");
 
 // ==================== LOAD MODELS ====================
 print("Load Local Library and Plant\n");
 
-Lib := getEnvironmentVar("RIG") + "/package.mo";
+Lib := "../Rig/package.mo" ; // getEnvironmentVar("RIG") + "/package.mo";
 for f in {Lib, "../plant.mo"} loop
   if loadFile(f) then
     print(f + " loaded successfully\n");

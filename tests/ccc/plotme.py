@@ -24,7 +24,8 @@ ax.grid(True) # Add a grid for better readability
 ax = axs[1]
 ax.set_ylabel('Temp (C)')
 ax.plot(df["time"], df["tank.T"]-273, label='tank', color='blue', linestyle='-')
-ax.plot(df["time"], df["htr.Tf"]-273,  label='htr', color='red', linestyle='-')
+#ax.plot(df["time"], df["htr.Tf"]-273,  label='htr', color='red', linestyle='-')
+ax.plot(df["time"], df["tee.T"]-273,  label='tee', color='red', linestyle='-')
 ax.legend()
 ax.grid(True) # Add a grid for better readability
 ax.set_xlabel('time')

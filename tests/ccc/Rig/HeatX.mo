@@ -69,4 +69,6 @@ model HeatX
                                     );
 //        assert(inlet.m_flow >= 1e-6, "Reverse flow at inlet!");
 //        assert(outlet.m_flow <= 1e-6, "Reverse flow at outlet!");
+
+      
 end HeatX;
